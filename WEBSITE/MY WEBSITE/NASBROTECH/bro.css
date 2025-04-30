@@ -1,0 +1,236 @@
+body, html{
+    background-color:#310649;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+   }
+ header{
+   display:block;
+   background-color:none;
+   padding-top:70px;
+   text-align:center;
+   line-height:1px;
+   }
+   /*the navbar starts here*/
+.nav-bar {
+   text-align:center;
+   margin-top:3%;
+   margin-bottom:1%;
+}
+ .nav-bar a{
+    display:inline-block;
+    margin:0px 30px;
+    padding:10px;
+    color: white;
+    text-decoration: none;
+    font-size:20px;
+    font-family: 'Anton', sans-serif;
+ }
+ .nav-bar a:hover{
+    background:rgb(200, 29, 223, 0.5);
+    color:#07020a; 
+}
+.nav-bar a:active{
+    color:white; 
+}
+   
+/*side bar starts here */
+ .menu-icon {
+   visibility: hidden;
+   } 
+  .sidebar {
+  width: 250px;
+  height: 92vh;
+  background:rgba(20, 4, 29, 0.3);
+  backdrop-filter: blur(10px);
+  color: white;
+  position: fixed;
+  top:0;
+  left: -255px;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index:50;
+  border-bottom-right-radius: 20px;
+  border-right:3px solid rgb(200, 29, 223);
+  border-bottom: 3px solid rgb(200, 29, 223);
+}
+.sidebar a {
+    display: block;
+    padding: 30px;
+    color: white;
+    text-decoration: none;
+    font-size:20px;
+    text-align: center;
+    font-family: 'Anton', sans-serif;
+}
+.sidebar a:hover {
+    background:rgb(200, 29, 223, 0.5);
+    color:#07020a; 
+}
+.sidebar a:active{
+color:white;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+
+/*side bar ends here*/   
+  .big-text .block {
+    display:block; /* Allow width change */
+    color: white;
+    -webkit-text-stroke: 1px white;
+    font-size: 40px;
+    font-weight: bold; /* Font weight should be numerical or 'bold' */
+    margin-top: 1%;
+    padding-left: 10%;
+    overflow: hidden; /* Hide overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width:0; /* Start width at 0 */
+    animation: typing 3s steps(100, end) forwards;
+    max-width: 70%;
+    overflow-x: hidden;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+  .creative {
+   display:block;
+   padding-left:10%;
+   font-size:20px;
+   color:rgb(200, 29, 223);
+   text-shadow: 0 0 10px rgba(255, 20, 147, 0.5), 
+               10px 0 10px rgba(17, 12, 15, 0.9);
+               overflow: hidden; /* Hides the text when width is 0 */
+    white-space: nowrap; /* Prevents line breaks */
+    width: 0; /* Starts with hidden text */
+    animation: typing 10s steps(200, end) forwards;
+    max-width: 50%;
+    overflow-x: hidden;
+  }
+  .connect{
+    display: inline-block;
+    min-width: 120px;
+    padding: 10px 25px;
+    box-sizing: border-box;
+    /* Typography */
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+    line-height:1;
+    margin: 5% 0% 20% 10%;
+    
+    /* Visual Design */
+    background: linear-gradient(to left, indigo, purple);
+    border: 1px solid white;
+    border-radius: 50px;
+    cursor: pointer;
+    
+    /* Interactivity */
+    transition: all 0.3s ease;
+   }
+  .connect:hover{
+    background: linear-gradient(to left, #5f0a87, #3a0472);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  .connect:active {
+    transform: translateY(1px);
+    box-shadow: 0 10px 10px rgba(0,0,0,0.2);
+    background-color:rgba(0,0,0,0);
+    border: 1px solid purple;
+   -webkit-text-fill-color:white; /* Hides original text color */
+  }
+
+  footer {
+    position: relative;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    background: linear-gradient(to left, rgb(43, 2, 66), rgb(61, 2, 71));
+    padding:20px;
+    box-sizing: border-box;
+    margin:0;
+}
+
+footer .phone, 
+footer .email {
+    color: rgb(200, 29, 223);
+    -webkit-text-stroke: 1px rgb(200, 29, 223);
+    margin-top:10%;
+    margin-left:8%;
+    background-color:none;
+    width:20%;
+}
+
+footer .email {
+    margin-top:2%;
+}
+
+.number, .gmail {
+    color: white;
+    margin-left:8%;
+    background-color:none;
+}
+
+.us {
+    background-color:none;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+.nasbro {
+    color: white;
+    background-color:none;
+}
+
+.about { 
+    background-color:none;
+    display:inline-block;
+    position:relative;
+    left:8%;
+}
+
+img, .nasbroimage{
+  height:150px;
+  width:150px;
+  transform: rotate(40deg);
+  animation: zoom-in-out 3s infinite;
+}
+@keyframes zoom-in-out {
+    0% { transform: rotate(30deg) scale(1); }
+    50% { transform: rotate(30deg) scale(1.5); }
+    100% { transform: rotate(30deg) scale(1); }
+}
+@media (max-width: 768px) {
+    .menu-icon {
+        visibility: visible;
+        font-size: 30px;
+        cursor: pointer;
+        position:fixed;
+        top:0;
+        z-index: 100;
+        color:white;
+        background-color:#310649;
+        width:100%;
+        padding-left:10%;
+        }   
+    .nav-bar{
+      display:none;
+    }
+    .open {
+      left:0;
+  }
+}

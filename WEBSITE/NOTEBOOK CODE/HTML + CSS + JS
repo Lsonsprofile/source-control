@@ -1,0 +1,82 @@
+FOR FIXED FOOTER 
+footer{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+text-align:center;
+padding:30px 0px;
+background-color: rgb(127, 255, 7);
+reset default margin and padding for all elements
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Fix body margin that might be limiting footer width */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+
+/*when container has 100% as it unit 
+it child element must have sam unit as it measurement 
+for it to resize properly*/
+
+/*using this code to check  the width and hight of an html page*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Size</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Resize the browser to see the screen size!</h2>
+    <p id="screen-size"></p>
+
+    <script>
+        function updateScreenSize() {
+            document.getElementById("screen-size").innerText =
+                "Width: " + window.innerWidth + "px, Height: " + window.innerHeight + "px";
+        }
+
+        window.addEventListener("resize", updateScreenSize);
+        updateScreenSize(); // Run once when the page loads
+    </script>
+</body>
+</html>
+
+<script>
+function checkScreenSize() {
+    if (window.matchMedia("(max-width: 600px)").matches) {
+        console.log("Screen is smaller than 600px");
+    } else {
+        console.log("Screen is larger than 600px");
+    }
+}
+
+window.addEventListener("resize", checkScreenSize);
+checkScreenSize(); // Run once on page load
+/*ends here*/
+
+* {
+  box-sizing: border-box;
+}
+body, html{
+    background-color:#310649;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    outline: 5px solid red;
+   }
+
+
+
