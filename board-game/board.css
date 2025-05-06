@@ -5,11 +5,7 @@ body {
     align-items: center;
     height: auto;
     min-width: 600px;
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
-html {
-    min-width: 600px;
-  }
 
 * {
     box-sizing: border-box; /* Apply border-box to all elements */
@@ -29,16 +25,6 @@ html {
     position: relative; /* Ensure child elements are positioned relative to this container */
 }
 
-.cell {
-    position: relative;
-    top:300px;
-    border: 1px solid #b60b0b;
-    width: 38px;
-    height: 38px;
-    display:inline-block;
-    cursor: pointer;
-    margin-right: -4px; /* Optional: space between rows */
-}
 .button-container {
     position: fixed;
     bottom: 75px;
@@ -69,9 +55,62 @@ html {
     transform: scale(0.95); /* Slightly shrink the button */
     transition: transform 0.1s ease-in-out; /* Smooth transition */
 }
+.game-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+.dice-container {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+.dice-box {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid #b60b0b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.dice-box:active{
+    transform: scale(0.95); /* Slightly shrink the button */
+    transition: transform 0.1s ease-in-out; /* Smooth transition */   
+}
+.dice-box.selected {
+    background-color: #ffcccc;
+    border-color: #b60b0b;
+    box-shadow: 0 0 10px rgba(182, 11, 11, 0.5);
+}
+.dice-box.disabled {
+    background-color: #e0e0e0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+}
+.sum-box {
+    background-color: #f0f0f0;
+}
+.sum-box:active{
+    transform: scale(0.95); /* Slightly shrink the button */
+    transition: transform 0.1s ease-in-out; /* Smooth transition */
+}
+.instructions {
+    text-align: center;
+    margin-top: 35px;
+    font-size: 18px;
+    color: #41053c;
+}
 .red-box {
     position:fixed;
-    background-color: #b60b0b; /* Red background */
+    background-color: #5a0a0a; /* Red background */
     width:240px;
     height:240px;
     border: 2px solid #ffffff; /* White border */
@@ -87,7 +126,7 @@ html {
 .yellow-box {
     position: relative;
     left: 359px;
-    background-color: #ffb30f; /* Red background */
+    background-color: #574010; /* Red background */
     width:240px;
     height:240px;
     border: 2px solid #ffffff; /* White border */
@@ -104,7 +143,7 @@ html {
     position:relative;
     left:360px;
     top:120px;
-    background-color: #0f13ff; /* Red background */
+    background-color: #090a38; /* Red background */
     width:240px;
     height:240px;
     border: 2px solid #ffffff; /* White border */
@@ -120,7 +159,7 @@ html {
 .green-box {
     position:absolute;
     bottom:0;
-    background-color: #34d30d; /* Red background */
+    background-color: #14380b; /* Red background */
     width:240px;
     height:240px;
     border: 2px solid #ffffff; /* White border */
@@ -133,12 +172,23 @@ html {
     font-weight: bold; /* Bold text */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
-.cell-A{
+.cell {
     position:relative;
     bottom:148px;
-    border: 1px solid #b6a50b;
+    border: 1px solid #b60b0b;
     width: 38px;
     height: 38px;
     display:block;
     cursor: pointer;
+}
+.cell-A{
+    position: relative;
+    bottom:400px;
+    left:200px;
+    border: 1px solid #945901;
+    width: 38px;
+    height: 38px;
+    display:inline-block;
+    cursor: pointer;
+    margin-right: -4px; /* Optional: space between rows */
 }
