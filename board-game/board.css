@@ -1,0 +1,144 @@
+body {
+    background-color: #6e5f5f; /* Light gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    min-width: 600px;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+html {
+    min-width: 600px;
+  }
+
+* {
+    box-sizing: border-box; /* Apply border-box to all elements */
+}
+.container{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    width: auto;
+    background-color: #bda07f; /* Light gray background */
+}
+.board-background {
+    background-color: #e9dfdf; /* Light gray background */
+    width: 600px;
+    height: 600px;
+    position: relative; /* Ensure child elements are positioned relative to this container */
+}
+
+.cell {
+    position: relative;
+    top:300px;
+    border: 1px solid #b60b0b;
+    width: 38px;
+    height: 38px;
+    display:inline-block;
+    cursor: pointer;
+    margin-right: -4px; /* Optional: space between rows */
+}
+.button-container {
+    position: fixed;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.game-button{
+    position: relative;
+    right:200px;
+    bottom:50px;
+    background-color: #b60b0b; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding around the text */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block element */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+.game-button:active {
+    transform: scale(0.95); /* Slightly shrink the button */
+    transition: transform 0.1s ease-in-out; /* Smooth transition */
+}
+.red-box {
+    position:fixed;
+    background-color: #b60b0b; /* Red background */
+    width:240px;
+    height:240px;
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* White text */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+.yellow-box {
+    position: relative;
+    left: 359px;
+    background-color: #ffb30f; /* Red background */
+    width:240px;
+    height:240px;
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* White text */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+.blue-box {
+    position:relative;
+    left:360px;
+    top:120px;
+    background-color: #0f13ff; /* Red background */
+    width:240px;
+    height:240px;
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* White text */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+.green-box {
+    position:absolute;
+    bottom:0;
+    background-color: #34d30d; /* Red background */
+    width:240px;
+    height:240px;
+    border: 2px solid #ffffff; /* White border */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; /* White text */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold text */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+.cell-A{
+    position:relative;
+    bottom:148px;
+    border: 1px solid #b6a50b;
+    width: 38px;
+    height: 38px;
+    display:block;
+    cursor: pointer;
+}
