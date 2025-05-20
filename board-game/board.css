@@ -1,22 +1,33 @@
 body {
     background-color: #6e5f5f; /* Light gray background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    min-width: 600px;
+    display: grid;
+    place-items: center;
 }
 
 * {
     box-sizing: border-box; /* Apply border-box to all elements */
 }
 .container{
-    display: block;
+    position: relative;
+            width: 600px;
+            height:600px;
+            background-color: #15599e;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(15, 1fr);
+            padding: 20px;
+            gap: 0;
+            margin-top:0;
+}
+.cell {
+    background-color: #fcfdff;
+    display: flex;
     justify-content: center;
     align-items: center;
-    height: 800px;
-    width: auto;
-    background-color: #bda07f; /* Light gray background */
+    position: relative;
+    border:1px solid black;
 }
 .board-background {
     background-color: #e9dfdf; /* Light gray background */
@@ -26,19 +37,17 @@ body {
 }
 
 .button-container {
-    position: fixed;
-    bottom: 75px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: absolute;
+    top:75%;
+    left:20%;
+    transform: translateX(-50px, -50px);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
 }
 .game-button{
-    position: relative;
-    right:200px;
-    bottom:50px;
+    width:100px;
     background-color: #b60b0b; /* Red background */
     color: white; /* White text */
     border: none; /* No border */
@@ -52,26 +61,26 @@ body {
     border-radius: 5px; /* Rounded corners */
 }
 .game-button:active {
-    transform: scale(0.95); /* Slightly shrink the button */
-    transition: transform 0.1s ease-in-out; /* Smooth transition */
+    transform: scale(0.5); /* Slightly shrink the button size */
+    transition: transform 0.3s ease-in-out; /* Smooth transition with a longer duration */
 }
 .game-button:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
 }
 .dice-container {
-    position: fixed;
-    bottom: 120px;
+    position:absolute;
+    top:75%;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
+    display:flex;
     gap: 20px;
 }
 .dice-box {
     width: 60px;
     height: 60px;
     background-color: white;
-    border: 2px solid #b60b0b;
+    border: 1px solid #b60b0b;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -103,13 +112,18 @@ body {
     transition: transform 0.1s ease-in-out; /* Smooth transition */
 }
 .instructions {
+    position:absolute;
+    top:69%;
     text-align: center;
-    margin-top: 35px;
     font-size: 18px;
-    color: #41053c;
+    color: #badee0;
+    display:flex;
+    justify-content: center; /* Center child elements horizontally */
+    align-items: center; /* Center child elements vertically */
 }
 .red-box {
     position:fixed;
+    top:10px;
     background-color: #5a0a0a; /* Red background */
     width:240px;
     height:240px;
@@ -123,9 +137,73 @@ body {
     font-weight: bold; /* Bold text */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
+
+.red-circle {
+    width: 38px;
+    height: 38px;
+    background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff; /* Text color matching the red-box background */
+    font-size: 14px; /* Font size for content inside the circle */
+    font-weight: bold; /* Bold text */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.red-circle::after{
+    content: ""; /* Example content inside the circle */
+    position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            filter: blur(1px);
+}
+.red-circle::before {
+    content:'';
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    width: 15px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    filter: blur(3px);
+}
+
+.red-circle:active {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 15px rgba(0,0,0,0.3);
+}
+#red-a{
+  position:relative;
+  bottom:50px;
+  left:3px;
+}
+#red-b{
+    position:relative;
+    bottom:50px;
+    left:75px;
+}
+#red-c{
+    position:relative;
+    top:50px;
+    left:40px;
+}
+#red-d{
+    position:relative;
+    top:50px;
+    right:110px;
+}
 .yellow-box {
     position: relative;
     left: 359px;
+    top:3px;
     background-color: #574010; /* Red background */
     width:240px;
     height:240px;
@@ -142,7 +220,7 @@ body {
 .blue-box {
     position:relative;
     left:360px;
-    top:120px;
+    top:117px;
     background-color: #090a38; /* Red background */
     width:240px;
     height:240px;
@@ -158,7 +236,7 @@ body {
 }
 .green-box {
     position:absolute;
-    bottom:0;
+    bottom:3px;
     background-color: #14380b; /* Red background */
     width:240px;
     height:240px;
@@ -172,23 +250,5 @@ body {
     font-weight: bold; /* Bold text */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
-.cell {
-    position:relative;
-    bottom:148px;
-    border: 1px solid #b60b0b;
-    width: 38px;
-    height: 38px;
-    display:block;
-    cursor: pointer;
-}
-.cell-A{
-    position: relative;
-    bottom:400px;
-    left:200px;
-    border: 1px solid #945901;
-    width: 38px;
-    height: 38px;
-    display:inline-block;
-    cursor: pointer;
-    margin-right: -4px; /* Optional: space between rows */
-}
+
+

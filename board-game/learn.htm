@@ -3,362 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Battle Visualization</title>
+    <title>Circle Tokens on Board</title>
     <style>
-        * {
-            box-sizing: border-box;
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .container {
-            display: flex;
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 20px;
-        }
-        
-        .arena {
+        .game-board {
             position: relative;
-            width: 600px;
-            height: 400px;
-            border: 2px solid #333;
-            margin-right: 20px;
+            width: 800px;
+            height:800px;
+            background-color: #2c3e50;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: grid;
+            grid-template-columns: repeat(15, 1fr);
+            grid-template-rows: repeat(15, 1fr);
+            padding: 20px;
+            gap: 0;
+            margin-top:5%;
         }
-        
-        .home-box, .win-box {
-            width: 120px;
-            height: 400px;
-            border: 2px solid #333;
+
+        .board-space {
+            background-color: #fcfdff;
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
+            position: relative;
+            border:1px solid black
         }
-        
-        .home-box {
-            background-color: #f0f0f0;
-        }
-        
-        .win-box {
-            background-color: #e0ffe0;
-        }
-        
-        .circle {
-            position: absolute;
+
+        .token {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        
-        .overlap {
-            box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.8);
-            transform: scale(1.1);
+
+        .token:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
-        
-        .stats {
-            display: flex;
-            justify-content: space-around;
+
+        /* Token colors */
+        .red { background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000); }
+        .blue { background: radial-gradient(circle at 30% 30%, #5e8cff, #0066cc); }
+        .green { background: radial-gradient(circle at 30% 30%, #5eff7f, #00cc44); }
+        .yellow { background: radial-gradient(circle at 30% 30%, #ffff5e, #cccc00); }
+        .purple { background: radial-gradient(circle at 30% 30%, #c75eff, #8800cc); }
+
+        /* 3D effect for tokens */
+        .token::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+            filter: blur(1px);
+        }
+
+        .token::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            filter: blur(1px);
+        }
+
+        .board-title {
+            position: absolute;
+            top: -40px;
+            left: 0;
             width: 100%;
-            max-width: 900px;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: white;
-            font-weight: bold;
             text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
         }
-        
-        .controls {
-            margin: 20px 0;
-        }
-        
-        button {
-            padding: 8px 16px;
-            margin: 0 5px;
-            cursor: pointer;
+        .instructions{
+        position: relative;
+        left:50px;
+        top: 20px;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        color: #2c3e50;
         }
     </style>
 </head>
 <body>
-    <h1 id="mainHeading" tabindex="0">Circle Battle Visualization</h1>
-    
-    <div class="controls" role="region" aria-labelledby="controlsHeading">
-        <h2 id="controlsHeading" class="visually-hidden">Controls</h2>
-        <button id="startBtn" aria-label="Start the movement of circles">Start Movement</button>
-        <button id="resetBtn" aria-label="Reset the game">Reset</button>
+    <div class="game-board">
+        <div class="board-title">Game Tokens Board</div>
+        
+        <!-- Row 1 -->
+        <div class="board-spac"></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token blue"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-spac"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"><div class="token green"></div></div>
+        
+        <!-- Row 2 -->
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token yellow"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token purple"></div></div>
+        <div class="board-space"></div>
+        
+        <!-- Row 3 -->
+        <div class="board-space"><div class="token blue"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token red"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token yellow"></div></div>
+        
+        <!-- Row 4 -->
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token green"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token blue"></div></div>
+        <div class="board-space"></div>
+        
+        <!-- Row 5 -->
+        <div class="board-space"><div class="token purple"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token yellow"></div></div>
+        <div class="board-space"></div>
+        <div class="board-space"><div class="token red"></div></div>
     </div>
-    
-    <div class="container" role="region" aria-labelledby="gameAreaHeading">
-        <h2 id="gameAreaHeading" class="visually-hidden">Game Area</h2>
-        <div class="home-box" id="homeBox" aria-label="Home Box"></div>
-        <div class="arena" id="arena" aria-label="Arena"></div>
-        <div class="win-box" id="winBox" aria-label="Win Box"></div>
-    </div>
-    
-    <div class="stats" id="stats" role="region" aria-labelledby="statsHeading">
-        <h2 id="statsHeading" class="visually-hidden">Statistics</h2>
-    </div>
-    
-    <script>
-        // Configuration
-        const colors = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F3', 'black'];
-        const circleRadius = 30;
-        const circleCount = 6;
-        const moveSpeed = 1; // pixels per frame
-        const checkInterval = 50; // ms
-        
-        // State
-        let circles = [];
-        let stats = {};
-        let animationId = null;
-        let isMoving = false;
-        
-        // DOM elements
-        const arena = document.getElementById('arena');
-        const homeBox = document.getElementById('homeBox');
-        const winBox = document.getElementById('winBox');
-        const statsContainer = document.getElementById('stats');
-        const startBtn = document.getElementById('startBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        
-        // Initialize the visualization
-        function init() {
-            reset();
-            createCircles();
-            updateStatsDisplay();
-        }
-        
-        // Create circles with different colors
-        function createCircles() {
-            for (let i = 0; i < circleCount; i++) {
-                const color = colors[i % colors.length];
-                const circle = document.createElement('div');
-                circle.className = 'circle';
-                circle.style.width = `${circleRadius * 2}px`;
-                circle.style.height = `${circleRadius * 2}px`;
-                circle.style.backgroundColor = color;
-                
-                // Position in home box
-                circle.dataset.homePosition = i;
-                circle.dataset.color = color;
-                circle.dataset.inArena = 'false';
-                
-                homeBox.appendChild(circle);
-                
-                // Store circle data
-                circles.push({
-                    element: circle,
-                    color: color,
-                    x: 0,
-                    y: 0,
-                    dx: 0,
-                    dy: 0,
-                    isOverlapping: false,
-                    wins: 0
-                });
-                
-                stats[color] = 0;
-            }
-        }
-        
-        // Start random movement of circles in arena
-        function startMovement() {
-            if (isMoving) return;
-            isMoving = true;
-            startBtn.disabled = true;
-            
-            // Move all circles to arena with random positions and directions
-            circles.forEach(circle => {
-                if (circle.element.parentNode === homeBox) {
-                    moveToArena(circle);
-                }
-            });
-            
-            // Start animation loop
-            animationId = requestAnimationFrame(animate);
-            
-            // Start overlap checking
-            setInterval(checkOverlaps, checkInterval);
-        }
-        
-        // Animation loop
-        function animate() {
-            circles.forEach(circle => {
-                if (circle.element.parentNode !== arena) return;
-                
-                // Update position
-                circle.x += circle.dx;
-                circle.y += circle.dy;
-                
-                // Bounce off walls
-                if (circle.x <= 0 || circle.x >= arena.clientWidth - circleRadius * 2) {
-                    circle.dx *= -1;
-                    circle.x = Math.max(0, Math.min(circle.x, arena.clientWidth - circleRadius * 2));
-                }
-                
-                if (circle.y <= 0 || circle.y >= arena.clientHeight - circleRadius * 2) {
-                    circle.dy *= -1;
-                    circle.y = Math.max(0, Math.min(circle.y, arena.clientHeight - circleRadius * 2));
-                }
-                
-                // Apply position
-                circle.element.style.left = `${circle.x}px`;
-                circle.element.style.top = `${circle.y}px`;
-            });
-            
-            animationId = requestAnimationFrame(animate);
-        }
-        
-        // Move circle to arena with random position and direction
-        function moveToArena(circle) {
-            arena.appendChild(circle.element);
-            circle.x = Math.random() * (arena.clientWidth - circleRadius * 2);
-            circle.y = Math.random() * (arena.clientHeight - circleRadius * 2);
-            circle.dx = (Math.random() - 0.5) * moveSpeed * 2;
-            circle.dy = (Math.random() - 0.5) * moveSpeed * 2;
-            circle.element.dataset.inArena = 'true';
-            circle.element.style.left = `${circle.x}px`;
-            circle.element.style.top = `${circle.y}px`;
-        }
-        
-        // Move circle to home box
-        function moveToHome(circle) {
-            homeBox.appendChild(circle.element);
-            circle.element.dataset.inArena = 'false';
-            circle.element.classList.remove('overlap');
-            circle.isOverlapping = false;
-        }
-        
-        // Move circle to win box
-        function moveToWin(circle) {
-            winBox.appendChild(circle.element);
-            circle.element.dataset.inArena = 'false';
-            circle.element.classList.remove('overlap');
-            circle.isOverlapping = false;
-            circle.wins++;
-            stats[circle.color]++;
-            updateStatsDisplay();
-            
-            // After a delay, move back to arena
-            setTimeout(() => {
-                if (isMoving && circle.element.parentNode === winBox) {
-                    moveToArena(circle);
-                }
-            }, 2000);
-        }
-        
-        // Check for overlaps between circles
-        function checkOverlaps() {
-            const arenaCircles = circles.filter(c => c.element.parentNode === arena);
-            
-            for (let i = 0; i < arenaCircles.length; i++) {
-                for (let j = i + 1; j < arenaCircles.length; j++) {
-                    const circle1 = arenaCircles[i];
-                    const circle2 = arenaCircles[j];
-                    
-                    if (isOverlapping(circle1, circle2)) {
-                        // Highlight overlapping circles
-                        if (!circle1.isOverlapping || !circle2.isOverlapping) {
-                            circle1.element.classList.add('overlap');
-                            circle2.element.classList.add('overlap');
-                            circle1.isOverlapping = true;
-                            circle2.isOverlapping = true;
-                            
-                            // After a short delay, resolve the overlap
-                            setTimeout(() => {
-                                if (circle1.isOverlapping && circle2.isOverlapping) {
-                                    // Randomly decide attacker and defender
-                                    const attacker = Math.random() < 0.5 ? circle1 : circle2;
-                                    const defender = attacker === circle1 ? circle2 : circle1;
-                                    
-                                    moveToWin(attacker);
-                                    moveToHome(defender);
-                                }
-                            }, 500);
-                        }
-                    } else {
-                        // Remove highlight if no longer overlapping
-                        if (circle1.isOverlapping) {
-                            circle1.element.classList.remove('overlap');
-                            circle1.isOverlapping = false;
-                        }
-                        if (circle2.isOverlapping) {
-                            circle2.element.classList.remove('overlap');
-                            circle2.isOverlapping = false;
-                        }
-                    }
-                }
-            }
-        }
-        
-        // Check if two circles overlap by more than 50%
-        function isOverlapping(circle1, circle2) {
-            const dx = (circle1.x + circleRadius) - (circle2.x + circleRadius);
-            const dy = (circle1.y + circleRadius) - (circle2.y + circleRadius);
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            // Calculate overlap percentage
-            const overlap = (2 * circleRadius - distance) / (2 * circleRadius);
-            
-            return overlap > 0.5; // More than 50% overlap
-        }
-        
-        // Update the statistics display
-        function updateStatsDisplay() {
-            statsContainer.innerHTML = '';
-            
-            for (const color in stats) {
-                const statItem = document.createElement('div');
-                statItem.className = 'stat-item';
-                statItem.style.backgroundColor = color;
-                statItem.textContent = `${color}: ${stats[color]} wins`;
-                statsContainer.appendChild(statItem);
-            }
-        }
-        
-        // Reset the visualization
-        function reset() {
-            // Stop animation
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-                animationId = null;
-            }
-            
-            isMoving = false;
-            startBtn.disabled = false;
-            
-            // Clear containers
-            arena.innerHTML = '';
-            homeBox.innerHTML = '';
-            winBox.innerHTML = '';
-            
-            // Reset state
-            circles = [];
-            stats = {};
-            
-            // Clear all intervals (for overlap checking)
-            const highestIntervalId = setInterval(() => {}, 0);
-            for (let i = 1; i < highestIntervalId; i++) {
-                clearInterval(i);
-            }
-        }
-        
-        // Event listeners
-        startBtn.addEventListener('click', startMovement);
-        resetBtn.addEventListener('click', init);
-        
-        // Initialize
-        init();
-    </script>
+<div class="instructions"></div>
+<div class="board-space"><div class="token purple"></div></div>
+    <div class="board-spac"></div>
+    <div class="board-spac"><div class="token yellow"></div></div>
+    <div class="board-spac"></div>
+    <div class="board-spac"><div class="token red"></div></div>
 </body>
 </html>

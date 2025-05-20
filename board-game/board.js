@@ -1,34 +1,3 @@
-// Select the element with id 'red-1'
-const redCircle = document.getElementById('red-1');
-
-// Add a circle content into the box
-const circleContent = document.createElement('div');
-circleContent.style.width = '38px'; // Set the width of the circle
-circleContent.style.height = '38px'; // Set the height of the circle
-circleContent.style.backgroundColor = 'red'; // Set the background color
-circleContent.style.borderRadius = '50%'; // Make it a circle
-circleContent.style.display = 'block'; // Ensure it displays properly
-
-redCircle.appendChild(circleContent); // Add the circle content into the box
-
-// Select the element with class 'red-box'
-const redBox = document.querySelector('.red-box');
-
-// Add a circle content with a black background color into the box
-const blackCircle = document.createElement('div');
-blackCircle.style.width = '38px'; // Set the width of the circle
-blackCircle.style.height = '38px'; // Set the height of the circle
-blackCircle.style.backgroundColor = 'red'; // Set the background color
-blackCircle.style.borderRadius = '50%'; // Make it a circle
-blackCircle.style.display = 'block'; // Ensure it displays properly
-blackCircle.style.position = 'absolute'; // Position it absolutely
-blackCircle.style.top = '10%'; // Center it vertically
-blackCircle.style.left = '10%'; // Center it horizontally
-redBox.appendChild(blackCircle); // Add the circle content into the box
-
-
-
-
 //dice can button craete value and value can be selected 
 let dice1Value = 0;
         let dice2Value = 0;
