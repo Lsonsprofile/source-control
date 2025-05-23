@@ -23,7 +23,7 @@ let dice1Value = 0;
             document.getElementById('sum').classList.add('disabled');
             
             // Animation duration
-            const rollDuration = 500; // milliseconds
+            const rollDuration = 5000; // 5 seconds
             const rollInterval = 100; // milliseconds between number changes
             const startTime = Date.now();
             
@@ -33,6 +33,9 @@ let dice1Value = 0;
                 if (elapsed >= rollDuration) {
                     clearInterval(rollAnimation);
                     finishRoll();
+                    // Keep the roll button disabled after animation
+                    // Remove the line below if you want to keep it disabled permanently
+                    document.getElementById('start-game').disabled = false;
                     return;
                 }
                 
@@ -63,8 +66,8 @@ let dice1Value = 0;
             document.getElementById('dice2').classList.remove('disabled');
             document.getElementById('sum').classList.remove('disabled');
             
-            // Re-enable roll button
-            document.getElementById('start-game').disabled = false;
+            // Keep the roll button disabled after animation
+            document.getElementById('start-game').disabled = true;
             isRolling = false;
             
             // Re-apply any previous selection logic if needed
