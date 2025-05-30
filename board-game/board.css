@@ -109,8 +109,8 @@ body {
     transition: transform 0.1s ease-in-out; /* Smooth transition */
 }
 .instructions {
-    position:absolute;
-    top:110%;
+    position:relative;
+    top:10%;
     text-align: center;
     font-size: 18px;
     color: #badee0;
