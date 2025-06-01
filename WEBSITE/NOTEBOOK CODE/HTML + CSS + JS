@@ -93,4 +93,20 @@ for it to resize properly*/
 
 
 
+/*bulding Triangle shape*/
+<div class="triangle"></div>
 
+<style>
+.triangle {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  
+  /* Triangle pointing down */
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  
+  /* Alternative directions: */
+  /* Up: polygon(50% 100%, 0 0, 100% 0) */
+  /* Left: polygon(100% 50%, 0 0, 0 100%) */
+  /* Right: polygon(0 50%, 100% 100%, 100% 0) */
+}

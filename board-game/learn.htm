@@ -23,3 +23,29 @@
     transform: translateY(-10px);
     box-shadow: 0 20px 15px rgba(0,0,0,0.3);
 }
+
+
+
+
+
+<div class="triangle-transform"></div>
+
+<style>
+.triangle-transform {
+  width: 100px;
+  height: 100px;
+  background: green;
+  overflow: hidden;
+  position: relative;
+}
+
+.triangle-transform::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  transform: rotate(45deg) scale(1.414);
+  transform-origin: 0 0;
+}
+</style>
