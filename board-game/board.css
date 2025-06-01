@@ -11,7 +11,7 @@ body {
     position: relative;
             width: 610px;
             height:610px;
-            background-color: #15599e;
+            background-color: #48a8b9;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             display: grid;
@@ -129,57 +129,26 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff; /* Text color matching the red-box background */
     font-size: 14px; /* Font size for content inside the circle */
     font-weight: bold; /* Bold text */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+     z-index: 10;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgb(61, 60, 60);
+    border: 2px solid rgba(124, 5, 5, 0.3);
+}
+.red-cel{
+    background-color: #aa0d0d;
+}
+.green-cel{
+    background-color: #0daa22;
+}
+.blue-cel{
+    background-color: #0d1daa;
+}
+.yellow-cel{
+    background-color: #aaa00d;
 }
 
-.red-circle::after{
-    content: ""; /* Example content inside the circle */
-    position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.2);
-            filter: blur(1px);
-}
-.red-circle::before {
-    content:'';
-    position: absolute;
-    top: 2px;
-    left: 10px;
-    width: 15px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.8);
-    filter: blur(3px);
-}
 
-.red-circle:active {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 15px rgba(0,0,0,0.3);
-}
-#red-a{
-  position:relative;
-  bottom:50px;
-  left:3px;
-}
-#red-b{
-    position:relative;
-    bottom:50px;
-    left:75px;
-}
-#red-c{
-    position:relative;
-    top:50px;
-    left:40px;
-}
-#red-d{
-    position:relative;
-    top:50px;
-    right:110px;
-}
+
