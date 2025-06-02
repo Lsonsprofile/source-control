@@ -138,26 +138,94 @@ body {
     border: 2px solid rgba(124, 5, 5, 0.3);
 }
 .red-cel{
-    background-color: #aa0d0d;
+    background-color: rgb(112, 7, 7);
 }
 .green-cel{
-    background-color: #0daa22;
+    background-color: rgb(4, 88, 4);
 }
 .blue-cel{
-    background-color: #0d1daa;
+    background-color: rgb(2, 8, 87);
 }
 .yellow-cel{
-    background-color: #aaa00d;
+    background-color: rgb(138, 95, 3);
 }
-.cell-1{
-    background-color: #cc0000;
-    overflow: hidden;
-}
-.cell-1::after {
+.cell-6::after {
   content: '';
   position:absolute;
-  width: 5%;
-  height: 5%;
-  background: black;
-   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  width: 10%;
+  height: 20%;
+  background: rgb(112, 7, 7);
+   clip-path: polygon(13% 0%, 13% 100%, 100% 50%);
+  transform : translate(-26%, -34%);
+  z-index:2;
+}
+.cell-4:after {
+  content: '';
+  position:absolute;
+  width: 10%;
+  height: 20%;
+  background: rgb(2, 8, 87);
+   clip-path: polygon(6% 50%,90% 100%, 90% 0%);
+  transform : translate(-38%, -34%);
+  z-index:2;
+}
+.cell-2:after {
+  content: '';
+  position:absolute;
+  width: 20%;
+  height:18%;
+  background: rgb(138, 95, 3);
+  clip-path: polygon(50% 0%,100% 60%, 0% 60%);
+  transform : translate(-40%, -24%);
+}
+.cell-3:after {
+  content: '';
+  position:absolute;
+  width: 20%;
+  height:17%;
+  background: rgb(4, 88, 4);
+  clip-path: polygon(100% 0%,50% 70%, 0% 0%);
+  transform : translate(-40%, 0%);
+}
+
+ @import url('https://fonts.googleapis.com/css2?family=Eagle+Lake&family=Orbitron&display=swap');
+.cell-middle:after {
+  content: 'HOME';
+  position:absolute;
+  background-color: #85e7f869;
+  transform : translate(-80%, 40%);
+  color:rgb(0, 0, 0);
+  z-index:5;
+  font-weight: 800;
+  font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 2.9);
+    animation: pulse-glow 1s infinite alternate;
+}
+@keyframes pulse-glow {
+  0% { box-shadow:0 0 15px rgba(18, 247, 247, 1.9); }
+  100% { box-shadow: 0 0 20px rgba(7, 211, 238, 0.8); }
+}
+.red {
+    background-color: rgb(112, 7, 7);
+    justify-content: center;
+    align-items: center;
+    border:1px ridge black;
+}
+.green {
+    background-color: rgb(4, 88, 4);
+    justify-content: center;
+    align-items: center;
+    border:1px ridge black;
+}
+.blue {
+    background-color:rgb(2, 8, 87);
+    justify-content: center;
+    align-items: center;
+    border:1px ridge black;
+}
+.yellow {
+    background-color: rgb(138, 95, 3);
+    justify-content: center;
+    align-items: center;
+    border:1px ridge black;
 }
