@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grid Box Border</title>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: repeat(15, 40px);
+      grid-template-rows: repeat(15, 40px);
+      margin: 40px auto;
+      width: max-content;
+      border: 10px solid rgb(8, 88, 102);
+      border-radius:10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .cell {
+      width: 40px;
+      height: 40px;
+      background: #f0f0f0;
+      border: 1px solid #030303a6;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="board" id="grid-board"></div>
+
+  <script>
+    const board = document.getElementById("grid-board");
+
+    for (let i = 0; i < 225; i++) {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
+      cell.dataset.index = i;
+      board.appendChild(cell);
+    }
+
+    // Example: Remove inner borders from a 3x3 box starting at cell index 11
+    function getBoxIndexes(startIndex, boxSize, gridCols) {
+  const indexes = [];
+  for (let row = 0; row < boxSize; row++) {
+    for (let col = 0; col < boxSize; col++) {
+      indexes.push(startIndex + row * gridCols + col);
+    }
+  }
+  return indexes;
+}
+
+function highlightBox(startIndex, boxSize, gridCols, color="rgb(112, 7, 7") {
+  const boxIndexes = getBoxIndexes(startIndex, boxSize, gridCols);
+  
+    boxIndexes.forEach((i) => {
+      const cell = document.querySelector(`.cell[data-index="${i}"]`);
+      if (cell) {
+        // Remove all borders, then reapply outer box
+        cell.style.border = "none";
+ // Highlight the cell background where borders are removed
+        cell.style.background = color;
+      }
+    });
+    
+
+     const topEdge = boxIndexes.slice(0, boxSize);
+  const bottomEdge = boxIndexes.slice(-boxSize);
+  const leftEdge = boxIndexes.filter((_, i) => i % boxSize === 0);
+  const rightEdge = boxIndexes.filter((_, i) => (i + 1) % boxSize === 0);
+
+  topEdge.forEach(i => document.querySelector(`.cell[data-index="${i}"]`).style.borderTop = "1px solid #030303");
+  bottomEdge.forEach(i => document.querySelector(`.cell[data-index="${i}"]`).style.borderBottom = "1px solid #030303");
+  leftEdge.forEach(i => document.querySelector(`.cell[data-index="${i}"]`).style.borderLeft = "1px solid #030303");
+  rightEdge.forEach(i => document.querySelector(`.cell[data-index="${i}"]`).style.borderRight = "1px solid #030303");
+}
+
+highlightBox(0, 6, 15); // Example call
+highlightBox(9, 6, 15, " rgb(4, 88, 4)");  
+
+// Color cell 10 yellow
+[91, 106, 107].forEach(idx => {
+  const cell = document.querySelector(`.cell[data-index="${idx}"]`);
+  if (cell) cell.style.background = "yellow";
+});
+  </script>
+</body>
+</html>

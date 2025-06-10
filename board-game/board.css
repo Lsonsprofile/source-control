@@ -27,7 +27,7 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    border:1px ridge black;
+    border:1px ridge rgba(0, 0, 0, 0.521);
 }
 
 .button-container {
@@ -121,9 +121,77 @@ body {
 }
 
 
-.red-circle {
-    width: 38px;
-    height: 38px;
+.red-circle-a::after {
+    content: 'A';
+    position :absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Font size for content inside the circle */
+    font-weight: bold; /* Bold text */
+    text-align: center;
+     z-index: 10;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgb(61, 60, 60);
+    border: 2px solid rgba(124, 5, 5, 0.3);
+}
+.red-circle-b::after {
+    content: 'B';
+    position :absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Font size for content inside the circle */
+    font-weight: bold; /* Bold text */
+    text-align: center;
+     z-index: 10;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgb(61, 60, 60);
+    border: 2px solid rgba(124, 5, 5, 0.3);
+}
+.red-circle-c::after {
+    content: 'C';
+    position :absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
+    border-radius: 50%; /* Makes it a circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px; /* Font size for content inside the circle */
+    font-weight: bold; /* Bold text */
+    text-align: center;
+     z-index: 10;
+    cursor: pointer;
+    box-shadow: 1px 2px 4px rgb(61, 60, 60);
+    border: 2px solid rgba(124, 5, 5, 0.3);
+}
+.red-circle-d::after {
+    content: 'D';
+    position :absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
     background: radial-gradient(circle at 30% 30%, #ff5e5e, #cc0000);
     border-radius: 50%; /* Makes it a circle */
     display: flex;
@@ -139,6 +207,7 @@ body {
 }
 .red-cel{
     background-color: rgb(112, 7, 7);
+    position: relative;
 }
 .green-cel{
     background-color: rgb(4, 88, 4);
@@ -209,23 +278,23 @@ body {
     background-color: rgb(112, 7, 7);
     justify-content: center;
     align-items: center;
-    border:1px ridge black;
+    border:1px ridge rgba(0, 0, 0, 0.521);
 }
 .green {
     background-color: rgb(4, 88, 4);
     justify-content: center;
     align-items: center;
-    border:1px ridge black;
+    border:1px ridge rgba(0, 0, 0, 0.521);
 }
 .blue {
     background-color:rgb(2, 8, 87);
     justify-content: center;
     align-items: center;
-    border:1px ridge black;
+    border:1px ridge rgba(0, 0, 0, 0.521);
 }
 .yellow {
     background-color: rgb(138, 95, 3);
     justify-content: center;
     align-items: center;
-    border:1px ridge black;
+    border:1px ridge rgba(0, 0, 0, 0.521);
 }
