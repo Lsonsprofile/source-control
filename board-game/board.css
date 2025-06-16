@@ -7,7 +7,7 @@
       display: grid;
       grid-template-columns: repeat(15, 40px);
       grid-template-rows: repeat(15, 40px);
-      margin: 40px auto;
+      margin: 20px auto;
       width: max-content;
       border: 10px solid rgb(8, 88, 102);
       border-radius:10px;
@@ -47,10 +47,9 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    margin-top: 30px; /* or whatever spacing you want */
     position: static; /* Remove absolute positioning */
-    top: auto;
-    left: auto;
+    top:10px;
+    left:10px;
     transform: none;
 }
 .game-button{
@@ -65,10 +64,11 @@
     font-size: 16px; /* Font size */
     position:relative;
     right:180px; 
-    bottom:27px;
+    top:20px;
     cursor: pointer; /* Pointer cursor on hover */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 5px 5px 50px rgba(0,0,0,0.3);
+    z-index:2;
 }
 .game-button:active {
     transform: scale(0.9); /* Slightly shrink the button size */
@@ -175,15 +175,13 @@
 }
 
  .dice-container {
-  display: flex;
+  display:flex;
   position: relative;
-  bottom:9px;
-  gap: 30px;
+  bottom:43px;
+  gap: 40px;
   perspective: 1000px;
   justify-content: center;
   align-items: center;
-  margin-top: -0px; /* Move dice up, adjust value as needed */
-  background-color: #5eff5e;
 }
 
 .dice {
