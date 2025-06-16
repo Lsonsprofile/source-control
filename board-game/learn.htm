@@ -19,7 +19,8 @@
 </div>
 
 <button id="start-game" style="display:block;margin:20px auto;">Roll Dice</button>
-
+<button onclick="document.getElementById('rollSound').play()">Test Sound</button>
+<audio id="rollSound" src="dice-throw.mp3" preload="auto"></audio>
 <style>
     .dice-container {
   display: flex;
@@ -146,10 +147,20 @@ function rollDice(die) {
 function startRolling() {
   if (rollingInterval) return;
   rollBtn.disabled = true;
+
+  // Play sound once when rolling starts
+  const rollSound = document.getElementById('rollSound');
+  try {
+    rollSound.currentTime = 0;
+    rollSound.play();
+  } catch (e) {
+    // Ignore play errors (can happen if user hasn't interacted yet)
+  }
+
   rollingInterval = setInterval(() => {
     dice.forEach(die => rollDice(die));
   }, 200);
-  // Stop after 2 seconds and show final result
+
   setTimeout(() => {
     clearInterval(rollingInterval);
     rollingInterval = null;
@@ -160,3 +171,5 @@ function startRolling() {
 
 rollBtn.addEventListener('click', startRolling);
 </script>
+
+>
