@@ -39,7 +39,7 @@ body, html{
    visibility: hidden;
    } 
   .sidebar {
-  width: 250px;
+  width: 200px;
   height: 92vh;
   background:rgba(20, 4, 29, 0.3);
   backdrop-filter: blur(10px);
@@ -93,8 +93,8 @@ color:white;
     white-space: nowrap; /* Prevent text from wrapping */
     width:0; /* Start width at 0 */
     animation: typing 3s steps(100, end) forwards;
-    max-width: 70%;
-    overflow-x: hidden;
+    max-width: 90%;
+    overflow-x: hidden; /* Hide horizontal overflow */
 }
 
 @keyframes typing {
@@ -187,6 +187,7 @@ footer .email {
 .us {
     background-color:none;
     color: white;
+    -webkit-text-stroke: 1px white;
     font-size: 30px;
     text-align: center;
 }
@@ -196,12 +197,15 @@ footer .email {
     background-color:none;
 }
 
-.about { 
-    background-color:none;
-    display:inline-block;
-    position:relative;
-    left:8%;
-}
+.about {
+    left:0;
+    width:50%;
+    display: block;
+    position: static;
+    margin-top:10%;
+    margin-top:10%;
+    background-color: rgba(200, 29, 223, 0.048);
+  }
 
 img, .nasbroimage{
   height:150px;
@@ -232,5 +236,12 @@ img, .nasbroimage{
     }
     .open {
       left:0;
+  }
+  .big-text .block {
+    white-space: normal;
+    font-size: 22px; /* Optional: reduce font size for mobile */
+    padding-left: 10%;
+    width: 100%;
+    max-width: 100%;
   }
 }
