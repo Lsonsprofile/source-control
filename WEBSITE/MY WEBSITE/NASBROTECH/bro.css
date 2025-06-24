@@ -3,6 +3,7 @@ body, html{
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow-x: hidden;
    }
  header{
    display:block;
@@ -40,7 +41,7 @@ body, html{
    } 
   .sidebar {
   width: 200px;
-  height: 92vh;
+  height:100%;
   background:rgba(20, 4, 29, 0.3);
   backdrop-filter: blur(10px);
   color: white;
@@ -50,7 +51,7 @@ body, html{
   transition: 0.3s;
   padding-top: 60px;
   z-index:50;
-  border-bottom-right-radius: 20px;
+  border-bottom-right-radius: 150px;
   border-right:3px solid rgb(200, 29, 223);
   border-bottom: 3px solid rgb(200, 29, 223);
 }
@@ -154,14 +155,16 @@ color:white;
   }
 
   footer {
-    position: relative;
+    position:relative;
     bottom: 0;
-    left:0;
     width: 100%;
     background: linear-gradient(to left, rgb(43, 2, 66), rgb(61, 2, 71));
-    padding:20px;
+    padding:0px 20px;
     box-sizing: border-box;
     margin:0;
+}
+.contact{
+  padding-bottom: 20px;
 }
 
 footer .phone, 
@@ -203,7 +206,6 @@ footer .email {
     display: block;
     position: static;
     margin-top:10%;
-    margin-top:10%;
     background-color: rgba(200, 29, 223, 0.048);
   }
 
@@ -244,4 +246,5 @@ img, .nasbroimage{
     width: 100%;
     max-width: 100%;
   }
+  
 }
