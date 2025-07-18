@@ -21,8 +21,8 @@ minutes_time = int(input("Enter a number to represent an emergency time: "))
 # But if the number is 0 it prints "Zero"
 if minutes_time < 11 and minutes_time > 1:
     minutes_time = "few"
-if minutes_time == 0:
-    minutes_time = "Zero"
+elif minutes_time == 0 or minutes_time == 1:
+    minutes_time = "a"
 else:
     print("minutes_time")
 
