@@ -1,434 +1,990 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#540BF3',secondary:''},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-    <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hero-section {
-            background-image: url('https://readdy.ai/api/search-image?query=professional%20web%20designer%20in%20light%20blue%20shirt%20pointing%20to%20the%20right%2C%20standing%20against%20a%20bright%20blue%20background%2C%20modern%20minimal%20design%2C%20clean%20professional%20look%2C%20gradient%20blue%20background%2C%20soft%20lighting%2C%20high%20quality%20professional%20portrait&width=1600&height=800&seq=123456&orientation=landscape');
-            background-size: cover;
-            background-position: center;
-        }
-        .menu-overlay {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .menu-overlay.active {
-            transform: translateX(0);
-        }
-        .no-scroll {
-            overflow: hidden;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio</title>
+  <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-white">
-    <!-- Header -->
-    <header class="bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-['Pacifico'] text-primary">logo</a>
-            
-            <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-primary font-medium">Home</a>
-                <a href="#" class="text-gray-700 hover:text-primary transition-colors">About</a>
-                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Services</a>
-                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Portfolio</a>
-                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Blog</a>
-                <a href="#" class="text-gray-700 hover:text-primary transition-colors">Contact</a>
-            </nav>
-            
-            <!-- Mobile Menu Button -->
-            <button id="menuBtn" class="md:hidden w-10 h-10 flex items-center justify-center text-primary">
-                <i class="ri-menu-line ri-lg"></i>
-            </button>
-        </div>
-    </header>
-    
-    <!-- Mobile Menu Overlay -->
-    <div id="mobileMenu" class="menu-overlay fixed top-0 right-0 bottom-0 w-full md:hidden bg-white z-50 shadow-lg">
-        <div class="flex justify-end p-4">
-            <button id="closeMenuBtn" class="w-10 h-10 flex items-center justify-center text-primary">
-                <i class="ri-close-line ri-lg"></i>
-            </button>
-        </div>
-        <nav class="flex flex-col px-6 py-4">
-            <a href="#" class="py-4 text-lg text-primary font-medium border-b border-gray-100">Home</a>
-            <a href="#" class="py-4 text-lg text-gray-700 border-b border-gray-100">About</a>
-            <a href="#" class="py-4 text-lg text-gray-700 border-b border-gray-100">Services</a>
-            <a href="#" class="py-4 text-lg text-gray-700 border-b border-gray-100">Portfolio</a>
-            <a href="#" class="py-4 text-lg text-gray-700 border-b border-gray-100">Blog</a>
-            <a href="#" class="py-4 text-lg text-gray-700">Contact</a>
-        </nav>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-flex">
+      <a href="#" class="logo">logo</a>
+      <nav class="nav" id="nav">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <i class="ri-menu-line"></i>
+      </button>
     </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-btn" id="closeMenuBtn" aria-label="Close menu">
+        <i class="ri-close-line"></i>
+      </button>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Portfolio</a>
+        <a href="#">Blog</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section pt-24 pb-16 md:py-0 md:h-[600px] w-full">
-        <div class="container mx-auto px-4 h-full flex items-center">
-            <div class="w-full md:w-1/2 bg-white bg-opacity-90 p-8 rounded-lg">
-                <div class="inline-block bg-primary text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                    Hello!
-                </div>
-                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                    I am Michael Anderson<br>
-                    A Web Designer
-                </h1>
-                <p class="text-gray-700 mb-8 max-w-md">
-                    Creating beautiful, functional websites that help businesses grow and succeed in the digital world.
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="#" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">
-                        Hire Me
-                    </a>
-                    <a href="#" class="border border-gray-300 text-gray-700 px-6 py-3 !rounded-button font-medium hover:border-primary hover:text-primary transition-all whitespace-nowrap">
-                        Download CV
-                    </a>
-                </div>
-                <div class="mt-8 flex items-center gap-4">
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:border-primary hover:text-primary transition-all">
-                        <i class="ri-facebook-fill"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:border-primary hover:text-primary transition-all">
-                        <i class="ri-twitter-fill"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:border-primary hover:text-primary transition-all">
-                        <i class="ri-instagram-fill"></i>
-                    </a>
-                    <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:border-primary hover:text-primary transition-all">
-                        <i class="ri-linkedin-fill"></i>
-                    </a>
-                </div>
-            </div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-flex">
+      <div class="hero-content">
+        <span class="badge">Hello!</span>
+        <h1>I am Michael Anderson<br><span class="highlight">A Web Designer</span></h1>
+        <p>Creating beautiful, functional websites that help businesses grow and succeed in the digital world.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">Hire Me</a>
+          <a href="#" class="btn btn-outline">Download CV</a>
         </div>
-    </section>
+        <div class="hero-socials">
+          <a href="#"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-twitter-fill"></i></a>
+          <a href="#"><i class="ri-instagram-fill"></i></a>
+          <a href="#"><i class="ri-linkedin-fill"></i></a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://readdy.ai/api/search-image?query=professional%20web%20designer%20in%20light%20blue%20shirt%20pointing%20to%20the%20right%2C%20standing%20against%20a%20bright%20blue%20background%2C%20modern%20minimal%20design%2C%20clean%20professional%20look%2C%20gradient%20blue%20background%2C%20soft%20lighting%2C%20high%20quality%20professional%20portrait&width=1600&height=800&seq=123456&orientation=landscape" alt="Hero" />
+      </div>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="w-full md:w-1/2">
-                    <img src="https://readdy.ai/api/search-image?query=professional%20web%20designer%20in%20light%20blue%20shirt%20smiling%20at%20camera%2C%20clean%20studio%20portrait%2C%20bright%20lighting%2C%20professional%20headshot%2C%20minimal%20background%2C%20high%20quality%20professional%20portrait&width=600&height=600&seq=123457&orientation=squarish" alt="Designer Portrait" class="rounded-lg shadow-lg w-full object-cover object-top">
-                </div>
-                <div class="w-full md:w-1/2">
-                    <div class="inline-block bg-primary text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                        About
-                    </div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">My Story</h2>
-                    <p class="text-gray-700 mb-4">
-                        Hello! I'm Michael Anderson, a passionate web designer with over 7 years of experience creating beautiful, functional websites for clients across various industries.
-                    </p>
-                    <p class="text-gray-700 mb-6">
-                        I specialize in responsive design, user experience, and creating visually appealing interfaces that help businesses achieve their goals online. My approach combines creativity with technical expertise to deliver websites that not only look great but also perform exceptionally well.
-                    </p>
-                    
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Skills</h3>
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-check-line text-primary"></i>
-                                    <span>UI/UX Design</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-check-line text-primary"></i>
-                                    <span>Responsive Web Design</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-check-line text-primary"></i>
-                                    <span>Frontend Development</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-check-line text-primary"></i>
-                                    <span>WordPress</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Education</h3>
-                            <ul class="space-y-2">
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-graduation-cap-line text-primary"></i>
-                                    <span>BSc in Web Development</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="ri-award-line text-primary"></i>
-                                    <span>UX Design Certification</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <a href="#" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-all inline-block whitespace-nowrap">
-                        Download Resume
-                    </a>
-                </div>
-            </div>
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container about-flex">
+      <div class="about-img">
+        <img src="https://readdy.ai/api/search-image?query=professional%20web%20designer%20in%20light%20blue%20shirt%20smiling%20at%20camera%2C%20clean%20studio%20portrait%2C%20bright%20lighting%2C%20professional%20headshot%2C%20minimal%20background%2C%20high%20quality%20professional%20portrait&width=600&height=600&seq=123457&orientation=squarish" alt="Designer Portrait">
+      </div>
+      <div class="about-content">
+        <span class="badge">About</span>
+        <h2>My Story</h2>
+        <p>Hello! I'm Michael Anderson, a passionate web designer with over 7 years of experience creating beautiful, functional websites for clients across various industries.</p>
+        <p>I specialize in responsive design, user experience, and creating visually appealing interfaces that help businesses achieve their goals online. My approach combines creativity with technical expertise to deliver websites that not only look great but also perform exceptionally well.</p>
+        <div class="about-grid">
+          <div>
+            <h3>Skills</h3>
+            <ul>
+              <li><i class="ri-check-line"></i> UI/UX Design</li>
+              <li><i class="ri-check-line"></i> Responsive Web Design</li>
+              <li><i class="ri-check-line"></i> Frontend Development</li>
+              <li><i class="ri-check-line"></i> WordPress</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Education</h3>
+            <ul>
+              <li><i class="ri-graduation-cap-line"></i> BSc in Web Development</li>
+              <li><i class="ri-award-line"></i> UX Design Certification</li>
+            </ul>
+          </div>
         </div>
-    </section>
-    <!-- Services Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <div class="inline-block bg-primary text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                    Services
-                </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">What I Offer</h2>
-                <p class="text-gray-700 max-w-2xl mx-auto">
-                    I provide comprehensive web design and development services tailored to meet your specific needs and help your business thrive online.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-layout-4-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Web Design</h3>
-                    <p class="text-gray-700 mb-4">
-                        Custom website designs that are visually appealing, user-friendly, and aligned with your brand identity.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-                
-                <!-- Service 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-code-s-slash-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Frontend Development</h3>
-                    <p class="text-gray-700 mb-4">
-                        Clean, efficient code that brings your designs to life with smooth interactions and optimal performance.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-                
-                <!-- Service 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-smartphone-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Responsive Design</h3>
-                    <p class="text-gray-700 mb-4">
-                        Websites that look and function perfectly on all devices, from desktops to smartphones.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-                
-                <!-- Service 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-shopping-cart-2-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">E-commerce Solutions</h3>
-                    <p class="text-gray-700 mb-4">
-                        Custom online stores that provide seamless shopping experiences and drive sales.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-                
-                <!-- Service 5 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-speed-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Performance Optimization</h3>
-                    <p class="text-gray-700 mb-4">
-                        Speed up your website loading times and improve overall performance for better user experience.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-                
-                <!-- Service 6 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 flex items-center justify-center bg-primary bg-opacity-10 rounded-lg mb-4">
-                        <i class="ri-search-line text-primary ri-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">SEO Integration</h3>
-                    <p class="text-gray-700 mb-4">
-                        Implement SEO best practices to improve your website's visibility in search engine results.
-                    </p>
-                    <a href="#" class="text-primary font-medium flex items-center gap-1 hover:gap-2 transition-all">
-                        Learn more <i class="ri-arrow-right-line"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        <a href="#" class="btn btn-primary">Download Resume</a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Portfolio Section -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <div class="inline-block bg-primary text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                    Portfolio
-                </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">My Recent Work</h2>
-                <p class="text-gray-700 max-w-2xl mx-auto">
-                    Take a look at some of my recent projects that showcase my skills and expertise in web design and development.
-                </p>
-            </div>
-            
-            <!-- Portfolio Filter -->
-            <div class="flex flex-wrap justify-center gap-2 mb-8">
-                <button class="bg-primary text-white px-5 py-2 !rounded-button font-medium whitespace-nowrap">All</button>
-                <button class="bg-white text-gray-700 border border-gray-200 px-5 py-2 !rounded-button font-medium hover:border-primary hover:text-primary transition-all whitespace-nowrap">Web Design</button>
-                <button class="bg-white text-gray-700 border border-gray-200 px-5 py-2 !rounded-button font-medium hover:border-primary hover:text-primary transition-all whitespace-nowrap">E-commerce</button>
-                <button class="bg-white text-gray-700 border border-gray-200 px-5 py-2 !rounded-button font-medium hover:border-primary hover:text-primary transition-all whitespace-nowrap">Mobile Apps</button>
-            </div>
-            
-            <!-- Portfolio Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Portfolio Item 1 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=modern%20business%20website%20design%2C%20clean%20interface%2C%20professional%20layout%2C%20blue%20and%20white%20color%20scheme%2C%20homepage%20design%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123458&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">Corporate Website</h3>
-                        <p class="text-white text-center mb-4">A modern website for a financial consulting firm</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-                
-                <!-- Portfolio Item 2 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=e-commerce%20website%20design%2C%20product%20display%20page%2C%20online%20store%20interface%2C%20shopping%20cart%2C%20clean%20modern%20design%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123459&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">E-commerce Store</h3>
-                        <p class="text-white text-center mb-4">Online fashion store with custom checkout process</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-                
-                <!-- Portfolio Item 3 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=mobile%20app%20interface%20design%2C%20smartphone%20app%20screens%2C%20user%20interface%20design%2C%20modern%20app%20design%2C%20clean%20minimal%20interface%2C%20high%20quality%20professional%20app%20mockup&width=600&height=450&seq=123460&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">Fitness App</h3>
-                        <p class="text-white text-center mb-4">Mobile app for tracking workouts and nutrition</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-                
-                <!-- Portfolio Item 4 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=restaurant%20website%20design%2C%20food%20menu%20layout%2C%20reservation%20system%2C%20elegant%20interface%2C%20appetizing%20food%20images%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123461&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">Restaurant Website</h3>
-                        <p class="text-white text-center mb-4">Website with online reservation system for a local restaurant</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-                
-                <!-- Portfolio Item 5 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=portfolio%20website%20design%2C%20creative%20layout%2C%20project%20showcase%2C%20designer%20portfolio%2C%20artistic%20website%20design%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123462&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">Photographer Portfolio</h3>
-                        <p class="text-white text-center mb-4">Minimalist portfolio website for a professional photographer</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-                
-                <!-- Portfolio Item 6 -->
-                <div class="group relative overflow-hidden rounded-lg shadow-sm">
-                    <img src="https://readdy.ai/api/search-image?query=educational%20website%20design%2C%20online%20course%20platform%2C%20learning%20management%20system%2C%20modern%20interface%2C%20educational%20content%20layout%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123463&orientation=landscape" alt="Portfolio Item" class="w-full h-64 object-cover object-top transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-primary bg-opacity-80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h3 class="text-xl font-semibold text-white mb-2">E-Learning Platform</h3>
-                        <p class="text-white text-center mb-4">Online learning platform with course management system</p>
-                        <a href="#" class="bg-white text-primary px-5 py-2 !rounded-button font-medium hover:bg-opacity-90 transition-all whitespace-nowrap">View Project</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-10">
-                <a href="#" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-opacity-90 transition-all inline-block whitespace-nowrap">
-                    View All Projects
-                </a>
-            </div>
+  <!-- Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Services</span>
+        <h2>What I Offer</h2>
+        <p>I provide comprehensive web design and development services tailored to meet your specific needs and help your business thrive online.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="icon"><i class="ri-layout-4-line"></i></div>
+          <h3>Web Design</h3>
+          <p>Custom website designs that are visually appealing, user-friendly, and aligned with your brand identity.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
         </div>
-    </section>
+        <div class="service-card">
+          <div class="icon"><i class="ri-code-s-slash-line"></i></div>
+          <h3>Frontend Development</h3>
+          <p>Clean, efficient code that brings your designs to life with smooth interactions and optimal performance.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="ri-smartphone-line"></i></div>
+          <h3>Responsive Design</h3>
+          <p>Websites that look and function perfectly on all devices, from desktops to smartphones.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="ri-shopping-cart-2-line"></i></div>
+          <h3>E-commerce Solutions</h3>
+          <p>Custom online stores that provide seamless shopping experiences and drive sales.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="ri-speed-line"></i></div>
+          <h3>Performance Optimization</h3>
+          <p>Speed up your website loading times and improve overall performance for better user experience.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
+        </div>
+        <div class="service-card">
+          <div class="icon"><i class="ri-search-line"></i></div>
+          <h3>SEO Integration</h3>
+          <p>Implement SEO best practices to improve your website's visibility in search engine results.</p>
+          <a href="#">Learn more <i class="ri-arrow-right-line"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <div class="inline-block bg-primary text-white text-sm font-medium px-4 py-1 rounded-full mb-4">
-                    Testimonials
-                </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">What Clients Say</h2>
-                <p class="text-gray-700 max-w-2xl mx-auto">
-                    Don't just take my word for it. Here's what some of my clients have to say about working with me.
-                </p>
+  <!-- Portfolio Section -->
+  <section class="portfolio-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Portfolio</span>
+        <h2>My Recent Work</h2>
+        <p>Take a look at some of my recent projects that showcase my skills and expertise in web design and development.</p>
+      </div>
+      <div class="portfolio-filter">
+        <button class="active">All</button>
+        <button>Web Design</button>
+        <button>E-commerce</button>
+        <button>Mobile Apps</button>
+      </div>
+      <div class="portfolio-grid">
+        <!-- Portfolio items (add more as needed) -->
+        <div class="portfolio-card">
+          <img src="https://readdy.ai/api/search-image?query=modern%20business%20website%20design%2C%20clean%20interface%2C%20professional%20layout%2C%20blue%20and%20white%20color%20scheme%2C%20homepage%20design%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123458&orientation=landscape" alt="Corporate Website">
+          <div class="portfolio-overlay">
+            <h3>Corporate Website</h3>
+            <p>A modern website for a financial consulting firm</p>
+            <a href="#">View Project</a>
+          </div>
+        </div>
+        <div class="portfolio-card">
+          <img src="https://readdy.ai/api/search-image?query=e-commerce%20website%20design%2C%20product%20display%20page%2C%20online%20store%20interface%2C%20shopping%20cart%2C%20clean%20modern%20design%2C%20high%20quality%20professional%20website%20mockup&width=600&height=450&seq=123459&orientation=landscape" alt="E-commerce Store">
+          <div class="portfolio-overlay">
+            <h3>E-commerce Store</h3>
+            <p>Online fashion store with custom checkout process</p>
+            <a href="#">View Project</a>
+          </div>
+        </div>
+        <!-- Add more portfolio cards as needed -->
+      </div>
+      <div class="portfolio-actions">
+        <a href="#" class="btn btn-primary">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">Testimonials</span>
+        <h2>What Clients Say</h2>
+        <p>Don't just take my word for it. Here's what some of my clients have to say about working with me.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <p>"Michael transformed our outdated website into a modern, user-friendly platform that perfectly represents our brand. His attention to detail and creative approach exceeded our expectations."</p>
+          <div class="testimonial-user">
+            <div class="avatar"><i class="ri-user-3-line"></i></div>
+            <div>
+              <h4>Emily Richardson</h4>
+              <span>Marketing Director, TechSolutions</span>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-                    <div class="flex mb-4">
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-700 mb-6 italic">
-                        "Michael transformed our outdated website into a modern, user-friendly platform that perfectly represents our brand. His attention to detail and creative approach exceeded our expectations."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                            <i class="ri-user-3-line text-gray-500"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Emily Richardson</h4>
-                            <p class="text-sm text-gray-600">Marketing Director, TechSolutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-100 p-6 rounded-lg shadow-sm">
-                    <div class="flex mb-4">
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                        <i class="ri-star-fill text-yellow-400"></i>
-                    </div>
-                    <p class="text-gray-700 mb-6 italic">
-                        "Working with Michael was a pleasure from start to finish. He took the time to understand our needs and delivered a website that not only looks great but also performs exceptionally well."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                            <i class="ri-user-3-line text-gray-500"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">David Thompson</h4>
-                            <p class="text-sm text-gray-600">CEO, Artisan Crafts</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Testimonial 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-sm">
-  
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+            <i class="ri-star-fill"></i>
+          </div>
+          <p>"Working with Michael was a pleasure from start to finish. He took the time to understand our needs and delivered a website that not only looks great but also performs exceptionally well."</p>
+          <div class="testimonial-user">
+            <div class="avatar"><i class="ri-user-3-line"></i></div>
+            <div>
+              <h4>David Thompson</h4>
+              <span>CEO, Artisan Crafts</span>
+            </div>
+          </div>
+        </div>
+        <!-- Add more testimonial cards as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-flex">
+      <div>
+        <div class="footer-logo">Michael Anderson</div>
+        <div class="footer-socials">
+          <a href="#"><i class="ri-facebook-fill"></i></a>
+          <a href="#"><i class="ri-twitter-fill"></i></a>
+          <a href="#"><i class="ri-instagram-fill"></i></a>
+          <a href="#"><i class="ri-linkedin-fill"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-links">
+          <a href="#">Home</a>
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-copy">
+          &copy; 2024 Michael Anderson. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="profile.js"></script>
+</body>
+</html>
+<style>
+    :root {
+  --primary: #540BF3;
+  --radius: 8px;
+  --font-main: 'Inter', sans-serif;
+  --font-logo: 'Pacifico', cursive;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  margin: 0;
+  background: #fff;
+  color: #222;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.header {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo {
+  font-family: var(--font-logo);
+  font-size: 2rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav a:not(:first-child) {
+  color: #555;
+}
+
+.nav a:hover {
+  color: var(--primary);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 100vw;
+  background: #fff;
+  z-index: 200;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  transition: transform 0.3s;
+  transform: translateX(100%);
+}
+
+.mobile-menu.active {
+  display: flex;
+  transform: translateX(0);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--primary);
+  align-self: flex-end;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.mobile-menu nav a {
+  color: #222;
+  font-size: 1.25rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero-section {
+  background: linear-gradient(120deg, #e0e7ff 0%, #fff 100%);
+  padding-top: 90px;
+  padding-bottom: 2rem;
+}
+
+.hero-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-content {
+  flex: 1 1 350px;
+  background: rgba(255,255,255,0.95);
+  padding: 2rem;
+  border-radius: var(--radius);
+}
+
+.hero-content .badge {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.3em 1.2em;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.hero-content .highlight {
+  color: var(--primary);
+}
+
+.hero-content p {
+  color: #555;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75em 2em;
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #3a08b7;
+}
+
+.btn-outline {
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #bbb;
+}
+
+.btn-outline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.hero-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.hero-socials a {
+  color: #555;
+  font-size: 1.3rem;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, border 0.2s;
+}
+
+.hero-socials a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.hero-image {
+  flex: 1 1 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+.about-section {
+  background: #fff;
+  padding: 4rem 0;
+}
+
+.about-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.about-img {
+  flex: 1 1 300px;
+}
+
+.about-img img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.about-content {
+  flex: 2 1 400px;
+}
+
+.about-content .badge {
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.3em 1.2em;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.about-content h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.about-content p {
+  color: #555;
+  margin-bottom: 1.2rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-grid h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.7rem;
+  color: #222;
+}
+
+.about-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-grid li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.about-grid i {
+  color: var(--primary);
+}
+
+.services-section {
+  background: #f8fafc;
+  padding: 4rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header .badge {
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.3em 1.2em;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin: 0 0 1rem 0;
+  font-weight: 700;
+  color: #222;
+}
+
+.section-header p {
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 1.5rem;
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.service-card:hover {
+  box-shadow: 0 6px 24px rgba(84,11,243,0.08);
+}
+
+.service-card .icon {
+  background: var(--primary);
+  color: #fff;
+  font-size: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+
+.service-card h3 {
+  font-size: 1.2rem;
+  margin: 0 0 0.7rem 0;
+  color: #222;
+}
+
+.service-card p {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.service-card a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: gap 0.2s;
+}
+
+.service-card a:hover {
+  gap: 0.7rem;
+}
+
+.portfolio-section {
+  background: #fff;
+  padding: 4rem 0;
+}
+
+.portfolio-filter {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.portfolio-filter button {
+  background: #fff;
+  color: #222;
+  border: 1.5px solid #eee;
+  border-radius: var(--radius);
+  padding: 0.5em 1.5em;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.portfolio-filter button.active,
+.portfolio-filter button:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.portfolio-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.portfolio-card img {
+  width: 100%;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.08);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(84,11,243,0.85);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: opacity 0.3s;
+  text-align: center;
+}
+
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-overlay h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-overlay p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.portfolio-overlay a {
+  background: #fff;
+  color: var(--primary);
+  padding: 0.5em 1.5em;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.portfolio-overlay a:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.portfolio-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.testimonials-section {
+  background: #f8fafc;
+  padding: 4rem 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.testimonial-card .stars {
+  color: #fbbf24;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.testimonial-card p {
+  color: #555;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.testimonial-user .avatar {
+  width: 3rem;
+  height: 3rem;
+  background: #f3f4f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #888;
+}
+
+.testimonial-user h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.testimonial-user span {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.footer {
+  background: #222;
+  color: #fff;
+  padding: 2rem 0;
+}
+
+.footer-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.footer-logo {
+  font-family: var(--font-logo);
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.footer-socials a {
+  color: #fff;
+  font-size: 1.2rem;
+  border: 1px solid #444;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, border 0.2s;
+}
+
+.footer-socials a:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-copy {
+  font-size: 0.95rem;
+  color: #bbb;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .header-flex, .about-flex, .footer-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .hero-flex {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .about-img img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav {
+    display: none;
+  }
+  .menu-btn {
+    display: block;
+  }
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    transform: translateX(100%);
+  }
+  .mobile-menu.active {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  .hero-content, .about-content, .service-card, .testimonial-card {
+    padding: 1rem;
+  }
+  .about-section, .services-section, .portfolio-section, .testimonials-section {
+    padding: 2rem 0;
+  }
+  .footer {
+    padding: 1rem 0;
+  }
+}
+</style>
+
+<script>
+    // Mobile menu toggle
+document.addEventListener('DOMContentLoaded', function () {
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuBtn.addEventListener('click', function () {
+    mobileMenu.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  closeMenuBtn.addEventListener('click', function () {
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // Optional: Close menu when clicking a link
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+});
+</script>

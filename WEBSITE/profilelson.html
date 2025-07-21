@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomi Design’s Portfolio</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700,800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+  <link rel="stylesheet" href="profilelson.css">
+</head>
+<body>
+  <!-- Decorative Dots -->
+  <div class="decor-dot blue"></div>
+  <div class="decor-dot red"></div>
+  <div class="decor-dot green"></div>
+  <div class="decor-dot yellow"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">Nomi <span>Design’s</span></div>
+      <nav class="nav-menu">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#testimonials">Testimonial</a>
+      </nav>
+      <a href="#" class="btn-outline header-btn">Download CV</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-left">
+        <span class="badge">Welcome</span>
+        <h1>I have <span class="green">Creative Design</span> Experience</h1>
+        <p class="hero-desc">
+          I’m Nomi, a passionate designer with a knack for crafting visually stunning and user-friendly digital experiences. Let’s work together to bring your ideas to life!
+        </p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn-green">Contact Me</a>
+          <a href="#portfolio" class="btn-outline">View Portfolio <i class="ri-arrow-right-line"></i></a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="img-frame">
+          <div class="img-border"></div>
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nomi Portrait">
+        </div>
+        <div class="hero-socials">
+          <a href="#"><i class="ri-linkedin-fill"></i></a>
+          <a href="#"><i class="ri-behance-fill"></i></a>
+          <a href="#"><i class="ri-dribbble-line"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat">
+        <div class="stat-num">80+</div>
+        <div class="stat-label">Satisfied Clients</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">99+</div>
+        <div class="stat-label">Reviews Given</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills & Services Section -->
+  <section class="skills" id="skills">
+    <div class="skills-container">
+      <h2 class="section-title">Why Hire Me For Your Next <span class="green">Project?</span></h2>
+      <p class="section-subtext">I offer a unique blend of creativity, technical expertise, and user-focused design to deliver exceptional results for your business.</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="ri-brush-line"></i></div>
+          <div class="skill-title green">Visual Design</div>
+          <div class="skill-desc">Creating visually compelling designs that capture attention and communicate your brand's message.</div>
+          <a href="#contact" class="btn-green btn-sm">Hire Me</a>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="ri-layout-masonry-line"></i></div>
+          <div class="skill-title green">Design/Prototype</div>
+          <div class="skill-desc">Turning ideas into interactive prototypes for a seamless and efficient design process.</div>
+          <a href="#contact" class="btn-green btn-sm">Hire Me</a>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="ri-search-eye-line"></i></div>
+          <div class="skill-title green">UX Research</div>
+          <div class="skill-desc">Understanding user needs to create intuitive and delightful user experiences.</div>
+          <a href="#contact" class="btn-green btn-sm">Hire Me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio" id="portfolio">
+    <div class="portfolio-container">
+      <h2 class="section-title">My Creative Works – Latest <span class="green">Projects</span></h2>
+      <p class="section-subtext center">A selection of my recent work, showcasing my skills in design and development.</p>
+      <div class="portfolio-carousel">
+        <button class="carousel-arrow left" id="prevProject"><i class="ri-arrow-left-s-line"></i></button>
+        <div class="portfolio-slider" id="portfolioSlider">
+          <div class="portfolio-card">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Project 1">
+            <div class="portfolio-title">Brand Identity</div>
+            <div class="portfolio-desc">Complete branding for a startup, including logo, color palette, and guidelines.</div>
+          </div>
+          <div class="portfolio-card">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" alt="Project 2">
+            <div class="portfolio-title">Mobile App UI</div>
+            <div class="portfolio-desc">Modern, intuitive mobile app interface for a fintech company.</div>
+          </div>
+          <div class="portfolio-card">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Project 3">
+            <div class="portfolio-title">Website Redesign</div>
+            <div class="portfolio-desc">Redesigned a corporate website for better usability and aesthetics.</div>
+          </div>
+        </div>
+        <button class="carousel-arrow right" id="nextProject"><i class="ri-arrow-right-s-line"></i></button>
+      </div>
+      <div class="portfolio-cta">
+        <a href="#portfolio" class="btn-green">Show More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials-container">
+      <h2 class="section-title">Our Customer Say Something <span class="green">About Us</span></h2>
+      <div class="testimonials-scroll" id="testimonialsScroll">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <div class="testimonial-text">"Nomi exceeded our expectations! The design was creative, clean, and delivered on time."</div>
+          <div class="testimonial-user">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" class="avatar">
+            <div>
+              <div class="testimonial-name">Sarah Lee</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <div class="testimonial-text">"Professional, responsive, and highly skilled. I recommend NomiDesign to anyone."</div>
+          <div class="testimonial-user">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client" class="avatar">
+            <div>
+              <div class="testimonial-name">James Carter</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i>
+          </div>
+          <div class="testimonial-text">"Great communication and beautiful results. Will hire again for future projects!"</div>
+          <div class="testimonial-user">
+            <img src="https://randomuser.me/api/portraits/men/46.jpg" alt="Client" class="avatar">
+            <div>
+              <div class="testimonial-name">Michael Smith</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2 class="section-title">Let’s Discuss Your <span class="green">Project</span></h2>
+        <p class="contact-intro">Ready to take your brand to the next level? Reach out and let's create something amazing together.</p>
+        <ul class="contact-list">
+          <li><i class="ri-phone-line green"></i> +123 456 7890</li>
+          <li><i class="ri-mail-line green"></i> hello@nomidesign.com</li>
+          <li><i class="ri-map-pin-line green"></i> Lagos, Nigeria</li>
+        </ul>
+      </div>
+      <form class="contact-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <input type="email" placeholder="Email" required>
+        <input type="text" placeholder="Budget" required>
+        <textarea placeholder="Message" required></textarea>
+        <button type="submit" class="btn-green">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">© 2022. All Rights Reserved</div>
+      <div class="footer-center">Designed by Tanvir Ahmed</div>
+      <div class="footer-right">
+        <a href="#"><i class="ri-facebook-fill"></i></a>
+        <a href="#"><i class="ri-twitter-fill"></i></a>
+        <a href="#"><i class="ri-instagram-fill"></i></a>
+        <a href="#"><i class="ri-linkedin-fill"></i></a>
+      </div>
+    </div>
+  </footer>
+  <script src="profilelson.js"></script>
+</body>
+</html>
+
+<style>
+:root {
+  --green: #00b86b;
+  --gray: #f7f7f7;
+  --gray-dark: #666;
+  --gray-light: #e0ffe5;
+  --radius: 12px;
+  --font-head: 'Montserrat', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  background: #fff;
+  color: #222;
+  overflow-x: hidden;
+}
+
+.header {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+}
+
+.logo {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--green);
+  letter-spacing: 1px;
+}
+.logo span {
+  color: #222;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 40px;
+}
+.nav-menu a {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-menu a:hover {
+  color: var(--green);
+}
+
+.btn-outline {
+  border: 2px solid var(--green);
+  border-radius: 6px;
+  padding: 8px 16px;
+  background: #fff;
+  color: var(--green);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+.decor-dot {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 0;
+}
+.decor-dot.blue { width: 24px; height: 24px; background: #3b82f6; left: 10vw; top: 120px;}
+.decor-dot.red { width: 18px; height: 18px; background: #ef4444; right: 15vw; top: 80px;}
+.decor-dot.green { width: 14px; height: 14px; background: #00b86b; left: 30vw; bottom: 120px;}
+.decor-dot.yellow { width: 20px; height: 20px; background: #facc15; right: 8vw; bottom: 80px;}
+
+.hero {
+  padding: 80px 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-container {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  max-width: 1200px;
+  align-items: center;
+}
+.hero-left {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.badge {
+  display: inline-block;
+  background: var(--gray-light);
+  color: var(--green);
+  font-family: var(--font-head);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 15px;
+}
+.hero-left h1 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 48px;
+  margin: 0;
+  line-height: 1.1;
+}
+.hero-left h1 .green {
+  color: var(--green);
+}
+.hero-desc {
+  font-size: 18px;
+  color: #444;
+  max-width: 500px;
+  margin-bottom: 0;
+}
+.hero-ctas {
+  display: flex;
+  gap: 20px;
+}
+.btn-green {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-green:hover {
+  background: #009a5a;
+}
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 15px;
+}
+.hero-right {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.img-frame {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  background: var(--green);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-border {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: #000;
+  border-radius: 12px;
+  left: 10px;
+  top: 10px;
+  z-index: 0;
+  opacity: 0.15;
+}
+.img-frame img {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  z-index: 1;
+  border: 6px solid #fff;
+  background: #fff;
+}
+.hero-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: absolute;
+  right: -60px;
+  top: 30px;
+}
+.hero-socials a {
+  color: var(--green);
+  font-size: 26px;
+  transition: color 0.2s, transform 0.2s;
+}
+.hero-socials a:hover {
+  color: #000;
+  transform: scale(1.2);
+}
+
+.stats {
+  padding: 40px 0;
+  background: #fff;
+}
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--green);
+}
+.stat-label {
+  font-size: 16px;
+  color: #777;
+  margin-top: 6px;
+}
+
+.skills {
+  background: #fff;
+  padding: 80px 0;
+}
+.skills-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.section-title {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.section-title .green {
+  color: var(--green);
+}
+.section-subtext {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.skill-card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.skill-icon {
+  color: var(--green);
+  font-size: 36px;
+  margin-bottom: 18px;
+}
+.skill-title {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.skill-desc {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.portfolio {
+  background: #fff;
+  padding: 80px 0;
+}
+.portfolio-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.center {
+  text-align: center;
+}
+.portfolio-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.carousel-arrow {
+  background: #fff;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.7rem;
+  color: var(--green);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.carousel-arrow:hover {
+  background: var(--green);
+  color: #fff;
+}
+.portfolio-slider {
+  display: flex;
+  gap: 32px;
+  overflow: hidden;
+  width: 780px;
+  scroll-behavior: smooth;
+  transition: transform 0.3s;
+}
+.portfolio-card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  padding: 18px;
+  min-width: 220px;
+  max-width: 220px;
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.portfolio-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  height: 120px;
+}
+.portfolio-title {
+  font-family: var(--font-head);
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.portfolio-desc {
+  color: #666;
+  font-size: 14px;
+}
+.portfolio-cta {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.testimonials {
+  background: #fff;
+  padding: 80px 0;
+}
+.testimonials-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.testimonials-scroll {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+.testimonial-card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  padding: 32px 24px;
+  min-width: 320px;
+  max-width: 320px;
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  scroll-snap-align: start;
+}
+.stars {
+  color: #fbbf24;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.testimonial-text {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.testimonial-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gray-light);
+}
+.testimonial-name {
+  font-family: var(--font-head);
+  font-weight: bold;
+  font-size: 1rem;
+  color: #222;
+}
+
+.contact {
+  background: #fff;
+  padding: 80px 0;
+}
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: flex-start;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact-intro {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 18px;
+}
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.contact-list li {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid #ddd;
+  font-size: 16px;
+  font-family: var(--font-body);
+  margin-bottom: 0;
+  resize: none;
+}
+.contact-form textarea {
+  min-height: 100px;
+}
+.contact-form button {
+  align-self: flex-start;
+}
+
+.footer {
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 32px 0;
+}
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  font-size: 16px;
+  color: #666;
+}
+.footer-left {
+  font-family: var(--font-body);
+}
+.footer-center {
+  font-family: var(--font-head);
+  font-weight: 600;
+}
+.footer-right {
+  display: flex;
+  gap: 18px;
+}
+.footer-right a {
+  color: var(--green);
+  font-size: 22px;
+  transition: transform 0.2s, color 0.2s;
+}
+.footer-right a:hover {
+  transform: scale(1.2);
+  color: #000;
+}
+
+/* Responsive Styles */
+@media (max-width: 1100px) {
+  .header-container, .hero, .skills-container, .portfolio-container, .testimonials-container, .contact-container, .footer-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .portfolio-slider {
+    width: 95vw;
+  }
+}
+@media (max-width: 900px) {
+  .hero-container, .skills-grid, .contact-container {
+    flex-direction: column;
+    display: flex;
+    gap: 40px;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .portfolio-slider {
+    width: 90vw;
+  }
+}
+@media (max-width: 700px) {
+  .header-container {
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px 16px;
+  }
+  .hero {
+    padding: 40px 10px;
+  }
+  .hero-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .stats-container {
+    gap: 30px;
+  }
+  .skills {
+    padding: 40px 0;
+  }
+  .portfolio {
+    padding: 40px 0;
+  }
+  .testimonials {
+    padding: 40px 0;
+  }
+  .contact {
+    padding: 40px 0;
+  }
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+@media (max-width: 500px) {
+  .img-frame, .img-border {
+    width: 120px;
+    height: 120px;
+  }
+  .img-frame img {
+    width: 100px;
+    height: 100px;
+  }
+  .portfolio-card, .testimonial-card {
+    min-width: 180px;
+    max-width: 180px;
+    padding: 18px 10px;
+  }
+  .contact-container {
+    gap: 20px;
+  }
+}
+</style>
+
+<script>
+    // Portfolio carousel functionality
+document.addEventListener('DOMContentLoaded', function () {
+  const slider = document.getElementById('portfolioSlider');
+  const prevBtn = document.getElementById('prevProject');
+  const nextBtn = document.getElementById('nextProject');
+  const cardWidth = 252; // Card width + gap
+
+  prevBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+  });
+  nextBtn.addEventListener('click', () => {
+    slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+  });
+
+  // Testimonials horizontal scroll on wheel
+  const testimonialsScroll = document.getElementById('testimonialsScroll');
+  if (testimonialsScroll) {
+    testimonialsScroll.addEventListener('wheel', function (e) {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        testimonialsScroll.scrollLeft += e.deltaY;
+      }
+    });
+  }
+
+  // Contact form (demo only)
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Thank you for your message!');
+      contactForm.reset();
+    });
+  }
+});
+</script>
