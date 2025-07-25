@@ -1,60 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="bro.css">
-<title>Simple Web Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nazbro Tech</title>
+  <link rel="stylesheet" href="bro.css">
 </head>
 <body>
-    <header>
-      <img src="brotech.png" class="nasbroimage" alt="Brotech-Logo">
-    </header>
-    <div class="nav-bar" id="nav-bar">
-      <a href="#">Home</a>
-      <a href="#">Gallery</a>
-      <a href="#">Services</a>
-      <a href="#">Contacts</a>
-    </div>
-    <div class="menu-icon" id="menuIcon" onclick="toggleSidebar()">&#9776;</div>
-    <div class="sidebar" id="sidebar">
-      <div class="close-btn" onclick="toggleSidebar()">&times;</div>
-      <a href="#">Home</a>
-      <a href="#">Gallery</a>
-      <a href="#">Services</a>
-      <a href="#">Contacts</a>
-    </div>
+  <header>
+    <img src="brotech.png" class="nasbroimage" alt="Brotech Logo">
+  </header>
+
+  <nav class="nav-bar" id="nav-bar">
+    <a href="#">Home</a>
+    <a href="#">Gallery</a>
+    <a href="#">Services</a>
+    <a href="#">Contacts</a>
+  </nav>
+
+  <div class="menu-icon" id="menuIcon" aria-label="Open menu" tabindex="0">&#9776;</div>
+
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
+    <div class="close-btn" id="closeBtn" aria-label="Close menu" tabindex="0">&times;</div>
+    <a href="#">Home</a>
+    <a href="#">Gallery</a>
+    <a href="#">Services</a>
+    <a href="#">Contacts</a>
+  </aside>
+
+  <main>
     <div class="txt-img-container">
-    <div class="big-text" aria-label="Transforming ideas into digital masterpieces">
-      <span class="block">TRANSFORMING</span>
-      <span class="block">IDEAS</span>
-      <span class="block">INTO</span>
-      <span class="block">DIGITAL</span>
-      <span class="block">MASTERPIECES</span>
-      <img src="nasbro-rotate.png" alt="Decorative" class="rotate-img"></div>
+      <svg class="wave-bg" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,400 Q360,300 720,400 T1440,400" stroke="#fff" stroke-width="3" fill="none" opacity="0.18"/>
+        <path d="M0,500 Q480,350 960,500 T1440,500" stroke="#fff" stroke-width="2" fill="none" opacity="0.13"/>
+        <path d="M0,300 Q600,200 1200,300 T1440,300" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.10"/>
+      </svg>
+      
+      
+      <div class="big-text" aria-label="Transforming ideas into digital masterpieces">
+        <span class="block">TRANSFORMING</span>
+        <span class="block">IDEAS</span>
+        <span class="block">INTO</span>
+        <span class="block">DIGITAL</span>
+        <span class="block">MASTERPIECES</span>
+        <img src="nasbro-rotate.png" alt="Decorative" class="rotate-img">
+      </div>
     </div>
+
+
+
     <div class="creative-connect-container">
-    <p class="creative" role="doc-subtitle"><span>CREATIVE DIGITAL</span><br>TECHNOLOGIST</p>
-    <button class="connect" type="button">CONNECT HERE</button>
+      <p class="creative" role="doc-subtitle">
+        <span>CREATIVE DIGITAL</span><br>TECHNOLOGIST
+      </p>
+      <button class="connect" type="button">CONNECT HERE</button>
     </div>
-    <footer>
-      <div class="about">
-        <div class="us">ABOUT US</div>
-        <div class="nasbro">
-           At Nazbro Tech, we bring creativity and innovation together to help your brand thrive.
-          We specialize in video editing, app development, website creation, logo design,
-          graphic design, and eBook creation. Our tailored solutions are designed to captivate your audience, enhance your digital presence,
-          and showcase your unique identity. Whether you’re a startup, business, or individual,
-          we’re here to transform your ideas into exceptional results. Let’s build something extraordinary together!
+  </main>
+
+
+  <section class="products">
+    <div class="container">
+      <div class="header-section">
+        <h2 class="neon-title">OUR PRODUCTS</h2>
+      </div>
+      
+      <svg class="wave-bg" viewBox="0 0 1440 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,400 Q360,300 720,400 T1440,400" stroke="#fff" stroke-width="3" fill="none" opacity="0.18"/>
+        <path d="M0,500 Q480,350 960,500 T1440,500" stroke="#fff" stroke-width="2" fill="none" opacity="0.13"/>
+        <path d="M0,300 Q600,200 1200,300 T1440,300" stroke="#fff" stroke-width="1.5" fill="none" opacity="0.10"/>
+      </svg>
+      
+      <div class="products-area">
+        <!-- Card 1: Creative & Design -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="/source-control-1/WEBSITE/MY WEBSITE/NASBROTECH/graphics_design.png.webp" alt="Creative & Design">
+          </div>
+          <div class="card-title">Stunning visuals &amp; bringing your brand to life</div>
+        </div>
+        
+        <!-- Card 2: Video & Multimedia -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="video1.jpg" alt="Video & Multimedia">
+          </div>
+          <div class="card-title">Video &amp; Multimedia Production</div>
+        </div>
+        
+        <!-- Card 3: App & Tech -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="tech1.jpg" alt="App UI">
+          </div>
+          <div class="card-title">App Development &amp; Tech Services</div>
+        </div>
+        
+        <!-- Card 4 -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="tech1.jpg" alt="App UI">
+          </div>
+          <div class="card-title">App Development &amp; Tech Services</div>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="tech1.jpg" alt="App UI">
+          </div>
+          <div class="card-title">App Development &amp; Tech Services</div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="product-card">
+          <div class="collage">
+            <img src="library.jpg" alt="Library">
+          </div>
+          <div class="card-title">App Development &amp; Tech Services</div>
         </div>
       </div>
-      <div class="contact">
+    </div>
+  </section>
+
+  <footer>
+    <div class="about">
+      <div class="us">ABOUT US</div>
+      <div class="nasbro">
+        At Nazbro Tech, we bring creativity and innovation together to help your brand thrive.
+        We specialize in video editing, app development, website creation, logo design,
+        graphic design, and eBook creation. Our tailored solutions are designed to captivate your audience, enhance your digital presence,
+        and showcase your unique identity. Whether you’re a startup, business, or individual,
+        we’re here to transform your ideas into exceptional results. Let’s build something extraordinary together!
+      </div>
+    </div>
+    <div class="contact">
       <div class="phone">PHONE</div>
-      <a href="tel:+1234567890" class="number">+2348164027697</a>
+      <a href="tel:+2348164027697" class="number">+2348164027697</a>
       <div class="email">EMAIL</div>
       <a href="mailto:anoziennamdidi702@gmail.com" class="gmail">anoziennamdidi702@gmail.com</a>
-      </div>
-    </footer>
-    <script src="bro.js"></script>
+    </div>
+  </footer>
+  <script src="bro.js"></script>
 </body>
 </html>
