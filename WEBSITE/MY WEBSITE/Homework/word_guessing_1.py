@@ -49,7 +49,7 @@ while play_again == "yes":
                 else:
                     print(f"Not yet! you have guessed {attempts} time. Try again!")
         elif guess == secret_word:
-            print("result", end="")
+            print("Hint", end="")
         else:
             print(f"Your guess must be {len(secret_word)} letters long. Try again!")
 
