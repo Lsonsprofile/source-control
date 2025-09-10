@@ -15,7 +15,7 @@ def main():
         print("\nInput 'Q' to quit password checking.")
         # Ask user to enter a password (or 'q'/'Q' to quit)
         password = input("Enter a password to check -->: ")
-        if password.lower() == "q":
+        if password == "q" or password == "Q":
             check = False
             print("Password checker closed")
         elif password == "":
