@@ -1,6 +1,9 @@
 import os
+# programs i added are below
 """ In the main def i added a code that handls blank user input and if the user input is blank it will ask the user to enter a password again"""
 """ I added a DEF function that prints missing_character_type then print it out in the main def """
+""" I added error handling for the file that if the file is not found it will print out a message that the file is not found 
+using the os module """
 
 LOWER=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UPPER=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -33,31 +36,30 @@ def main():
             
             # get missing characters and print it out
             missing = missing_character_type(password)
-            print(f"Missing characters: {missing}")
-
+            print("Missing characters:", ", ".join(missing) if missing else "None")
             
                 
 # Function: password_strength
 def password_strength(password, min_length=10, strong_length=16):
-    # Check common password file (case-sensitive)
-    if word_in_file(password, r"C:\Users\Okey\AppData\Roaming\Code\User\source-control\PYTHON_CSE 111\password_checker\toppasswords.txt", case_sensitive=True):
+    # Return the password strength as an integer between 0 and 5
+    if word_in_file(password, "PYTHON_CSE_111/password_checker/toppasswords.txt", case_sensitive=True):
         print("Password is a commonly used password and is not secure!.")
         return 0
-
-    #  - loop through to check if password in dictionary file → print message, return 0
-    if word_in_file(password, r"C:\Users\Okey\AppData\Roaming\Code\User\source-control\PYTHON_CSE 111\password_checker\wordlist.txt", case_sensitive=False):
+    if word_in_file(password, "PYTHON_CSE_111/password_checker/wordlist.txt", case_sensitive=False):
         print("Password is a dictionary word and is not secure!.")
         return 0
 
-    # Length checks
+    # check if password is long enough to be considered secure
     if len(password) < min_length:
         print("Password is too short and is not secure!.")
         return 1
+    
+    # check if password is long enough to be considered strong
     if len(password) >= strong_length:
         print("Password is long, length trumps complexity this is a good password 👍")
         return 5
 
-    # - check password complexity → print message, return 1 or 5
+    # check if password is complex enough to be considered strong
     complexity = word_complexity(password)
     return complexity
 

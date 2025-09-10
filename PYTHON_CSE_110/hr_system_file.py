@@ -1,5 +1,6 @@
 # fetch file name from dictionary
 with open(r"C:\Users\Okey\AppData\Roaming\Code\User\source-control\WEBSITE\MY WEBSITE\Homework\hr_system.txt") as hr_system_file:
+    # skip the first line
     next(hr_system_file)
     
     # loop and read through each file line by line and print each line
