@@ -28,7 +28,7 @@ def main():
             
             # get password strength and print it out
             strength = password_strength(password)
-            print(f"Password strength (0–5): {strength}")
+            print(f"Password strength from 0 to 5 = {strength}")
                 
            # get complexity score and print it out
             complexity = word_complexity(password)
@@ -41,27 +41,28 @@ def main():
                 
 # Function: password_strength
 def password_strength(password, min_length=10, strong_length=16):
-    # Return the password strength as an integer between 0 and 5
+    if not password or len(password) < min_length:
+        print("Password is too short and is not secure!.")
+        return 0  # Return 0 for blank or too short passwords
+
+    # check for common passwords
     if word_in_file(password, "PYTHON_CSE_111/password_checker/toppasswords.txt", case_sensitive=True):
         print("Password is a commonly used password and is not secure!.")
         return 0
+
+    # check for dictionary words
     if word_in_file(password, "PYTHON_CSE_111/password_checker/wordlist.txt", case_sensitive=False):
         print("Password is a dictionary word and is not secure!.")
         return 0
 
-    # check if password is long enough to be considered secure
-    if len(password) < min_length:
-        print("Password is too short and is not secure!.")
-        return 1
-    
-    # check if password is long enough to be considered strong
+    # check for special characters
     if len(password) >= strong_length:
         print("Password is long, length trumps complexity this is a good password 👍")
         return 5
 
-    # check if password is complex enough to be considered strong
+    # check for complexity
     complexity = word_complexity(password)
-    return complexity
+    return complexity  # 0–4
 
   
 def word_in_file(word, filename, case_sensitive=False):
