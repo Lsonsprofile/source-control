@@ -41,9 +41,14 @@ def main():
                 
 # Function: password_strength
 def password_strength(password, min_length=10, strong_length=16):
-    if not password or len(password) < min_length:
+    if not password:
+        print("Password cannot be blank.")
+        return 0  
+
+    # check for minimum length
+    if len(password) < min_length:
         print("Password is too short and is not secure!.")
-        return 0  # Return 0 for blank or too short passwords
+        return 1  
 
     # check for common passwords
     if word_in_file(password, "PYTHON_CSE_111/password_checker/toppasswords.txt", case_sensitive=True):
@@ -55,16 +60,21 @@ def password_strength(password, min_length=10, strong_length=16):
         print("Password is a dictionary word and is not secure!.")
         return 0
 
-    # check for special characters
+    # check for long passwords
     if len(password) >= strong_length:
-        print("Password is long, length trumps complexity this is a good password 👍")
+        print("Password is long, length trumps complexity. This is a good password 👍")
         return 5
 
-    # check for complexity
+    # complexity score
     complexity = word_complexity(password)
     return complexity  # 0–4
 
-  
+# Fix 1: test_password function
+def test_password(password):
+    """Used for automated testing. Returns strength score for given password."""
+    return password_strength(password)
+
+
 def word_in_file(word, filename, case_sensitive=False):
     # Check if file exists before opening
     # handling error if file dosnt exist and return false
