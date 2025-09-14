@@ -8,7 +8,7 @@ using the os module """
 LOWER=["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 UPPER=["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 DIGITS=["0","1","2","3","4","5","6","7","8","9"]
-SPECIAL=["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", ";", ":", """, """, ",", ".", "<", ">", "?", "/", "`", "~"]
+SPECIAL=["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", ";", ":", "'", "\"", ",", ".", "<", ">", "?", "/", "`", "~"]
 
 
 def main():
@@ -38,17 +38,23 @@ def main():
             missing = missing_character_type(password)
             print("Missing characters:", ", ".join(missing) if missing else "None")
             
-                
+
+# programs i added are below
+""" I added this DEF function test_password to be used for testing password strength automatically """
+def test_password(password):
+    """Used for automated testing. Returns strength score for given password"""
+    return password_strength(password)
+
+
 # Function: password_strength
 def password_strength(password, min_length=10, strong_length=16):
     if not password:
         print("Password cannot be blank.")
-        return 0  
+        return 0  # blank password should still be 0
 
-    # check for minimum length
     if len(password) < min_length:
         print("Password is too short and is not secure!.")
-        return 1  
+        return 1  # fixed: return 1 for too short passwords instead of 0
 
     # check for common passwords
     if word_in_file(password, "PYTHON_CSE_111/password_checker/toppasswords.txt", case_sensitive=True):
@@ -60,19 +66,14 @@ def password_strength(password, min_length=10, strong_length=16):
         print("Password is a dictionary word and is not secure!.")
         return 0
 
-    # check for long passwords
+    # check for special case: long passwords
     if len(password) >= strong_length:
-        print("Password is long, length trumps complexity. This is a good password 👍")
+        print("Password is long, length trumps complexity this is a good password 👍")
         return 5
 
-    # complexity score
+    # check for complexity
     complexity = word_complexity(password)
     return complexity  # 0–4
-
-# Fix 1: test_password function
-def test_password(password):
-    """Used for automated testing. Returns strength score for given password."""
-    return password_strength(password)
 
 
 def word_in_file(word, filename, case_sensitive=False):
@@ -94,6 +95,7 @@ def word_in_file(word, filename, case_sensitive=False):
                     return True
     return False
 
+
 # Checks if word is in a file
 def word_has_character(word, character_list):
     for character in character_list:
@@ -101,6 +103,7 @@ def word_has_character(word, character_list):
             return True
     return False
                     
+
 # Determine complexity score (0-4)          
 def word_complexity(word):
     # Initialize score = 0
@@ -117,6 +120,7 @@ def word_complexity(word):
         score += 1
         
     return score
+
 
 def missing_character_type(password):
     # Initialize list of missing character types
