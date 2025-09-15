@@ -31,4 +31,5 @@ def cone_volume(radius, height):
   return volume
 # Start this program by
 # calling the main function.
-main()
+if __name__ == "__main__":
+    main()
