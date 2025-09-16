@@ -1,12 +1,23 @@
+:root {
+  --heading-background-color: #f06;
+  --heading-text-color: #333;
+  --heading-font: 'Montserrat', Helvetica, sans-serif;
+  --padding: 1rem;
+  --border: 1px solid rgb(0 0 0 / 0.1);
+  --font-size: 20px;
+}
+
 nav{
-    background-color: blue;
-    padding: 10px;
+    background-color:var(--heading-background-color);
+    padding:var(--padding);
     display: flex;
 }
 nav a{
-    color:white;
+    color:var(--heading-text-color);
     display:block;
     padding:20px;
+    font: var(--heading-font);
+    text-decoration: none;
 }
 h1{
     color:darkblue;
@@ -28,10 +39,15 @@ p{
 aside {
     width: 300px;
     margin: 20px auto;
-    border: 1px solid rgba(46, 37, 78, 0.3);
+    border: var(--border);
     padding: 15px;
     background-color: lightblue;
-    color: #222;
+    color:var(--heading-text-color);
+}
+
+aside h2{
+    font:var(--heading-font);
+    font-size: var(--font-size);
 }
 aside img{
     width:200px;
@@ -39,6 +55,6 @@ aside img{
 }
 footer{
     margin-top: 15px;
-    border: 1px solid rgba(20, 5, 75, 0.5); 
+    border: var(--border); 
     text-align: center;
 }
