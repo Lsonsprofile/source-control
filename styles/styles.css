@@ -5,8 +5,8 @@
 }
 
 :root {
-  --heading-background-color: #f06;
-  --heading-text-color: #333;
+  --heading-background-color:#FF66A3;
+  --heading-text-color:#0A0A0A;
   --heading-font: 'Montserrat', Helvetica, sans-serif;
   --padding: 1rem;
   --border: 1px solid rgba(127, 26, 87, 0.7);
