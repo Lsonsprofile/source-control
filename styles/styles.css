@@ -13,28 +13,28 @@
   --font-size: 15px;
 }
 
-nav{
+nav {
     background-color:var(--heading-background-color);
     padding:var(--padding);
     display: flex;
 }
-nav a{
+nav a {
     color:var(--heading-text-color);
     display:block;
     padding:20px;
     font-family: var(--heading-font);
     text-decoration: none;
 }
-h1{
+h1 {
     color:darkblue;
     text-align: center;
 }
 
-main{
+main {
     margin: 2px;
 }
 
-main img{
+main img {
     display: block;
     width:150px;
     height:auto;
@@ -44,7 +44,7 @@ main img{
     float:right;
 }
 
-p{
+p {
     padding:0;
 }
 
@@ -52,18 +52,18 @@ aside {
     width: 300px;
 }
 
-aside h2{
+aside h2 {
     position:relative;
     left:70px;
     top:25px;
     font-family:var(--heading-font);
     font-size: var(--font-size);
 }
-aside img{
+aside img {
     width:200px;
     height: auto;
 }
-footer{
+footer {
     margin-top: 15px;
     border: var(--border); 
     text-align: center;
