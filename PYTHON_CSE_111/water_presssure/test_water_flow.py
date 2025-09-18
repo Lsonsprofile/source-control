@@ -1,5 +1,8 @@
 """ My test file includes a test function that verifies that the kPa to psi conversion function works correctly """
-from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings, reynolds_number, pressure_loss_from_pipe_reduction, kpa_to_psi
+from waterflow import (water_column_height, 
+    pressure_gain_from_water_height, pressure_loss_from_pipe, 
+    pressure_loss_from_fittings, reynolds_number, 
+    pressure_loss_from_pipe_reduction, kpa_to_psi)
 from pytest import approx
 import pytest
 
