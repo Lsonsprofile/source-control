@@ -1,4 +1,5 @@
-from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings, reynolds_number, pressure_loss_from_pipe_reduction
+""" My test file includes a test function that verifies that the kPa to psi conversion function works correctly """
+from waterflow import water_column_height, pressure_gain_from_water_height, pressure_loss_from_pipe, pressure_loss_from_fittings, reynolds_number, pressure_loss_from_pipe_reduction, kpa_to_psi
 from pytest import approx
 import pytest
 
@@ -40,6 +41,13 @@ def test_pressure_loss_from_pipe_reduction():
     assert pressure_loss_from_pipe_reduction(0.28687, 0.00, 1, 0.048692) == pytest.approx(0.000, abs=0.001)
     assert pressure_loss_from_pipe_reduction(0.28687, 1.65, 471729, 0.048692) == pytest.approx(-163.744, abs=0.001)
     assert pressure_loss_from_pipe_reduction(0.28687, 1.75, 500318, 0.048692) == pytest.approx(-184.182, abs=0.001)
+
+def test_kpa_to_psi():
+    assert kpa_to_psi(0) == pytest.approx(0, abs=0.001)
+    assert kpa_to_psi(100) == pytest.approx(14.5038, abs=0.001)
+    assert kpa_to_psi(200) == pytest.approx(29.0075, abs=0.001)
+    assert kpa_to_psi(500) == pytest.approx(72.5189, abs=0.001)
+    assert kpa_to_psi(101.325) == pytest.approx(14.6959, abs=0.001)
 
 
 # Call the main function that is part of pytest so that the
