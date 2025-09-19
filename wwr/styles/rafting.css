@@ -68,21 +68,21 @@ h1 {
 
 .hero article img {
   float: right;
-  width: 125px;
+  width: 150px;
   border: 1px solid var(--accent1-color);
   border-radius:10px;
-  margin:20px;
+  margin: 1px;
   box-shadow:  0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 article {
   position: absolute;
+  height:120px;
   margin: 0;
   top: 73%;
   background-color: var(--overlay-color);
   color: #fff;
   font-family: var(--body-font);
-  font-size: 18px;
 }
 
 section{
