@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmanuel Ndogo | WDD 130</title>
+    <meta name="description" content="Home page of Emmanuel Ndogo, a BYU–Pathway Worldwide student studying Web Development (WDD 130). This site introduces Emmanuel and showcases his journey toward becoming a full-stack developer.">
+    <meta name="author" content="Emmanuel Ndogo">
+    <!-- Removed external CSS link and included styles below -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+
+        /* ONLY .grid is width-constrained now. header and footer are implicitly full-width */
+        .grid {
+            max-width: 840px;
+            margin: 0 auto;
+            /* CORRECTED: Adding padding here handles spacing from the screen edges on all views */
+            padding: var(--padding); 
+        }
+
+        :root {
+            --heading-background-color: #F17E7E;
+            --heading-text-color: #0A0A0A;
+            --heading-font: 'Montserrat', Helvetica, sans-serif;
+            --padding: 1rem;
+            --border: 1px solid rgba(127, 26, 87, 0.7);
+            --font-size: 1.2rem;
+        }
+
+        /* NEW: Apply background color to the HEADER for full-width stripe effect */
+        header {
+            background-color: var(--heading-background-color);
+        }
+
+        nav {
+            /* Nav content is constrained and centered, ensuring mobile padding */
+            max-width: 840px;
+            margin: 0 auto;
+
+            /* Original layout properties */
+            padding: var(--padding);
+            display: flex;
+            align-items: center;
+            /* CORRECTED: Using space-around for better mobile link distribution */
+            justify-content: space-around;
+            flex-wrap: wrap; /* Allow links to wrap on very small screens */
+        }
+
+        nav a {
+            color: var(--heading-text-color);
+            /* Increased padding for better touch targets on mobile */
+            padding: 0.5rem 1rem; 
+            font-family: var(--heading-font);
+            text-decoration: none;
+            font-size: var(--font-size);
+            font-weight: 700;
+        }
+
+        h1 {
+            color: darkblue;
+            text-align: center;
+            border-bottom: 1px solid black;
+        }
+
+        main {
+            /* No extra margin here */
+        }
+
+        main img {
+            display: block;
+            width: 150px;
+            height: auto;
+            border: 1px solid black;
+            padding: 2px;
+            box-shadow: 0 0 30px grey;
+            float: right;
+        }
+
+        p {
+            padding: 0;
+            font-size: var(--font-size);
+            font-weight: 400; /* Changed from 100 for better readability */
+            line-height: 1.5; /* Added for readability */
+        }
+
+        aside {
+            /* No extra margin here */
+            text-align: center; /* FIX: Center content in aside */
+        }
+
+        aside h2 {
+            /* FIX: Removed problematic fixed positioning that caused overflow */
+            font-family: var(--heading-font);
+            font-size: var(--font-size);
+            margin-bottom: 0.5rem; /* Add some space below the heading */
+        }
+
+        aside img {
+            width: 200px;
+            height: auto;
+            /* Added margin: 0 auto to center the block image horizontally */
+            margin: 0 auto;
+        }
+
+        footer {
+            margin-top: 15px;
+            /* Footer background and padding extends full width */
+            border-top: var(--border);
+            border-bottom: var(--border);
+            text-align: center;
+            padding:var(--padding);
+            clear: both;
+        }
+        
+        /* NEW: Constrain and center the footer text for better mobile alignment */
+        footer p {
+            max-width: 840px;
+            margin: 0 auto;
+        }
+
+        /* Class Selectors */
+        .box {
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 1rem;
+            background-color: var(--heading-background-color);
+            color: #000;
+        }
+
+        .box li {
+            list-style-type: none;
+        }
+
+        /* CSS Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+        
+        /* Grid Item Placement */
+        aside {
+            order: -1;
+            /* Added grid placement to ensure it starts at the first grid line */
+            grid-column: 1 / 2;
+            grid-row: 1/ 3;
+            /* Overriding margin from the generic aside selector */
+            margin: 0; 
+        }
+        
+        main {
+            /* Added grid placement to ensure it takes the other column */
+            grid-column: 2 / 3;
+            grid-row: 1 / 3; 
+        }
+        
+        /* Adjusting layout for better flow on small screens */
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+                padding: var(--padding);
+            }
+            main, aside {
+                grid-column: 1 / -1;
+                grid-row: auto;
+                margin: 0; /* Ensures no margin overrides */
+            }
+            aside {
+                order: 0; /* Resetting order for small screens */
+            }
+            /* Removing float from main image so it stays inline */
+            main img {
+                float: none;
+                margin: 0 auto 1rem auto;
+            }
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Rafting Website</a>
+            <a href="https://www.linkedin.com/in/emmanuel-ndogo-bbb54923a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a>
+            <a href="https://www.facebook.com/share/1BMxYhMyoc/">Facebook</a>
+        </nav>
+    </header>
+    <div class="grid">
+        <main>
+            <h1>Emmanuel Ndogo | WDD 130</h1>
+            <!-- NOTE: The 'images/profile.jpg' path requires you to have that file in an 'images' folder -->
+            <img src="https://placehold.co/150x200/8b5cf6/ffffff?text=Profile+Pic" alt="Emmanuel Ndogo">
+            <p>Hello, my name is Emmanuel Ndogo. I am originally from Abia State in the eastern part of Nigeria but currently live in Lagos—a place I proudly call home because it is both my birthplace and the city where I grew up and developed my values. I am twenty-seven years old and currently enrolled in BYU–Pathway Worldwide at Brigham Young University, studying Web Development online. My long-term goal is to become a highly skilled full-stack developer, combining creativity with technical expertise to build innovative and meaningful digital solutions.
+
+                Among all aspects of web development, I am especially drawn to the backend because of my curiosity about how systems, data, and processes work behind the scenes. My love for technology and my inquisitive nature inspire me to keep learning and experimenting.
+
+                Beyond academics, I am passionate about activities that involve adventure, strategic thinking, and teamwork. I enjoy coding side projects that challenge my skills, participating in technology-based service opportunities that improve lives, and contributing to projects that have a positive social impact. In my free time, I also love reading, exploring new ideas, and watching sports, which help me stay balanced, motivated, and connected to my community.
+            </p>
+            <ul class="box">
+                <li><a href="https://www.churchofjesuschrist.org/temples/details/aba-nigeria-temple?lang=eng" target="_blank">Aba Nigeria Temple</a></li>
+                <li><a href="https://churchofjesuschristtemples.org/accra-ghana-temple/" target="_blank">Accra Ghana Temple</a></li>
+                <li><a href="https://newsroom.churchofjesuschrist.org/article/brigham-city-utah-temple" target="_blank">Brigham City Utah Temple</a></li>
+            </ul>
+        </main>
+        <aside class="box">
+            <h2>Nigeria</h2>
+            <!-- NOTE: The 'images/nigeria.jpg' path requires you to have that file in an 'images' folder -->
+            <img src="https://placehold.co/200x250/8b5cf6/ffffff?text=Nigeria" alt="Nigeria">
+            <p>Nigeria is a vibrant country located in West Africa, known for its rich cultural heritage, diverse languages, and natural beauty. It is the most populous country in Africa and has a rapidly growing technology and creative industry. From its bustling cities like Lagos and Abuja to its scenic landscapes and traditions, Nigeria is a land full of energy, opportunities, and resilience.</p>
+        </aside>
+    </div>
+    <footer>
+        <p>&copy; 2025 | Emmanuel Ndogo | Nigeria</p>
+    </footer>
+</body>
+
+</html>
