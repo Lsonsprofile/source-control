@@ -7,6 +7,7 @@
 header, footer, .grid {
     max-width: 840px;
     margin: 0 auto;
+    width: 100%;
 }
 
 :root {
@@ -47,7 +48,7 @@ main {
 
 main img {
     display: block;
-    width:150px;
+    max-width:70%;
     height:auto;
     border:1px solid black;
     padding:2px;
@@ -73,7 +74,7 @@ aside h2 {
     font-size: var(--font-size);
 }
 aside img {
-    width:200px;
+    max-width:100%;
     height: auto;
 }
 footer {
