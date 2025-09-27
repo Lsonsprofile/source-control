@@ -122,25 +122,30 @@ header {
 
 /* FOOTER */
 footer {
+  position: relative;
   background-color: var(--primary-color);
   padding: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 footer p {
-  margin: 0;
+  text-align: center;
+  width:100%;
+  margin: 2rem;
 }
 
 .socialmedia {
+  position: relative;
+  right: 25px;
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .socialmedia img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 
 /* ADS */
