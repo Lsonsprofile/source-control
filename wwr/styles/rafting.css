@@ -31,7 +31,6 @@ header {
   margin-left: 50px;
 }
 
-/* NAVIGATION */
 .main-nav {
   display: flex;  
   justify-content: space-between;
@@ -54,7 +53,6 @@ header {
   font-size: 0.8rem;
 }
 
-/* HERO */
 .hero {
   position: relative;
   margin: 10px 0;
@@ -97,7 +95,6 @@ header {
   margin-left: 10px;
 }
 
-/* HISTORY */
 .history {
   width: 100%;
   display: grid;
@@ -120,7 +117,6 @@ header {
   object-fit: cover;
 }
 
-/* FOOTER */
 footer {
   position: relative;
   background-color: var(--primary-color);
@@ -148,7 +144,6 @@ footer p {
   height: 40px;
 }
 
-/* ADS */
 .adventure {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
