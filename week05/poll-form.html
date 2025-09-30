@@ -8,51 +8,56 @@
 </head>
 <body>
 
-  <header></header>
+  <header>
+    <h1>WDD130 | HTML form user poll</h1>
+  </header>
 
   <main>
-    <fieldset>
+    <form action="#" method="post">
+      <fieldset>
         <legend>Contact Information</legend>
-        <label for="fullname">Full Name:</label>
-        <input type="text" id="fullname" name="fullname">
-
-        <br>
+        <div class="form-item column2">
+          <label for="fullname">Full Name:</label>
+          <input type="text" id="fullname" name="fullname">
+        </div>
         
-        <label for="useremail">Email:</label>
-        <input type="email" id="useremail" name="useremail">
-    </fieldset>
-    
-    <fieldset>
+        <div class="form-item column2">
+          <label for="useremail">Email:</label>
+          <input type="email" id="useremail" name="useremail">
+        </div>
+      </fieldset>
+      
+      <fieldset>
         <legend>Questions</legend>
-        <label for=browsers>What browsers do you use?</label>
-        <select id="browsers" name="browsers">
-        <option value="chrome">Chrome</option>
-        <option value="firefox">Firefox</option>
-        <option value="safari">Safari</option>
-        <option value="edge">Edge</option>
-        <option value="other">Others</option>
-        </select>
+        <div class="form-item column1">
+          <label for="browsers">What browsers do you use?</label>
+          <select id="browsers" name="browsers">
+            <option value="chrome">Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="safari">Safari</option>
+            <option value="edge">Edge</option>
+            <option value="other">Others</option>
+          </select>
+        </div>
 
-        <br>
+        <div class="form-item column1">
+          <label for="pet">Do you have a household pet?</label>
+          <input type="checkbox" id="pet" name="pet">
+        </div>
 
-        <label for=pet>Do you have a household pet?</label>
-        <input type="checkbox" id="pet" name="pet">
-
-        <br>
-
-        <label for=feedback>List the places you have lived.</label>
-
-        <br>
-
-        <textarea id="feedback" name="feedback" placeholder="Nigeria, America, Canada, etc..." rows="3"></textarea>
-
-        <br>
+        <div class="form-item column3">
+          <label for="feedback">List the places you have lived.</label>
+          <textarea id="feedback" name="feedback" placeholder="Nigeria, America, Canada, etc..." rows="3"></textarea>
+        </div>
         
         <button type="submit">Submit Poll</button>
-    </fieldset>
+      </fieldset>
+    </form>
   </main>
 
-  <footer></footer>
+  <footer>
+    <p>&copy; 2025 My Website | HTML form user poll activity | Emmanuel Ndogo</p>
+  </footer>
 
 </body>
 </html>
