@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/poll-form.css">
+  <title>HTML Forms</title>
+</head>
+<body>
+
+  <header></header>
+
+  <main>
+    <fieldset>
+        <legend>Contact Information</legend>
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname">
+
+        <br>
+        
+        <label for="useremail">Email:</label>
+        <input type="email" id="useremail" name="useremail">
+    </fieldset>
+    
+    <fieldset>
+        <legend>Questions</legend>
+        <label for=browsers>What browsers do you use?</label>
+        <select id="browsers" name="browsers">
+        <option value="chrome">Chrome</option>
+        <option value="firefox">Firefox</option>
+        <option value="safari">Safari</option>
+        <option value="edge">Edge</option>
+        <option value="other">Others</option>
+        </select>
+
+        <br>
+
+        <label for=pet>Do you have a household pet?</label>
+        <input type="checkbox" id="pet" name="pet">
+
+        <br>
+
+        <label for=feedback>List the places you have lived.</label>
+
+        <br>
+
+        <textarea id="feedback" name="feedback" placeholder="Nigeria, America, Canada, etc..." rows="3"></textarea>
+
+        <br>
+        
+        <button type="submit">Submit Poll</button>
+    </fieldset>
+  </main>
+
+  <footer></footer>
+
+</body>
+</html>
