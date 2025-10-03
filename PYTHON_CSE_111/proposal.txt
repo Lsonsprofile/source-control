@@ -1,0 +1,60 @@
+CSE 111 Proposal for a Student Chosen Program
+
+    (This is a proposal. All proposals are written with our best
+    knowledge at the beginning of a project. As we progress from the
+    beginning to the end of a project, we gain more knowledge, and we
+    change some of our proposed ideas. This is part of completing any
+    project and is fine.  However, we still must write a proposal so
+    that our teachers or supervisors know what we intend to do. Please
+    answer each of the following questions to the best of your
+    knowledge.)
+
+1. What is the title of your program?
+
+Python Data Engine Retrieval with Requests
+2. What real-world problem will your program address or help to solve?
+It will help to with Retrieval of Data from the internet and store it in 
+any file type. which can be used for analysis. example: CSV,TXT, etc collecting 
+and checking online information by letting Python fetch the data automatically.
+
+3. What will you learn from developing this program?
+
+I will learn to use the requests module to fetch data from the internet and store 
+it in a file.I am going to Understand how programs interact with online servers and 
+APIs, which is a core skill for web development and data science.
+
+4. What Python modules will your program use?
+
+My program will use the following Python modules: requests, csv, datetime etc.
+
+    (Some examples are: csv, datetime, functools, matplotlib, math,
+    pandas, pytest, random, requests, and tkinter.)
+
+5. List the names of functions you will need?
+names of functions you I will need are: 
+1.get_data(url)
+2.write_to_file(filename, data)
+3.parse_data(response)
+4.display_data(data)
+5.save_data_to_file(data, filename)
+6.load_data_from_file(filename)
+
+    (Remember that the most reusable functions don't get user input and
+    don't print results but instead have parameters and return a result.
+    Functions that get user input and print results are important and do
+    useful work but are not easily reusable.)
+
+    (Remember also that it's hard to test functions that get user input
+    and print results. It's easy to test functions that don't get user
+    input and don't print results but instead have parameters and return
+    a result. Therefore, you should write most of your program functions
+    to have parameters and return a result.)
+
+6. List the names of the test functions you will write.
+1.test_get_data()
+2.test_write_to_file()
+3.test_parse_data()
+4.test_display_data()
+5.test_save_data_to_file()
+6.test_load_data_from_file()
+
