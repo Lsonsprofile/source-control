@@ -33,7 +33,7 @@ header {
 
 .main-nav {
   display: flex;
-  justify-content: flex-end;
+  justify-content:flex-end;
   gap: 1rem;
   list-style-type: none;
   margin: 0;
@@ -43,6 +43,7 @@ header {
 .main-nav li {
   background-color: var(--accent1-color);
   margin: 0;
+  padding: 1px;
 }
 
 .main-nav a {
