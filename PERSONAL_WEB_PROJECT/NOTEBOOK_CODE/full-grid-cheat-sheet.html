@@ -1,0 +1,374 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual CSS Grid Cheat Sheet</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Styles for visual clarity */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .container-section, .item-section {
+            border-left: 4px solid #3b82f6;
+            background-color: #ffffff;
+        }
+        .grid-visual {
+            min-height: 120px;
+            padding: 4px;
+            border: 2px dashed #9ca3af; /* Dashed border for container visualization */
+            border-radius: 6px;
+            margin-top: 10px;
+            background-color: #eef2ff; /* Blue-50 background */
+        }
+        .grid-item {
+            height: 50px;
+            background-color: #ef4444; /* Red-500 */
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .grid-area-box {
+            background-color: #e0f2f1; /* Teal 50 */
+            border: 1px solid #14b8a6; /* Teal 600 */
+            padding: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-10">
+
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+            <span class="text-blue-600">Visual CSS Grid</span> Cheat Sheet
+        </h1>
+        <p class="text-xl text-gray-600 mb-10">
+            Reference for Grid Container and Item properties, including visual examples for key alignment and spanning concepts.
+        </p>
+
+        <!-- Container Properties -->
+        <section class="mb-12 container-section p-4 pl-6 rounded-r-lg shadow-lg">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">1. Grid Container Properties (Parent)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Display & Templates -->
+                <div class="space-y-6">
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">display</h3>
+                        <p class="text-gray-700 mb-3">Defines the element as a grid container.</p>
+                        <div class="code-example text-sm font-mono bg-gray-200 p-2 rounded">
+                            .container { display: grid; }
+                        </div>
+                        <div class="grid-visual grid grid-cols-2">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-template-columns</h3>
+                        <p class="text-gray-700 mb-3">Defines column structure. Example: `1fr 200px 1fr`.</p>
+                        <div class="grid-visual grid grid-cols-[1fr_200px_1fr]">
+                            <div class="grid-item">1fr</div>
+                            <div class="grid-item">200px</div>
+                            <div class="grid-item">1fr</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-template-rows</h3>
+                        <p class="text-gray-700 mb-3">Defines row structure. Example: `100px 1fr`.</p>
+                        <div class="grid-visual grid grid-rows-[100px_1fr] grid-cols-2">
+                            <div class="grid-item">100px</div>
+                            <div class="grid-item">1fr</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-template-areas</h3>
+                        <p class="text-gray-700 mb-3">Defines a grid template by referencing named areas.</p>
+                        <div class="grid-visual grid grid-cols-2 grid-rows-2">
+                            <div class="grid-area-box" style="grid-area: 1 / 1 / 2 / 3;">Header</div>
+                            <div class="grid-area-box">Sidebar</div>
+                            <div class="grid-area-box">Content</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">gap</h3>
+                        <p class="text-gray-700 mb-3">Shorthand for row-gap and column-gap. Example: `15px`.</p>
+                        <div class="grid-visual grid grid-cols-3 gap-2">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">row-gap</h3>
+                        <p class="text-gray-700 mb-3">Sets spacing between rows. Example: `20px`.</p>
+                        <div class="grid-visual grid grid-cols-2" style="grid-row-gap: 20px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                            <div class="grid-item">image-four</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">column-gap</h3>
+                        <p class="text-gray-700 mb-3">Sets spacing between columns. Example: `20px`.</p>
+                        <div class="grid-visual grid grid-cols-2" style="column-gap: 20px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                            <div class="grid-item">image-four</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">justify-content</h3>
+                        <p class="text-gray-700 mb-3">Aligns the grid along the X-axis. Example: `space-between`.</p>
+                        <div class="grid-visual grid grid-cols-3 justify-between">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">align-content</h3>
+                        <p class="text-gray-700 mb-3">Aligns the grid along the Y-axis. Example: `space-evenly`.</p>
+                        <div class="grid-visual grid grid-cols-2 grid-rows-2 align-content-space-evenly" style="height: 200px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                            <div class="grid-item">image-four</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">justify-items</h3>
+                        <p class="text-gray-700 mb-3">Aligns content within grid cells along X-axis. Example: `center`.</p>
+                        <div class="grid-visual grid grid-cols-2 justify-items-center">
+                            <div class="grid-item w-1/2">image-one</div>
+                            <div class="grid-item w-1/2">image-two</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">align-items</h3>
+                        <p class="text-gray-700 mb-3">Aligns content within grid cells along Y-axis. Example: `start`.</p>
+                        <div class="grid-visual grid grid-cols-2 items-start" style="height: 100px;">
+                            <div class="grid-item w-1/2">image-one</div>
+                            <div class="grid-item w-1/2">image-two</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-auto-flow</h2>
+                        <p class="text-gray-700 mb-3">Controls auto-placed items flow. Example: `column dense`.</p>
+                        <div class="grid-visual grid grid-cols-2 grid-auto-flow-column-dense">
+                            <div class="grid-item" style="grid-column: 2;">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-auto-columns</h3>
+                        <p class="text-gray-700 mb-3">Sizes implicit columns. Example: `100px`.</p>
+                        <div class="grid-visual grid grid-cols-2" style="grid-auto-columns: 100px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item" style="grid-column: 3;">image-two</div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">grid-auto-rows</h3>
+                        <p class="text-gray-700 mb-3">Sizes implicit rows. Example: `100px`.</p>
+                        <div class="grid-visual grid grid-cols-2" style="grid-auto-rows: 100px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item" style="grid-row: 3;">image-two</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alignment Visuals -->
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">place-items (Shorthand for justify-items and align-items)</h3>
+                        <p class="text-gray-700 mb-3">Aligns content within cells. Example: `center`.</p>
+                        <div class="grid-visual grid grid-cols-2 place-items-center" style="height: 100px;">
+                            <div class="grid-item w-1/2">image-one</div>
+                            <div class="grid-item w-1/2">image-two</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">place-content (Shorthand for justify-content and align-content)</h3>
+                        <p class="text-gray-700 mb-3">Aligns the grid. Example: `center`.</p>
+                        <div class="grid-visual grid grid-cols-2 grid-rows-2 place-content-center" style="height: 200px;">
+                            <div class="grid-item">image-one</div>
+                            <div class="grid-item">image-two</div>
+                            <div class="grid-item">image-three</div>
+                            <div class="grid-item">image-four</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Item Properties -->
+        <section class="item-section p-4 pl-6 rounded-r-lg shadow-lg">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">2. Grid Item Properties (Children)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Spanning Visual -->
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">grid-column-start & grid-column-end</h3>
+                    <p class="text-gray-700 mb-3">Defines item column lines. Example: `2 / span 2`.</p>
+                    <div class="grid-visual grid grid-cols-4 p-4">
+                        <div class="grid-item" style="grid-column: 2 / span 2; height: 30px;">image-one</div>
+                        <div class="grid-area-box border-dashed">1</div>
+                        <div class="grid-area-box border-dashed">2</div>
+                        <div class="grid-area-box border-dashed">3</div>
+                        <div class="grid-area-box border-dashed">4</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">grid-row-start & grid-row-end</h3>
+                    <p class="text-gray-700 mb-3">Defines item row lines. Example: `2 / 4`.</p>
+                    <div class="grid-visual grid grid-cols-2 grid-rows-4 p-4">
+                        <div class="grid-item" style="grid-row: 2 / 4; height: 60px;">image-one</div>
+                        <div class="grid-area-box border-dashed">1</div>
+                        <div class="grid-area-box border-dashed">2</div>
+                        <div class="grid-area-box border-dashed">3</div>
+                        <div class="grid-area-box border-dashed">4</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">grid-column (Shorthand)</h3>
+                    <p class="text-gray-700 mb-3">Shorthand for start and end column lines. Example: `1 / 3`.</p>
+                    <div class="grid-visual grid grid-cols-4 p-4">
+                        <div class="grid-item" style="grid-column: 1 / 3; height: 30px;">image-one</div>
+                        <div class="grid-area-box border-dashed">1</div>
+                        <div class="grid-area-box border-dashed">2</div>
+                        <div class="grid-area-box border-dashed">3</div>
+                        <div class="grid-area-box border-dashed">4</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">grid-row (Shorthand)</h3>
+                    <p class="text-gray-700 mb-3">Shorthand for start and end row lines. Example: `2 / 4`.</p>
+                    <div class="grid-visual grid grid-cols-2 grid-rows-4 p-4">
+                        <div class="grid-item" style="grid-row: 2 / 4; height: 60px;">image-one</div>
+                        <div class="grid-area-box border-dashed">1</div>
+                        <div class="grid-area-box border-dashed">2</div>
+                        <div class="grid-area-box border-dashed">3</div>
+                        <div class="grid-area-box border-dashed">4</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">grid-area</h3>
+                    <p class="text-gray-700 mb-3">Assigns a name or defines position. Example: `header`.</p>
+                    <div class="grid-visual grid grid-cols-3 grid-rows-2">
+                        <div class="grid-area-box text-sm bg-purple-100" style="grid-area: 1 / 1 / 2 / 4;">Header</div>
+                        <div class="grid-area-box text-sm">Main</div>
+                        <div class="grid-area-box text-sm">Main</div>
+                        <div class="grid-area-box text-sm">Aside</div>
+                        <div class="grid-area-box text-sm bg-purple-100" style="grid-area: 2 / 1 / 3 / 3;">Content</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">justify-self</h3>
+                    <p class="text-gray-700 mb-3">Aligns item along X-axis. Example: `center`.</p>
+                    <div class="grid-visual grid grid-cols-2 p-2">
+                        <div class="border border-gray-400 flex items-center justify-center p-1">
+                            <div class="grid-item w-1/2">image-one</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">align-self</h3>
+                    <p class="text-gray-700 mb-3">Aligns item along Y-axis. Example: `start`.</p>
+                    <div class="grid-visual grid grid-cols-2 p-2" style="height: 100px;">
+                        <div class="border border-gray-400 flex items-start justify-center p-1">
+                            <div class="grid-item w-1/2">image-one</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-purple-700 mb-2">order</h3>
+                    <p class="text-gray-700 mb-3">Sets item order. Example: `-1`.</p>
+                    <div class="flex gap-2">
+                        <div class="w-1/3 bg-gray-300 p-2 rounded text-center">Item 1 (order: 0)</div>
+                        <div class="w-1/3 bg-red-300 p-2 rounded text-center" style="order: -1;">Item 2 (order: -1)</div>
+                        <div class="w-1/3 bg-blue-300 p-2 rounded text-center">Item 3 (order: 0)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-500 pt-8 mt-8 border-t border-gray-200">
+            Keep practicing to master these properties!
+        </footer>
+    </div>
+
+</body>
+</html>
