@@ -20,7 +20,7 @@ def main():
 
     # Call the setup function to build the rest of the GUI
     setup_main(frm_main)
-    
+
     # Keep the main window always on top
     root.attributes("-topmost", True)
     # Run the Tkinter event loop
@@ -78,7 +78,7 @@ def setup_main(frm):
         lbl_result.config(text=f"Rolls: {roll_text.strip()} | Total: {total}")
 
     # fixed: assign correct command to button
-    btn_roll.config(command=roll_action)
+    btn_roll.bind("<Button-1>", lambda event: roll_action())# can be replaed with "btn_roll.config(command=roll_action)"
 
 
 if __name__ == "__main__":
