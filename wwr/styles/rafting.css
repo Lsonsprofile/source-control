@@ -32,51 +32,73 @@ body {
 
 header {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--primary-color);
+  font-family: var(--heading-font);
 }
 
-.logo-link img {
-  width: 200px;
-  margin: 0;
+header img {
+  grid-column: 1/2;
+  width:200px;
+  border-radius: 8px;
+  margin:0 1rem;
 }
 
-
-.main-nav {
+nav {
   display: flex;
+  flex:0 10 auto;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 1rem;
-  list-style: none;
-  margin: 0;
-  padding:1rem;
+  padding:0 0.2rem;
 }
 
-.main-nav li {
-  background-color: var(--accent1-color);
-  margin: 0;
-  padding: 1px;
-  border-radius: 4px;
+a.active {
+  background-color: var(--btn-primary-bg);
+  font-weight: bold;
+  border-bottom: 2px solid var(--accent-color);
 }
 
-.main-nav a {
+header nav a {
+  color: white;
   text-decoration: none;
-  color: #fff;
-  padding: 5px 10px;
-  text-align: center;
-  font-size: 0.8rem;
-  display: block;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  background-color: #000000;
+  padding: 0.3rem;
+  margin: 10px;
 }
 
-.main-nav li:hover {
-  background-color: var(--accent2-color);
+nav a:hover {
+  color: #000000;
+  background-color: #ffffff;
+  transition: 0.5s ease;
 }
 
-.main-nav li:hover a {
-  color: #000;
+nav a:active {
+  background-color: #010d13;
 }
 
+@media (max-width: 400px) {
+  header {
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header img {
+    grid-column: 1/-1;
+    justify-self: center;
+  }
+
+  nav {
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+}
 
 .hero {
   position: relative;
@@ -161,23 +183,21 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap:10px;
 }
 
 footer p {
   margin: 0;
   text-align: center;
   flex: 1;
+  padding: 0;
 }
 
-.socialmedia {
-  display: flex;
-  gap: 20px;
-}
 
-.socialmedia img {
+footer img {
   width: 40px;
   height: 40px;
-  display: block;
+  padding: 0;
 }
 
 .adventure {
@@ -196,20 +216,8 @@ footer p {
   margin: 1rem;
 }
 
-.ads-image {
-  width: 100%;
-  height: 100%;
-}
 
-.ads-image img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border: 5px solid #f9f8f8c2;
-}
-
-
-.ads-image figcaption {
+figure figcaption {
   font-size: 0.9rem;
   margin-top: 0.5rem;
   background-color: rgba(251, 249, 249, 0.5);
@@ -394,20 +402,15 @@ button:active {
   margin-top: 1rem;
 }
 
-.ads-image img,
-.services img {
+
+figure img {
+  margin: 0;
   width: 100%;
   height: 150px;
   background-color: #ccc;
   object-fit: cover;
+  border: 5px solid #f9f8f8c2
 }
-
-figure {
-  margin: 0;
-}
-
-
-
 
 .epic-action-shot {
   position: relative;

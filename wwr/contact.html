@@ -4,24 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>White Water Rafting | contact Us page</title>
-  <meta name="description" content="Reach White Water Rafting Co. for inquiries, reservations, or suggestions. View our location, meet our team, and connect through our contact form. Newsletter subscription and support available.">
+  <meta name="description" content="contact page says Reach White Water Rafting Co. for inquiries, reservations, or suggestions. View our location, meet our team, and connect through our contact form. Newsletter subscription and support available.">
   <meta name="author" content="Emmanuel Ndogo">
   <link rel="stylesheet" href="styles/rafting.css">
 </head>
 <body>
   <header>
-    <a href="home.html" class="logo-link">
-      <img src="images/rafting.png" alt="White Water Rafting logo">
-    </a>
-    <nav>
-      <ul class="main-nav">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="trip.html">Trips</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </nav>
-  </header>
+<img src="images/rafting.png" alt="White Water Rafting logo">
+<nav>
+<a href="home.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="trip.html">Trips</a>
+<a href="contact.html" class="active">Contact Us</a>
+</nav>
+</header>
 
   <main>
     <div class="main">
@@ -39,7 +35,7 @@
       </div>
     </section>
       <section class="contact-form">
-        <h2>Contact Us</h2>
+        <h2>Contact Us | White Water Rafting</h2>
         <form>
           <div class="form-item input1">
             <label for="name">Name</label>
@@ -52,9 +48,9 @@
           <div class="form-item">
             <label>Message Purpose</label>
             <div class="radio-group">
-              <label><input type="radio" name="purpose" value="general"> General Inquiry</label>
-              <label><input type="radio" name="purpose" value="reservation"> Reservation Question</label>
-              <label><input type="radio" name="purpose" value="suggestion"> Website Suggestion</label>
+              <label><input type="radio" id="inquiry" name="purpose" value="general"> General Inquiry</label>
+              <label><input type="radio" id="reservation" name="purpose" value="reservation"> Reservation Question</label>
+              <label><input type="radio" id="website" name="purpose" value="suggestion"> Website Suggestion</label>
             </div>
           </div>
           <div class="form-item messages">
@@ -62,38 +58,36 @@
             <textarea id="message" placeholder="Type here..." rows="3"></textarea>
           </div>
           <div class="checkbox">
-            <label><input type="checkbox" name="subscribe"> Please Subscribe me to the monthly newsletter</label>
+            <label><input type="checkbox" id="newsletter" name="subscribe"> Please Subscribe me to the monthly newsletter</label>
           </div>
           <button type="submit">Get in Touch!</button>
         </form>
       </section>
+
+
       <section class="services">
-        <h2>We Are Here To Serve</h2>
-        <div class="ads-image">
+        <h2>MEET OUR GUIDES</h2>
           <figure>
             <img src="images/anaka.jpg" alt="Anaka Yuki profile image">
             <figcaption>Anaka Yuki - Customer Service Specialist</figcaption>
           </figure>
-        </div>
-        <div class="ads-image">
+
           <figure>
-            <img src="images/Dmitri.jpg" alt="Dmitri Martinez profile image">
+            <img src="images/dmitri.jpg" alt="Dmitri Martinez profile image">
             <figcaption>Dmitri Martinez - General Manager of Rafting Company</figcaption>
           </figure>
-        </div>
-        <div class="ads-image">
+
           <figure>
-            <img src="images/Martinez.jpg" alt="Smith Martinez profile image">
+            <img src="images/martinez.jpg" alt="Smith Martinez profile image">
             <figcaption>Smith Martinez - Adventure Tour Coordinator</figcaption>
           </figure>
-        </div>
       </section>
+      
     </div>
   </main>
 
   <footer>
     <p>&copy; 2025 | White Water Rafting Co. | Emmanuel Ndogo</p>
-    <nav class="socialmedia" aria-label="Social media links">
       <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
         <img src="images/facebook.svg" alt="Facebook icon">
       </a>
@@ -103,7 +97,6 @@
       <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
         <img src="images/instagram.svg" alt="Instagram icon">
       </a>
-    </nav>
   </footer>
 </body>
 </html>
