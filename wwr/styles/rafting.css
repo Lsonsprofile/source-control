@@ -1218,3 +1218,85 @@ figure {
   margin-bottom: 1.5rem;
 }
 
+
+
+
+.trips-table-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--secondary-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  width:100%;
+  border-top: 2px solid #0a0a0a;
+}
+
+.trips-table-heading {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  color: var(--accent1-color);
+  margin: 0;
+  text-align: center;
+}
+
+.trips-summary-table {
+  width: 100%;
+  max-width: 1000px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  font-family: var(--body-font);
+  border-collapse:collapse;
+}
+
+.trips-summary-table th,
+.trips-summary-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 3px solid #e1e5e9;
+}
+
+.trips-summary-table th {
+  background: var(--accent1-color);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.trips-summary-table tbody tr:hover {
+  background: #e5ebf2;
+  transition: background 0.2s ease;
+}
+
+.trips-summary-table td {
+  color: var(--accent1-color);
+  font-size: 0.95rem;
+  border:1px solid black;
+}
+
+
+@media (max-width: 768px) {
+.trips-table-section {
+  padding: 1.5rem;
+}
+
+.trips-summary-table th,
+.trips-summary-table td {
+  padding: 0.75rem;
+  font-size: 0.9rem;
+}
+}
+
+@media (max-width: 480px) {
+.trips-summary-table th,
+.trips-summary-table td {
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+}
