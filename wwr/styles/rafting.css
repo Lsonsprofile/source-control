@@ -34,7 +34,6 @@ header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
-  padding: 0.5rem 3rem;
   background-color: var(--primary-color);
 }
 
@@ -43,13 +42,14 @@ header {
   margin: 0;
 }
 
+
 .main-nav {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding:1rem;
 }
 
 .main-nav li {
@@ -372,6 +372,11 @@ button {
 
 button:hover {
   background-color: var(--accent2-color);
+  color: black;
+}
+
+button:active {
+  background-color: var(--btn-secondary-bg);
 }
 
 .services {
@@ -512,15 +517,15 @@ figure {
 
 .trip-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-row: 1;
+  gap: 1rem;
 }
 
 .trip-card {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -746,9 +751,151 @@ figure {
 
 
 
+.adventure-newsletter-hero {
+  background-color: var(--secondary-color);
+  padding: 1rem 2rem;
+  font-family: var(--body-font);
+}
+
+.adventure-newsletter-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.adventure-newsletter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.adventure-newsletter-visual {
+  color: var(--accent1-color);
+}
+
+.adventure-newsletter-heading {
+  font-family: var(--heading-font);
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--btn-primary-bg);
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.adventure-newsletter-subtext {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+}
+
+.adventure-newsletter-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.adventure-newsletter-benefit-item {
+  background-color: var(--primary-color);
+  color: var(--accent1-color);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.adventure-newsletter-form-container {
+  padding: 0;
+  margin: 0;
+}
+
+.adventure-newsletter-form-card {
+  background-color: var(--text-stroke-light); 
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-top: 5px solid var(--btn-primary-bg); 
+}
+
+.adventure-newsletter-form-header h3 {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--accent1-color);
+  margin-bottom: 0.25rem;
+}
+
+.adventure-newsletter-form-header p {
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.adventure-newsletter-form {
+  display:flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.group-1 {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.group-1 label {
+  align-self: center;
+  font-size: 1rem;
+}
+
+.group-2 {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.group-2 label {
+  align-self: center;
+  font-size: 1rem;
+}
+
+.adventure-newsletter-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.adventure-newsletter-form-group input {
+  padding: 0.75rem 1rem;
+}
+
+
+
+
+.adventure-newsletter-checkbox-label input:checked ~ .adventure-newsletter-checkmark:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(5px, -1px);
+}
+
+
+.adventure-newsletter-form-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--primary-color);
+}
+
+
+
+
 .intro-banner-wrap {
   position: relative;
-  height: 500px;
+  height: 700px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -776,7 +923,7 @@ figure {
 }
 
 .intro-banner-heading {
-  font-size: 3.5em;
+  font-size: 2.5em;
   font-family: var(--heading-font);
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px #000;
@@ -795,7 +942,7 @@ figure {
   background-color: var(--secondary-color);
   color: var(--text-light);
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 5rem;
   font-weight: bold;
   font-size: 1.1em;
   margin: 2em auto;
@@ -834,6 +981,7 @@ figure {
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
+  border-top: 2px solid;
 }
 
 .event-section h2 {
@@ -868,6 +1016,7 @@ figure {
 .toggle-label:hover {
   background-color: var(--accent2-color);
   color: var(--accent1-color);
+  box-shadow: 1px 1px 4px rgb(0, 0, 0);
 }
 
 .toggle-label:active {
@@ -940,3 +1089,132 @@ figure {
 .email-subscribe button:active {
   background-color: var(--btn-secondary-hover-text);
 }
+
+
+
+
+.adventure-cta {
+  background-color: var(--primary-color);
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 2px 8px 24px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 800px;
+  border-bottom: 2px solid var(--accent1-color);
+}
+
+.adventure-cta-container {
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 2px solid var(--accent1-color);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.adventure-cta-heading {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--accent1-color);
+  margin-bottom: 1rem;
+}
+
+.adventure-cta-subtext {
+  font-family: var(--body-font);
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.adventure-cta-button {
+  display: inline-block;
+  background-color: var(--btn-secondary-hover-text);
+  color: var(--accent2-color);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.adventure-cta-button:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-secondary-hover-text);
+  box-shadow: 1px 1px 4px rgb(0, 0, 0);
+}
+
+
+
+.main-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  overflow: hidden;
+}
+
+.main-wrapper ~ h2 {
+  background-color: rgba(29, 1, 1, 0.9);
+  color: #fff;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+}
+
+.header-history-title {
+  text-align: center;
+  padding: 1rem;
+}
+
+.history-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.image-column {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-column img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.text-column {
+  padding: 3rem 2rem;
+  background-color: var(--secondary-color);
+  font-family: var(--body-font);
+}
+
+.history-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent1-color);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.history-paragraph {
+  color: #0f0f10;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+

@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>White Water Rafting | Home page</title>
-  <meta name="description" content="About White Water Rafting — our mission, history, and why adventure seekers choose us.">
+  <title>White Water Rafting | trip page</title>
+  <meta name="description" content="Plan your thrilling rafting adventure! Discover why our certified guides, premium gear, and eco-friendly practices make us the best choice. Subscribe to our newsletter for exclusive trip updates. Book now!">
   <meta name="author" content="Emmanuel Ndogo">
   <link rel="stylesheet" href="styles/rafting.css">
 </head>
 <body>
-
   <header>
     <a href="home.html" class="logo-link">
       <img src="images/rafting.png" alt="White Water Rafting logo">
@@ -24,75 +23,125 @@
     </nav>
   </header>
   <main>
-     <section class="intro-banner-wrap">
-      <img class="intro-banner-bg" src="images/rafting-hero-1.jpg" alt="Rafting team navigating intense rapids under a blue sky" />
-      <div class="intro-banner-content">
-        <h1 class="intro-banner-heading">ADVENTURE STARTS HERE</h1>
-        <p class="intro-banner-subtext">An unforgettable white water experiences, guided by the industry's top professionals.</p>
-        <a href="trip.html" class="intro-banner-button">BOOK YOUR TRIP NOW</a>
+    <section class="epic-action-shot">
+      <div class="epic-overlay">
+        <img src="images/epic-river.jpg" alt="Epic river action shot" class="epic-image">
+        <h1> ADVENTURE STARTS HERE</h1>
+        <h2> we have the adventure for you!</h2>
+        <p>"Experience the thrill of wild rivers with expert guides"</p>
+        <div class="epic-buttons">
+          <a href="contact.html" class="btn primary">Book Your Trip Now</a>
+          <a href="about.html" class="btn secondary">Learn More</a>
+        </div>
       </div>
     </section>
 
-    <section class="event-section">
-    <h2>SPECIAL UPCOMING RAFTING EVENTS</h2>
-    <p>Subscribe to be notified when your favorite events open for payment.</p>
+    <section class="why-adventure">
+      <h2><img src="images/why-icon.svg" alt="why Adventure Icon" class="why-icon">WHY ADVENTURE WITH US?</h2>
+      <div class="adventure-grid">
+        <div class="adventure-card">
+          <img src="images/safety-icon.svg" alt="Safety Icon" class="adventure-icon">
+          <h3>Certified Safety Protocols</h3>
+          <p>We follow industry-standard safety procedures to ensure every trip is secure and worry-free.</p>
+        </div>
+        <div class="adventure-card">
+          <img src="images/guides-icon.svg" alt="Expert Guides Icon" class="adventure-icon">
+          <h3>10+ Years Experience</h3>
+          <p>Our guides are seasoned professionals with deep river knowledge and first-aid training.</p>
+        </div>
+        <div class="adventure-card">
+          <img src="images/gear-icon.svg" alt="Premium Gear Icon" class="adventure-icon">
+          <h3>Top Brand Equipment</h3>
+          <p>We use high-quality gear from trusted brands to keep you comfortable and protected.</p>
+        </div>
+        <div class="adventure-card">
+          <img src="images/eco-icon.svg" alt="Eco-Friendly Icon" class="adventure-icon">
+          <h3>River Conservation Partners</h3>
+          <p>We support eco-friendly practices and partner with local groups to protect our waterways.</p>
+        </div>
+      </div>
+    </section>
 
-    <!-- Hidden checkbox to control toggle -->
-    <input type="checkbox" id="toggle-events" />
-    <label for="toggle-events" class="toggle-label">SUBSCRIBE FOR ADVENTURE EVENT</label>
+    <section class="plan-adventure">
+      <h2><img src="images/plan-icon.svg" alt="Phone Icon" class="icon-svg">PLAN YOUR ADVENTURE</h2>
+      <div class="adventure-container">
+        <img src="images/happy-rafting.jpg" alt="Happy group rafting" class="float-image">
+        <div class="adventure-text">
+          <p class="headline">Ready to Ride the Rapids?</p>
+          <p class="subtext">Contact us today to book your trip!</p>
+          <a href="contact.html" class="contact-btn">Go to Contact</a>
+        </div>
+      </div>
+    </section>
 
-    <!-- Table: Event Name | Date | Select -->
-    <table class="event-table">
-      <thead>
-        <tr>
-          <th>Event Name</th>
-          <th>Date</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Multi-Day Expedition</td>
-          <td>May 15–17</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>Family Float</td>
-          <td>June 5</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>Full Moon Raft</td>
-          <td>June 20</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>Fireworks Float</td>
-          <td>July 4</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>Advanced Rapids</td>
-          <td>July 18–20</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-        <tr>
-          <td>Sunset Social Float</td>
-          <td>Aug 12</td>
-          <td><input type="checkbox" /></td>
-        </tr>
-      </tbody>
-    </table>
+    <section class="adventure-newsletter-hero">
+      <div class="adventure-newsletter-container">
+        <div class="adventure-newsletter-grid">
+        
+          <div class="adventure-newsletter-visual">
+            <h2 class="adventure-newsletter-heading">News Letter</h2>
+            <p class="adventure-newsletter-subtext">
+              Be the first to know about exclusive rafting trips, special events, 
+              and limited-time offers. Join thousands of thrill-seekers!
+            </p>
+            <div class="adventure-newsletter-benefits">
+              <div class="adventure-newsletter-benefit-item">
+                <span>Exclusive Deals</span>
+              </div>
+              <div class="adventure-newsletter-benefit-item">
+                <span>Event Alerts</span>
+              </div>
+              <div class="adventure-newsletter-benefit-item">
+                <span>VIP Access</span>
+              </div>
+            </div>
+          </div>
 
-    <div class="email-subscribe">
-      <p>Enter your email to get notified when selected events open:</p>
-
-      <label for="email-input">Email Address:</label>
-      <input id="email-input" type="email" placeholder="Enter your email address..." />
-
-      <button>Subscribe</button>
-    </div>
-  </section>
+          <div class="adventure-newsletter-form-container">
+            <div class="adventure-newsletter-form-card">
+              <div class="adventure-newsletter-form-header">
+                <h3>Join the Adventure Crew</h3>
+                <p>Sign up in seconds for rafting updates</p>
+              </div>
+              <form class="adventure-newsletter-form" novalidate>
+                <div class="group-1">
+                  <label for="name-input">Name:</label>
+                  <input 
+                    type="text" 
+                    id="name-input" 
+                    name="name" 
+                    placeholder="John Doe" 
+                    required 
+                    aria-required="true">
+                </div>
+                <div class="group-2">
+                  <label for="email-input">Email:</label>
+                  <input 
+                    type="email" 
+                    id="email-input" 
+                    name="email" 
+                    placeholder="john@example.com" 
+                    required 
+                    aria-required="true">
+                </div>
+                <div class="adventure-newsletter-checkbox-group">
+                  <label class="adventure-newsletter-checkbox-label">
+                    <input type="checkbox" id="privacy" name="privacy" required>
+                    <span class="adventure-newsletter-checkmark"></span>
+                    I agree to receive awesome rafting updates and privacy policy
+                  </label>
+                </div>
+                <button type="submit" class="adventure-newsletter-btn primary">
+                  <span class="adventure-newsletter-btn-text">Subscribe to Newletter</span>
+                </button>
+              </form>
+              <div class="adventure-newsletter-form-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <footer>
     <p>&copy; 2025 | White Water Rafting Co. | Emmanuel Ndogo.</p>
@@ -108,6 +157,5 @@
       </a>
     </nav>
   </footer>
-
 </body>
 </html>
