@@ -1,28 +1,10 @@
 import pytest
-from weather import is_data_ok, validate_file_path
-
-# ---- Test 1: Test the is_data_ok() function ----
-def test_is_data_ok():
-    # Valid data (should return True)
-    valid_data = {
-        "main": {"temp": 298, "humidity": 60},
-        "weather": [{"description": "clear sky"}],
-        "name": "London"
-    }
-    assert is_data_ok(valid_data) == True
-
-    # Missing "main" key (should return False)
-    invalid_data_1 = {
-        "weather": [{"description": "rain"}],
-        "name": "Paris"
-    }
-    assert is_data_ok(invalid_data_1) == False
-
-    # Empty dictionary (should return False)
-    assert is_data_ok({}) == False
+import os
+import csv
+from weather import validate_file_path, save_to_csv
 
 
-# ---- Test 2: Test the validate_file_path() function ----
+# ---- Test 1: validate_file_path() ----
 def test_validate_file_path(tmp_path):
     # Create a temporary file
     file = tmp_path / "test.csv"
@@ -36,5 +18,38 @@ def test_validate_file_path(tmp_path):
     assert validate_file_path(str(fake_path)) == False
 
 
+# ---- Test 2: save_to_csv() ----
+def test_save_to_csv(tmp_path, monkeypatch):
+    """Test saving weather data to a CSV file"""
+    # Redirect FILE_NAME to a temporary path
+    temp_file = tmp_path / "weatherdata_history.csv"
+    monkeypatch.setattr("weather.FILE_NAME", str(temp_file))
+
+    # Mock tkinter messageboxes to avoid GUI errors
+    monkeypatch.setattr("weather.messagebox.showinfo", lambda *args, **kwargs: None)
+    monkeypatch.setattr("weather.messagebox.showerror", lambda *args, **kwargs: None)
+
+    # Prepare fake weather data
+    sample_data = {
+        "name": "Lagos",
+        "main": {"temp": 300.15, "humidity": 80},
+        "weather": [{"description": "cloudy"}],
+        "wind": {"speed": 4.5}
+    }
+
+    # Call function
+    save_to_csv(sample_data)
+
+    # Assert file was created
+    assert os.path.exists(temp_file)
+
+    # Read CSV contents and verify headers + values
+    with open(temp_file, newline="") as f:
+        reader = list(csv.reader(f))
+        assert reader[0] == ["Time", "Location", "Temperature (C)", "Weather", "Humidity", "Wind Speed (m/s)"]
+        assert "Lagos" in reader[1]
+        assert "cloudy" in reader[1]
+
+
 if __name__ == "__main__":
-    pytest.main(['-v', '--tb=line', '-rN', __file__])
+    pytest.main(["-v", "--tb=line", "-rN", __file__])
