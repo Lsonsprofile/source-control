@@ -1,158 +1,226 @@
-import os
+
+import tkinter as tk
+from tkinter import messagebox, ttk
 import requests
 import csv
 from datetime import datetime
-import tkinter as tk
-from tkinter import messagebox, scrolledtext
+import os
 
 API_KEY = "dea7d385660914c914dfd7d319b0d3f3"
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
-FILE_NAME = "PYTHON_CSE_111/python_weather_data_retrieval/weatherdata_history.csv"  # Simplified path to ensure saving works
+FILE_NAME = "PYTHON_CSE_111/python_weather_data_retrieval/weatherdata_history.csv"
 
-def get_weather_data(location, api_key):
-    # Fetch weather data from OpenWeatherMap API
-    params = {"q": location, "appid": api_key}
+def fetch_weather(city):
     try:
+        params = {'q': city, 'appid': API_KEY, 'units': 'metric'}
         response = requests.get(BASE_URL, params=params)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            messagebox.showerror("Error", f"API returned status code {response.status_code}")
-            return None
-    except Exception:
-        messagebox.showerror("Error", "Unable to connect to the weather API.")
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        messagebox.showerror("Error", f"Failed to retrieve data: {e}")
         return None
 
-def is_data_ok(data):
-    # Check if the data is valid
-    if not data:
-        return False
-    return "main" in data and "weather" in data and "name" in data
+def display_weather():
+    CSV_FILE = FILE_NAME
+    city = city_entry.get()
+    if not city:
+        messagebox.showwarning("Input Error", "Please enter a city name")
+        return
+    
+    data = fetch_weather(city)
+    if data:
+        for widget in result_frame.winfo_children():
+            widget.destroy()
+        
+        date = datetime.now().strftime("%Y-%m-%d")
+        time = datetime.now().strftime("%H:%M:%S")
+        temp = data['main']['temp']
+        humidity = data['main']['humidity']
+        wind = data['wind']['speed']
+        description = data['weather'][0]['description'].title()
+        feels_like = data['main']['feels_like']
+        pressure = data['main']['pressure']
+        
+        tk.Label(result_frame, text=f"Weather in {city}:", font=("Arial", 14, "bold")).pack(anchor="w")
+        date_label = tk.Label(result_frame, text=f"Date: {date}", font=("Arial", 8, "bold"))
+        date_label.pack(anchor="w")
+        time_label = tk.Label(result_frame, text=f"Time: {time}", font=("Arial", 8, "bold"))
+        time_label.pack(anchor="w")
+        tk.Label(result_frame, text=f"Temperature: {temp}°C").pack(anchor="w")
+        tk.Label(result_frame, text=f"Feels Like: {feels_like}°C").pack(anchor="w")
+        tk.Label(result_frame, text=f"Conditions: {description}").pack(anchor="w")
+        tk.Label(result_frame, text=f"Humidity: {humidity}%").pack(anchor="w")
+        tk.Label(result_frame, text=f"Wind Speed: {wind} m/s").pack(anchor="w")
+        tk.Label(result_frame, text=f"Pressure: {pressure} hPa").pack(anchor="w")
+        
+        save_button.config(state="normal", command=lambda: save_to_csv(data))
 
 def save_to_csv(data):
-    # Save weather data to CSV file
-    try:
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        location = data["name"]
-        temp = data["main"]["temp"] - 273.15
-        weather = data["weather"][0]["description"]
-        humidity = data["main"]["humidity"]
+    CSV_FILE = FILE_NAME
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    city = data['name']
+    temp = data['main']['temp']
+    humidity = data['main']['humidity']
+    wind = data['wind']['speed']
+    description = data['weather'][0]['description']
+    
+    file_exists = os.path.isfile(CSV_FILE)
+    
+    with open(CSV_FILE, 'a', newline='') as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["Timestamp", "City", "Temperature (°C)", "Humidity (%)", "Wind Speed (m/s)", "Conditions"])
+        writer.writerow([timestamp, city, temp, humidity, wind, description])
+    
+    messagebox.showinfo("Success", "Weather data saved successfully!")
 
-        # Ensure the directory exists
-        os.makedirs(os.path.dirname(FILE_NAME), exist_ok=True) if os.path.dirname(FILE_NAME) else None
-        file_exists = os.path.exists(FILE_NAME)
-        with open(FILE_NAME, "a", newline="") as csv_file:
-            writer = csv.writer(csv_file)
-            if not file_exists:
-                writer.writerow(["Time", "Location", "Temperature (C)", "Weather", "Humidity"])
-            writer.writerow([current_time, location, f"{temp:.1f}", weather, humidity])
-
-        messagebox.showinfo("Success", f"Data saved successfully to {FILE_NAME}")
-
-    except PermissionError:
-        messagebox.showerror("Error", "Permission denied when saving the file. Please close it if it is open.")
-    except Exception as e:
-        messagebox.showerror("Error", f"Unexpected error while saving data: {e}")
-
-def show_history():
-    # Display the contents of the CSV file in the text area
-    try:
-        text_area.config(state='normal')  # Enable editing to update content
-        text_area.delete(1.0, tk.END)  # Clear existing content
-
-        if not os.path.exists(FILE_NAME):
-            text_area.insert(tk.END, "No history found. The CSV file does not exist yet.")
-        else:
-            with open(FILE_NAME, "r", newline="") as csv_file:
-                reader = csv.reader(csv_file)
-                headers = next(reader, None)  # Read headers
-                if headers:
-                    text_area.insert(tk.END, ", ".join(headers) + "\n" + "-"*80 + "\n")
-                for row in reader:
-                    text_area.insert(tk.END, ", ".join(row) + "\n")
-        
-        text_area.config(state='disabled')  # Make text area read-only
-
-    except PermissionError:
-        messagebox.showerror("Error", "Permission denied when reading the file. Please close it if it is open.")
-    except Exception as e:
-        messagebox.showerror("Error", f"Unexpected error while reading history: {e}")
-
-def fetch_weather():
-    # Handle button click to fetch and display weather data
-    location = entry_location.get().strip()
-    if not location:
-        messagebox.showerror("Error", "Please enter a valid city or country.")
+def view_history():
+    CSV_FILE = FILE_NAME
+    if not os.path.exists(CSV_FILE):
+        messagebox.showinfo("No Data", "No saved weather data found")
         return
+    
+    history_window = tk.Toplevel(root)
+    history_window.title("Weather History")
+    history_window.geometry("600x400")
+    
+    tree = ttk.Treeview(history_window, columns=("Timestamp", "City", "Temperature", "Humidity", "Wind", "Conditions"), show="headings")
+    
+    tree.heading("Timestamp", text="Timestamp")
+    tree.heading("City", text="City")
+    tree.heading("Temperature", text="Temp (°C)")
+    tree.heading("Humidity", text="Humidity (%)")
+    tree.heading("Wind", text="Wind (m/s)")
+    tree.heading("Conditions", text="Conditions")
+    
+    tree.column("Timestamp", width=120)
+    tree.column("City", width=100)
+    tree.column("Temperature", width=80)
+    tree.column("Humidity", width=80)
+    tree.column("Wind", width=80)
+    tree.column("Conditions", width=120)
+    
+    scrollbar = ttk.Scrollbar(history_window, orient="vertical", command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side="right", fill="y")
+    tree.pack(fill="both", expand=True)
+    
+    with open(CSV_FILE, 'r') as f:
+        reader = csv.reader(f)
+        next(reader)
+        for row in reader:
+            tree.insert("", "end", values=row)
 
-    data = get_weather_data(location, API_KEY)
-    if not data:
-        messagebox.showerror("Error", "Could not fetch data. Please check your internet or the city name.")
-        return
+# Main application function
+def main():
+    global root, city_entry, result_frame, save_button
+    
+    root = tk.Tk()
+    root.title("Weather App")
+    root.geometry("400x300")
+    root.resizable(False, False)
 
-    if is_data_ok(data):
-        city = data["name"]
-        temp = data["main"]["temp"] - 273.15
-        weather = data["weather"][0]["description"]
-        humidity = data["main"]["humidity"]
-        current_time = datetime.now()
-        date_str = current_time.strftime("%Y-%m-%d")
-        time_str = current_time.strftime("%H:%M:%S")
+    # Input frame
+    input_frame = tk.Frame(root, padx=10, pady=10)
+    input_frame.pack(fill="x")
 
-        # Update display labels
-        label_date.config(text=f"Date: {date_str}")
-        label_time.config(text=f"Time: {time_str}")
-        label_city.config(text=f"Location: {city}")
-        label_temp.config(text=f"Temperature: {temp:.1f}°C")
-        label_weather.config(text=f"Weather: {weather}")
-        label_humidity.config(text=f"Humidity: {humidity}%")
+    tk.Label(input_frame, text="Enter City:").pack(side="left")
+    city_entry = tk.Entry(input_frame, width=30)
+    city_entry.pack(side="left", padx=5)
+    city_entry.focus()
 
-        # Ask user to save data
-        if messagebox.askyesno("Save Data", "Do you want to save this data to weatherdata_history.csv?"):
-            save_to_csv(data)
-        else:
-            messagebox.showinfo("Info", "Data not saved.")
-    else:
-        messagebox.showerror("Error", "Invalid or incomplete data received. Try another location.")
+    fetch_button = tk.Button(input_frame, text="Get Weather", command=display_weather)
+    fetch_button.pack(side="left", padx=5)
 
-# Set up the main GUI window
-root = tk.Tk()
-root.title("Weather Data Retrieval")
-root.geometry("400x500")  # Increased height to accommodate text area
+    # Result frame
+    result_frame = tk.LabelFrame(root, text="Current Weather", padx=10, pady=10)
+    result_frame.pack(fill="both", expand=True, padx=10, pady=5)
 
-# Create and place widgets
-tk.Label(root, text="Enter city or country (e.g., 'London' or 'London,UK'):").pack(pady=10)
-entry_location = tk.Entry(root, width=30)
-entry_location.pack()
+    # Button frame
+    button_frame = tk.Frame(root, padx=10, pady=10)
+    button_frame.pack(fill="x")
 
-# Frame for buttons
-button_frame = tk.Frame(root)
-button_frame.pack(pady=10)
-tk.Button(button_frame, text="Get Weather", command=fetch_weather).pack(side=tk.LEFT, padx=5)
-tk.Button(button_frame, text="View History", command=show_history).pack(side=tk.LEFT, padx=5)
+    save_button = tk.Button(button_frame, text="Save to CSV", state="disabled")
+    save_button.pack(side="left", padx=5)
 
-# Labels to display weather data
-label_date = tk.Label(root, text="Date: ")
-label_date.pack(pady=5)
-label_time = tk.Label(root, text="Time: ")
-label_time.pack(pady=5)
-label_city = tk.Label(root, text="Location: ")
-label_city.pack(pady=5)
-label_temp = tk.Label(root, text="Temperature: ")
-label_temp.pack(pady=5)
-label_weather = tk.Label(root, text="Weather: ")
-label_weather.pack(pady=5)
-label_humidity = tk.Label(root, text="Humidity: ")
-label_humidity.pack(pady=5)
-
-# Scrollable text area for history
-tk.Label(root, text="Weather History:").pack(pady=5)
-text_area = scrolledtext.ScrolledText(root, width=40, height=8, wrap=tk.WORD)
-text_area.pack(padx=10, pady=5)
-text_area.insert(tk.END, "Click 'View History' to display weather data history.")
-text_area.config(state='disabled')  # Start as read-only
-
-# Start the Tkinter event loop
-if __name__ == "__main__":
+    history_button = tk.Button(button_frame, text="View History", command=view_history)
+    history_button.pack(side="left", padx=5)
     root.attributes("-topmost", True)
     root.mainloop()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+LOOK DOWN !!
+
+
+
+
+
+""""Write a Python program that allows a user to retrieve, display, and save current weather data using the OpenWeatherMap API.
+
+Your program should meet the following requirements:
+
+Modules to Import:
+Use the following Python modules:
+os, requests, csv, datetime, and tkinter.
+
+Program Features:
+
+Create a Tkinter GUI with an input field for the user to enter a city or country name.
+
+When the user clicks a “Get Weather” button:
+
+Fetch current weather data from the OpenWeatherMap API using the provided API key.
+
+Display the following details in the GUI:
+
+Date and Time
+
+Location
+
+Temperature (in Celsius)
+
+Weather condition (e.g., clear sky, rain)
+
+Humidity percentage
+
+Ask the user whether they want to save the data.
+
+If yes, save the information in a CSV file named weatherdata_history.csv, including headers for time, location, temperature, weather, and humidity.
+
+Include a “View History” button that reads and displays the CSV file content in a scrollable text area inside the GUI.
+
+Error Handling:
+
+Handle cases where:
+
+The city name is invalid.
+
+The API cannot be reached.
+
+The CSV file cannot be read or written.
+
+Display appropriate message boxes for errors and confirmations.
+
+Hint:
+
+Use your API key and the URL format:
+https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}
+
+Remember to convert the temperature from Kelvin to Celsius.
+
+Expected Output (GUI Example):
+
+A window titled “Weather Data Retrieval”
+
+Buttons labeled “Get Weather” and “View History”
+
+Labels showing date, time, temperature, weather, and humidity
+
+A scrollable text box showing previously saved weather history"""
