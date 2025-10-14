@@ -21,7 +21,7 @@ def get_weather_data(location, api_key):
         print("Error: Unable to connect to the weather API.")
         return None
 
-
+# Check if the data is valid
 def is_data_ok(data):
     if not data:
         return False
@@ -29,7 +29,7 @@ def is_data_ok(data):
 
 
 def save_to_csv(data):
-    try:
+    try: # Check if the file exists
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         location = data["name"]
         temp = data["main"]["temp"] - 273.15
@@ -37,7 +37,7 @@ def save_to_csv(data):
         humidity = data["main"]["humidity"]
 
         file_exists = os.path.exists(FILE_NAME)
-
+        # Open the CSV file in append mode
         with open(FILE_NAME, "a", newline="") as csv_file:
             writer = csv.writer(csv_file)
             if not file_exists:
@@ -51,7 +51,7 @@ def save_to_csv(data):
     except Exception as e:
         print(f"Unexpected error while saving data: {e}")
 
-
+# Get user's choice to save data or skip
 def get_save_choice():
     while True:
         choice = input("Do you want to save this data to weatherdata.csv? (save/skip): ").lower().strip()
