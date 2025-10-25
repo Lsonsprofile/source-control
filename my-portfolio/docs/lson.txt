@@ -1,5 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow:
-
-NOTE: built to understand the purpose behing scaffolding a website. 
