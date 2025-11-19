@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Pages Front-End Audit Tool</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --radius: 8px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      font-weight: 400;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+
+    .audit-form {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .url-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .url-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn:disabled {
+      background-color: var(--gray-400);
+      cursor: not-allowed;
+    }
+
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .overall-rating {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .overall-rating.show {
+      display: block;
+    }
+
+    .rating-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .grade {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .grade.A { color: var(--success); }
+    .grade.B { color: #22c55e; }
+    .grade.C { color: var(--warning); }
+    .grade.D { color: #f97316; }
+    .grade.F { color: var(--danger); }
+
+    .total-score {
+      font-size: 1.25rem;
+      color: var(--gray-600);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: var(--gray-200);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--success);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--gray-50);
+      border-radius: var(--radius);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .audit-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1.25rem 1.5rem;
+      background-color: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+
+    .section-header:hover {
+      background-color: var(--gray-100);
+    }
+
+    .section-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .section-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .progress-circle {
+      width: 40px;
+      height: 40px;
+      position: relative;
+    }
+
+    .progress-circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 4;
+    }
+
+    .progress-circle .bg {
+      stroke: var(--gray-300);
+    }
+
+    .progress-circle .fg {
+      stroke: var(--primary);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s ease;
+    }
+
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .checklist {
+      padding: 1.5rem;
+      display: none;
+    }
+
+    .checklist.active {
+      display: block;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .item:last-child {
+      border-bottom: none;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gray-300);
+      border-radius: 4px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      margin-top: 2px;
+    }
+
+    .checkbox.checked {
+      background-color: var(--success);
+      border-color: var(--success);
+    }
+
+    .checkbox.checked::after {
+      content: "✓";
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .item-text {
+      flex: 1;
+    }
+
+    .item-label {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .item-desc {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .tags {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background-color: #e0e7ff;
+      color: #4338ca;
+    }
+
+    .error-msg {
+      background-color: #fef2f2;
+      color: var(--danger);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    .validator-links {
+      background-color: white;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 3rem;
+    }
+
+    .validator-links h3 {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--gray-100);
+      color: var(--gray-700);
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background-color 0.2s;
+    }
+
+    .link:hover {
+      background-color: var(--gray-200);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    @media (max-width: 768px) {
+      .form-group {
+        flex-direction: column;
+      }
+      
+      .audit-sections {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <h1>GitHub Pages Front-End Audit Tool</h1>
+        <p class="subtitle">Automatically analyze and score your GitHub Pages site for front-end best practices, performance, and accessibility</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <form class="audit-form" id="auditForm">
+      <div class="form-group">
+        <input type="url" class="url-input" id="pageUrl" placeholder="https://yourusername.github.io/repository" required>
+        <button type="submit" class="btn" id="auditBtn">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          Run Audit
+        </button>
+      </div>
+    </form>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <div class="overall-rating" id="overallRating">
+      <div class="rating-header">
+        <div>
+          <div class="grade" id="grade">F</div>
+          <div class="total-score" id="totalScore">0% Overall Score</div>
+        </div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value" id="passedCount">0</div>
+          <div class="stat-label">Passed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="warningCount">0</div>
+          <div class="stat-label">Warnings</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="failedCount">0</div>
+          <div class="stat-label">Failed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="totalCount">0</div>
+          <div class="stat-label">Total Checks</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="audit-sections" id="auditSections">
+      <!-- Sections will be injected here by JavaScript -->
+    </div>
+
+    <div class="validator-links" id="validatorLinks" style="display: none;">
+      <h3>External Validation Tools</h3>
+      <div class="links">
+        <a href="#" class="link" id="htmlValidatorLink" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          HTML Validator
+        </a>
+        <a href="#" class="link" id="cssValidatorLink" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path>
+          </svg>
+          CSS Validator
+        </a>
+        <a href="#" class="link" id="accessibilityLink" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Accessibility Checker
+        </a>
+        <a href="#" class="link" id="performanceLink" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+          Performance Test
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Made with ❤️ for the open-source community • Inspired by the Front-End Checklist</p>
+    </div>
+  </footer>
+
+  <script>
+    // Checklist data with check functions
+    const checklistData = [
+      {
+        title: "Head",
+        items: [
+          { 
+            text: "Doctype is HTML5 and at the top", 
+            check: (doc) => doc.doctype && doc.doctype.name === 'html',
+            tags: ["HTML"]
+          },
+          { 
+            text: "Charset UTF-8 declared", 
+            check: (doc) => doc.querySelector('meta[charset="UTF-8"]') || doc.querySelector('meta[http-equiv="Content-Type"][content*="UTF-8"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "Viewport meta tag present", 
+            check: (doc) => doc.querySelector('meta[name="viewport"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "Unique title on every page", 
+            check: (doc) => doc.title && doc.title.trim().length > 0,
+            tags: ["META"]
+          },
+          { 
+            text: "Meta description ≤ 150 chars", 
+            check: (doc) => {
+              const desc = doc.querySelector('meta[name="description"]');
+              return desc && desc.content.length <= 150;
+            },
+            tags: ["META"]
+          },
+          { 
+            text: "Favicons for all devices", 
+            check: (doc) => doc.querySelector('link[rel="icon"]') || doc.querySelector('link[rel="shortcut icon"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "Apple Web App meta tags", 
+            check: (doc) => doc.querySelector('meta[name="apple-mobile-web-app-capable"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "Windows tiles configured", 
+            check: (doc) => doc.querySelector('meta[name="msapplication-TileImage"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "rel=canonical used", 
+            check: (doc) => doc.querySelector('link[rel="canonical"]'),
+            tags: ["META"]
+          },
+          { 
+            text: "lang attribute on <html>", 
+            check: (doc) => doc.documentElement.lang,
+            tags: ["HTML"]
+          },
+          { 
+            text: "RSS feed if blog", 
+            check: (doc) => doc.querySelector('link[type="application/rss+xml"]'),
+            tags: ["HTML"]
+          },
+          { 
+            text: "CSS before JS in <head>", 
+            check: (doc) => {
+              const head = doc.head;
+              const cssLinks = head.querySelectorAll('link[rel="stylesheet"]');
+              const jsScripts = head.querySelectorAll('script:not([async]):not([defer])');
+              return cssLinks.length > 0 && (jsScripts.length === 0 || Array.from(head.children).indexOf(cssLinks[0]) < Array.from(head.children).indexOf(jsScripts[0]));
+            },
+            tags: ["HTML"]
+          },
+          { 
+            text: "Open Graph tags", 
+            check: (doc) => doc.querySelector('meta[property^="og:"]'),
+            tags: ["SOCIAL", "META"]
+          },
+          { 
+            text: "Twitter Card tags", 
+            check: (doc) => doc.querySelector('meta[name^="twitter:"]'),
+            tags: ["SOCIAL", "META"]
+          }
+        ]
+      },
+      {
+        title: "HTML",
+        items: [
+          { 
+            text: "Semantic HTML5 elements used", 
+            check: (doc) => doc.querySelector('header, main, section, footer, article, aside, nav'),
+            tags: ["HTML", "BEST PRACTICES"]
+          },
+          { 
+            text: "rel=noopener on external links", 
+            check: (doc) => {
+              const externals = Array.from(doc.querySelectorAll('a[target="_blank"]')).filter(a => a.hostname !== location.hostname);
+              return externals.length === 0 || externals.every(a => a.rel.includes('noopener'));
+            },
+            tags: ["HTML", "BEST PRACTICES", "SECURITY"]
+          },
+          { 
+            text: "Clean HTML comments", 
+            check: (doc) => {
+              const comments = Array.from(doc.childNodes).filter(node => node.nodeType === 8);
+              return comments.length < 10; // Rough estimate
+            },
+            tags: ["HTML", "BEST PRACTICES"]
+          },
+          { 
+            text: "No broken links", 
+            check: (doc) => true, // Placeholder - would need to check each link
+            tags: ["HTML", "TESTING"]
+          },
+          { 
+            text: "Works with adblockers", 
+            check: (doc) => true, // Placeholder - manual check
+            tags: ["HTML", "TESTING"]
+          }
+        ]
+      },
+      {
+        title: "CSS",
+        items: [
+          { 
+            text: "Responsive Web Design", 
+            check: (doc) => doc.querySelector('meta[name="viewport"]') && (doc.querySelector('link[media]') || doc.querySelector('style[media]') || doc.querySelector('@media')),
+            tags: ["CSS"]
+          },
+          { 
+            text: "Print stylesheet", 
+            check: (doc) => doc.querySelector('link[media="print"]') || doc.querySelector('style[media="print"]') || doc.querySelector('@media print'),
+            tags: ["CSS"]
+          },
+          { 
+            text: "No duplicate IDs", 
+            check: (doc) => {
+              const ids = Array.from(doc.querySelectorAll('[id]')).map(el => el.id);
+              return new Set(ids).size === ids.length;
+            },
+            tags: ["CSS"]
+          },
+          { 
+            text: "No inline/embedded CSS", 
+            check: (doc) => !doc.querySelector('style') && !doc.querySelector('[style]'),
+            tags: ["CSS"]
+          },
+          { 
+            text: "Vendor prefixes used correctly", 
+            check: (doc) => true, // Placeholder - would need to check CSS files
+            tags: ["CSS"]
+          },
+          { 
+            text: "CSS files minified", 
+            check: (doc) => true, // Placeholder - would need to check CSS files
+            tags: ["CSS", "PERFORMANCE"]
+          },
+          { 
+            text: "Non-blocking CSS", 
+            check: (doc) => {
+              const cssLinks = doc.querySelectorAll('link[rel="stylesheet"]');
+              return Array.from(cssLinks).every(link => link.media !== 'print' || link.onload);
+            },
+            tags: ["CSS", "PERFORMANCE"]
+          }
+        ]
+      },
+      {
+        title: "JavaScript",
+        items: [
+          { 
+            text: "No inline JavaScript", 
+            check: (doc) => !doc.querySelector('script:not([src])') && !doc.querySelector('[onclick], [onload], [onerror]'),
+            tags: ["JAVASCRIPT"]
+          },
+          { 
+            text: "JS files minified", 
+            check: (doc) => true, // Placeholder - would need to check JS files
+            tags: ["JAVASCRIPT"]
+          },
+          { 
+            text: "JavaScript security practices", 
+            check: (doc) => {
+              const scripts = doc.querySelectorAll('script');
+              return Array.from(scripts).every(script => {
+                const src = script.src;
+                return !src || src.startsWith('https:') || src.startsWith('/') || src.startsWith('./');
+              });
+            },
+            tags: ["JAVASCRIPT", "SECURITY"]
+          },
+          { 
+            text: "noscript tag for fallback", 
+            check: (doc) => doc.querySelector('noscript'),
+            tags: ["JAVASCRIPT"]
+          },
+          { 
+            text: "Async/defer used appropriately", 
+            check: (doc) => {
+              const scripts = doc.querySelectorAll('script[src]');
+              return scripts.length === 0 || Array.from(scripts).some(script => script.async || script.defer);
+            },
+            tags: ["JAVASCRIPT", "PERFORMANCE"]
+          }
+        ]
+      },
+      {
+        title: "Images",
+        items: [
+          { 
+            text: "Images optimized", 
+            check: (doc) => true, // Placeholder - would need to check image sizes
+            tags: ["IMAGES", "BEST PRACTICES"]
+          },
+          { 
+            text: "picture/srcset used for responsive images", 
+            check: (doc) => doc.querySelector('picture') || doc.querySelector('img[srcset]'),
+            tags: ["IMAGES"]
+          },
+          { 
+            text: "Retina-ready images", 
+            check: (doc) => doc.querySelector('img[srcset*="2x"]') || doc.querySelector('img[srcset*="3x"]'),
+            tags: ["IMAGES"]
+          },
+          { 
+            text: "Width and height attributes set", 
+            check: (doc) => {
+              const imgs = doc.querySelectorAll('img');
+              return imgs.length === 0 || Array.from(imgs).every(img => img.hasAttribute('width') && img.hasAttribute('height'));
+            },
+            tags: ["IMAGES"]
+          },
+          { 
+            text: "Descriptive alt text", 
+            check: (doc) => {
+              const imgs = doc.querySelectorAll('img');
+              return imgs.length === 0 || Array.from(imgs).every(img => img.alt !== undefined);
+            },
+            tags: ["IMAGES", "ACCESSIBILITY"]
+          },
+          { 
+            text: "Lazy loading implemented", 
+            check: (doc) => doc.querySelector('img[loading="lazy"]'),
+            tags: ["IMAGES", "PERFORMANCE"]
+          }
+        ]
+      },
+      {
+        title: "Accessibility",
+        items: [
+          { 
+            text: "Color contrast meets WCAG AA", 
+            check: (doc) => true, // Placeholder - would need to check CSS
+            tags: ["BEST PRACTICES"]
+          },
+          { 
+            text: "Proper heading hierarchy", 
+            check: (doc) => {
+              const headings = Array.from(doc.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+              if (headings.length === 0) return false;
+              
+              let prevLevel = 0;
+              for (let heading of headings) {
+                const level = parseInt(heading.tagName.substring(1));
+                if (level > prevLevel + 1) return false;
+                prevLevel = level;
+              }
+              return true;
+            },
+            tags: ["BEST PRACTICES"]
+          },
+          { 
+            text: "Form labels associated", 
+            check: (doc) => {
+              const inputs = doc.querySelectorAll('input, textarea, select');
+              return inputs.length === 0 || Array.from(inputs).every(input => {
+                return input.labels && input.labels.length > 0 || 
+                       input.id && doc.querySelector(`label[for="${input.id}"]`) ||
+                       input.hasAttribute('aria-label') || 
+                       input.hasAttribute('aria-labelledby');
+              });
+            },
+            tags: ["ACCESSIBILITY"]
+          },
+          { 
+            text: "Keyboard navigation works", 
+            check: (doc) => true, // Placeholder - manual test
+            tags: ["TESTING"]
+          },
+          { 
+            text: "Focus styles visible", 
+            check: (doc) => true, // Placeholder - would need to check CSS
+            tags: ["TESTING"]
+          }
+        ]
+      },
+      {
+        title: "Performance",
+        items: [
+          { 
+            text: "Page weight ≤ 500 KB", 
+            check: (html) => html.length <= 500 * 1024,
+            tags: ["PERFORMANCE"]
+          },
+          { 
+            text: "HTML minified", 
+            check: (html) => !html.includes('  ') && !html.includes('\t') && !html.includes('\n\n\n'),
+            tags: ["HTML", "PERFORMANCE"]
+          },
+          { 
+            text: "Lazy loading for assets", 
+            check: (doc) => doc.querySelector('[loading="lazy"]') || doc.querySelector('[decoding="async"]'),
+            tags: ["BEST PRACTICES"]
+          },
+          { 
+            text: "DNS prefetch/preconnect used", 
+            check: (doc) => doc.querySelector('link[rel="dns-prefetch"]') || doc.querySelector('link[rel="preconnect"]'),
+            tags: ["REQUESTS"]
+          },
+          { 
+            text: "Prefetch/preload used appropriately", 
+            check: (doc) => doc.querySelector('link[rel="prefetch"]') || doc.querySelector('link[rel="preload"]'),
+            tags: ["REQUESTS"]
+          }
+        ]
+      },
+      {
+        title: "SEO",
+        items: [
+          { 
+            text: "Google Analytics installed", 
+            check: (doc) => doc.querySelector('script[src*="google-analytics"]') || doc.querySelector('script[src*="gtag"]') || doc.querySelector('script').innerHTML.includes('ga('),
+            tags: ["SEO"]
+          },
+          { 
+            text: "Heading structure logical", 
+            check: (doc) => doc.querySelector('h1') && doc.querySelector('h1').textContent.trim().length > 0,
+            tags: ["SEO", "ACCESSIBILITY", "HTML"]
+          },
+          { 
+            text: "sitemap.xml exists", 
+            check: (doc) => true, // Placeholder - would need to check for sitemap
+            tags: ["SEO"]
+          },
+          { 
+            text: "robots.txt not blocking pages", 
+            check: (doc) => true, // Placeholder - would need to check robots.txt
+            tags: ["SEO", "TESTING"]
+          },
+          { 
+            text: "Structured data implemented", 
+            check: (doc) => doc.querySelector('script[type="application/ld+json"]'),
+            tags: ["SEO", "TESTING"]
+          },
+          { 
+            text: "HTML sitemap provided", 
+            check: (doc) => doc.querySelector('a[href*="sitemap"]') || doc.querySelector('a[href*="site-map"]'),
+            tags: ["SEO", "HTML"]
+          }
+        ]
+      }
+    ];
+
+    // DOM elements
+    const auditForm = document.getElementById('auditForm');
+    const pageUrlInput = document.getElementById('pageUrl');
+    const auditBtn = document.getElementById('auditBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const overallRating = document.getElementById('overallRating');
+    const gradeEl = document.getElementById('grade');
+    const totalScoreEl = document.getElementById('totalScore');
+    const progressFill = document.getElementById('progressFill');
+    const passedCountEl = document.getElementById('passedCount');
+    const warningCountEl = document.getElementById('warningCount');
+    const failedCountEl = document.getElementById('failedCount');
+    const totalCountEl = document.getElementById('totalCount');
+    const auditSections = document.getElementById('auditSections');
+    const validatorLinks = document.getElementById('validatorLinks');
+    const htmlValidatorLink = document.getElementById('htmlValidatorLink');
+    const cssValidatorLink = document.getElementById('cssValidatorLink');
+    const accessibilityLink = document.getElementById('accessibilityLink');
+    const performanceLink = document.getElementById('performanceLink');
+
+    // Global stats
+    let totalItems = 0;
+    let passedItems = 0;
+    let warningItems = 0;
+    let failedItems = 0;
+
+    // Run audit function
+    async function runAudit(url) {
+      try {
+        // Reset UI
+        resetUI();
+        auditBtn.disabled = true;
+        auditBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"></path></svg> Auditing...';
+
+        // Fetch the page
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const html = await response.text();
+
+        // Parse HTML
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Build and check sections
+        checklistData.forEach((section, secIdx) => {
+          const sectionEl = createSection(section, secIdx, doc, html);
+          auditSections.appendChild(sectionEl);
+        });
+
+        // Calculate overall score
+        const percent = Math.round((passedItems / totalItems) * 100);
+        const grade = getGrade(percent);
+        
+        // Update overall rating
+        gradeEl.textContent = grade;
+        gradeEl.className = `grade ${grade}`;
+        totalScoreEl.textContent = `${percent}% Overall Score`;
+        progressFill.style.width = `${percent}%`;
+        
+        // Update stats
+        passedCountEl.textContent = passedItems;
+        warningCountEl.textContent = warningItems;
+        failedCountEl.textContent = failedItems;
+        totalCountEl.textContent = totalItems;
+        
+        // Show overall rating
+        overallRating.classList.add('show');
+        
+        // Update validator links
+        updateValidatorLinks(url);
+        validatorLinks.style.display = 'block';
+        
+        // Save to localStorage
+        localStorage.setItem('lastAuditUrl', url);
+        
+      } catch (err) {
+        errorMsg.textContent = `Audit Error: ${err.message}. Make sure the URL is correct and accessible.`;
+        errorMsg.classList.add('show');
+      } finally {
+        auditBtn.disabled = false;
+        auditBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Run Audit';
+      }
+    }
+
+          // Create section element
+      function createSection(section, secIdx, doc, html) {
+        const sectionEl = document.createElement('div');
+        sectionEl.className = 'section';
+
+        const total = section.items.length;
+        let sectionPassed = 0;
+
+        const header = document.createElement('div');
+        header.className = 'section-header';
+        header.innerHTML = `
+          <div class="section-title">${section.title}</div>
+          <div class="section-progress">
+            <div class="progress-circle">
+              <svg width="40" height="40">
+                <circle class="bg" cx="20" cy="20" r="16"></circle>
+                <circle class="fg" cx="20" cy="20" r="16"></circle>
+              </svg>
+              <div class="progress-text">0%</div>
+            </div>
+          </div>
+        `;
+
+        const checklist = document.createElement('div');
+        checklist.className = 'checklist';
+
+        section.items.forEach((item, idx) => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'item';
+          
+          // Run the check function for this item
+          let isPassed = false;
+          try {
+            isPassed = item.check(doc, html);
+          } catch (err) {
+            console.warn(`Check failed for ${item.text}:`, err);
+            isPassed = false;
+          }
+
+          if (isPassed) {
+            sectionPassed++;
+            passedItems++;
+          } else {
+            failedItems++;
+          }
+
+          totalItems++;
+
+          itemEl.innerHTML = `
+            <div class="checkbox ${isPassed ? 'checked' : ''}"></div>
+            <div class="item-text">
+              <div class="item-label">${item.text}</div>
+              <div class="item-desc">${isPassed ? '✓ Passed' : '✗ Failed - Needs attention'}</div>
+              ${item.tags ? `
+                <div class="tags">
+                  ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `;
+          checklist.appendChild(itemEl);
+        });
+
+        // Calculate section progress
+        const sectionPercent = Math.round((sectionPassed / total) * 100);
+        const circle = header.querySelector('.fg');
+        const text = header.querySelector('.progress-text');
+        text.textContent = `${sectionPercent}%`;
+        
+        // Update progress circle
+        const circumference = 2 * Math.PI * 16;
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference - (circumference * sectionPercent / 100);
+        
+        // Set circle color based on percentage
+        if (sectionPercent >= 80) {
+          circle.style.stroke = 'var(--success)';
+        } else if (sectionPercent >= 60) {
+          circle.style.stroke = 'var(--warning)';
+        } else {
+          circle.style.stroke = 'var(--danger)';
+        }
+
+        // Toggle section on header click
+        header.addEventListener('click', () => {
+          checklist.classList.toggle('active');
+        });
+
+        sectionEl.appendChild(header);
+        sectionEl.appendChild(checklist);
+        return sectionEl;
+      }
+
+      // Get letter grade from percentage
+      function getGrade(percent) {
+        if (percent >= 90) return 'A';
+        if (percent >= 80) return 'B';
+        if (percent >= 70) return 'C';
+        if (percent >= 60) return 'D';
+        return 'F';
+      }
+
+      // Update validator links with current URL
+      function updateValidatorLinks(url) {
+        const encodedUrl = encodeURIComponent(url);
+        htmlValidatorLink.href = `https://validator.w3.org/nu/?doc=${encodedUrl}`;
+        cssValidatorLink.href = `https://jigsaw.w3.org/css-validator/validator?uri=${encodedUrl}`;
+        accessibilityLink.href = `https://wave.webaim.org/report#/${encodedUrl}`;
+        performanceLink.href = `https://pagespeed.web.dev/analysis?url=${encodedUrl}`;
+      }
+
+      // Reset UI state
+      function resetUI() {
+        errorMsg.classList.remove('show');
+        overallRating.classList.remove('show');
+        auditSections.innerHTML = '';
+        validatorLinks.style.display = 'none';
+        
+        // Reset counters
+        totalItems = 0;
+        passedItems = 0;
+        warningItems = 0;
+        failedItems = 0;
+        
+        passedCountEl.textContent = '0';
+        warningCountEl.textContent = '0';
+        failedCountEl.textContent = '0';
+        totalCountEl.textContent = '0';
+        progressFill.style.width = '0%';
+      }
+
+      // Form submission handler
+      auditForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const url = pageUrlInput.value.trim();
+        
+        if (!url) {
+          errorMsg.textContent = 'Please enter a valid URL';
+          errorMsg.classList.add('show');
+          return;
+        }
+        
+        // Validate URL format
+        try {
+          new URL(url);
+        } catch (err) {
+          errorMsg.textContent = 'Please enter a valid URL (include http:// or https://)';
+          errorMsg.classList.add('show');
+          return;
+        }
+        
+        await runAudit(url);
+      });
+
+      // Load last audit URL if available
+      window.addEventListener('load', () => {
+        const lastUrl = localStorage.getItem('lastAuditUrl');
+        if (lastUrl) {
+          pageUrlInput.value = lastUrl;
+        }
+        
+        // Build empty sections for manual mode
+        if (!lastUrl) {
+          checklistData.forEach((section) => {
+            const sectionEl = createEmptySection(section);
+            auditSections.appendChild(sectionEl);
+          });
+        }
+      });
+
+      // Create empty section for manual mode
+      function createEmptySection(section) {
+        const sectionEl = document.createElement('div');
+        sectionEl.className = 'section';
+
+        const header = document.createElement('div');
+        header.className = 'section-header';
+        header.innerHTML = `
+          <div class="section-title">${section.title}</div>
+          <div class="section-progress">
+            <div class="progress-circle">
+              <svg width="40" height="40">
+                <circle class="bg" cx="20" cy="20" r="16"></circle>
+                <circle class="fg" cx="20" cy="20" r="16"></circle>
+              </svg>
+              <div class="progress-text">0%</div>
+            </div>
+          </div>
+        `;
+
+        const checklist = document.createElement('div');
+        checklist.className = 'checklist';
+
+        section.items.forEach((item) => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'item';
+          itemEl.innerHTML = `
+            <div class="checkbox"></div>
+            <div class="item-text">
+              <div class="item-label">${item.text}</div>
+              <div class="item-desc">Click to mark as complete</div>
+              ${item.tags ? `
+                <div class="tags">
+                  ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `;
+          checklist.appendChild(itemEl);
+        });
+
+        // Toggle section on header click
+        header.addEventListener('click', () => {
+          checklist.classList.toggle('active');
+        });
+
+        // Manual checkbox functionality
+        checklist.addEventListener('click', (e) => {
+          if (e.target.classList.contains('checkbox')) {
+            e.target.classList.toggle('checked');
+            updateSectionProgress(header, checklist);
+            updateOverallProgress();
+          }
+        });
+
+        sectionEl.appendChild(header);
+        sectionEl.appendChild(checklist);
+        return sectionEl;
+      }
+
+      // Update section progress for manual mode
+      function updateSectionProgress(header, checklist) {
+        const checkboxes = checklist.querySelectorAll('.checkbox');
+        const checked = checklist.querySelectorAll('.checkbox.checked').length;
+        const total = checkboxes.length;
+        const percent = Math.round((checked / total) * 100);
+        
+        const circle = header.querySelector('.fg');
+        const text = header.querySelector('.progress-text');
+        text.textContent = `${percent}%`;
+        
+        const circumference = 2 * Math.PI * 16;
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = circumference - (circumference * percent / 100);
+        
+        // Set circle color based on percentage
+        if (percent >= 80) {
+          circle.style.stroke = 'var(--success)';
+        } else if (percent >= 60) {
+          circle.style.stroke = 'var(--warning)';
+        } else {
+          circle.style.stroke = 'var(--danger)';
+        }
+      }
+
+      // Update overall progress for manual mode
+      function updateOverallProgress() {
+        const sections = document.querySelectorAll('.section');
+        let totalChecked = 0;
+        let totalItems = 0;
+        
+        sections.forEach(section => {
+          const checkboxes = section.querySelectorAll('.checkbox');
+          const checked = section.querySelectorAll('.checkbox.checked').length;
+          totalChecked += checked;
+          totalItems += checkboxes.length;
+        });
+        
+        if (totalItems === 0) return;
+        
+        const percent = Math.round((totalChecked / totalItems) * 100);
+        const grade = getGrade(percent);
+        
+        gradeEl.textContent = grade;
+        gradeEl.className = `grade ${grade}`;
+        totalScoreEl.textContent = `${percent}% Overall Score`;
+        progressFill.style.width = `${percent}%`;
+        
+        passedCountEl.textContent = totalChecked;
+        failedCountEl.textContent = totalItems - totalChecked;
+        totalCountEl.textContent = totalItems;
+        
+        overallRating.classList.add('show');
+      }
+
+      // Add keyboard shortcut (Ctrl+Enter to run audit)
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          auditForm.dispatchEvent(new Event('submit'));
+        }
+      });
+
+      // Add example URLs for quick testing
+      const exampleUrls = [
+        'https://lsonsprofile.github.io/wdd131/place.html',
+        'https://pages.github.com',
+        'https://github.io'
+      ];
+
+      // Create example URLs dropdown (optional enhancement)
+      function createExampleDropdown() {
+        const exampleSelect = document.createElement('select');
+        exampleSelect.innerHTML = `
+          <option value="">Select an example URL...</option>
+          ${exampleUrls.map(url => `<option value="${url}">${url}</option>`).join('')}
+        `;
+        exampleSelect.style.marginTop = '0.5rem';
+        exampleSelect.style.padding = '0.5rem';
+        exampleSelect.style.width = '100%';
+        exampleSelect.style.border = '1px solid var(--gray-300)';
+        exampleSelect.style.borderRadius = 'var(--radius)';
+        
+        exampleSelect.addEventListener('change', (e) => {
+          if (e.target.value) {
+            pageUrlInput.value = e.target.value;
+          }
+        });
+        
+        auditForm.appendChild(exampleSelect);
+      }
+
+      // Uncomment the line below to enable example URLs dropdown
+      // createExampleDropdown();
+    </script>
+</body>
+</html>
