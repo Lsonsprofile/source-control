@@ -1,12 +1,12 @@
 :root {
     --primary: #143c7a;
-    --primary-light: #4882c9;
+    --primary-light: #051830;
     --primary-dark: #1148be;
-    --success: #10b981;
-    --success-light: #34d399;
-    --warning: #f59e0b;
-    --warning-light: #fbbf24;
-    --danger: #ef4444;
+    --success: #0c4431;
+    --success-light: #196e4f;
+    --warning: #ffa200;
+    --warning-light: #3f3419;
+    --danger: #3a0505;
     --danger-light: #f87171;
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
@@ -35,7 +35,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #38426e 0%, #4d207a 100%);
+    background: linear-gradient(135deg, #38426e 0%, #200f31 100%);
     color: var(--gray-800);
     line-height: 1.6;
     min-height: 100vh;
@@ -617,7 +617,7 @@ h1 {
 
 .line-number {
     min-width: 40px;
-    color: var(--gray-500);
+    color: var(--gray-100);
     text-align: right;
     padding-right: 1rem;
     user-select: none;
@@ -883,7 +883,7 @@ footer {
 }
 
 footer a {
-    color: var(--warning);
+    color: yellow;
     text-decoration: none;
     font-weight: 600;
     transition: var(--transition);
