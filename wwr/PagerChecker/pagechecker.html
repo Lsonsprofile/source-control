@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <metga name="description" content="A simple page checker tool to verify, auditing the status of web pages design and maintaining it accessibility and Responsivness.">
+    <link rel="stylesheet" href="styles/pagechecker-large.css">
+    <link rel="stylesheet" href="styles/pagechecker-small.css">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <script src="script/pagechecker.js" defer></script>
+    <title>Page-checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <header>
+      <h1> 🎯 Designer Audit Tool </h1>
+      <p class="subtitle">A practical checklist for modern, accessible, and maintainable web design. Focus on what truly matters.</p>
+      <span class="tagline">BASIC CHECKS FOR MODERN WEB PAGE</span>
+    </header>
+
+    <main class="main-grid">
+      <!-- Checklist Section -->
+      <div class="checklist-container">
+        <div class="checklist-header">
+          <h2>✅ Practical Front-End Checklist</h2>
+          <p>7 essential categories every designer should get right</p>
+        </div>
+        
+        <div class="checklist-sections">
+          <!-- Section 1: HTML Structure -->
+          <div class="section essential active">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">1</span>
+                <div class="section-text">
+                  <h3>HTML — Structure & Semantics</h3>
+                  <p class="section-subtitle">Foundation of your web page</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="essential-tag">ESSENTIAL</span>
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">HTML5 doctype</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;html lang=""&gt; set correctly</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;head&gt; before &lt;body&gt;</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;header&gt;, &lt;main&gt;, &lt;footer&gt; used correctly</div>
+                  <div class="item-desc">Check if these semantic elements are properly used</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">One &lt;h1&gt; per page</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Proper heading hierarchy (h1 → h2 → h3)</div>
+                  <div class="item-desc">Basic check for presence of headings</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Semantic elements (nav, section, article) where appropriate</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Basic HTML structure</div>
+                  <div class="item-desc">Checks for &lt;/html&gt;, &lt;/head&gt;, &lt;/body&gt; tags</div>
+                </div>
+              </div>
+              <div class="item-note danger">
+                <strong>If this is wrong, everything else suffers.</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Metadata -->
+          <div class="section essential">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">2</span>
+                <div class="section-text">
+                  <h3>Metadata — Core</h3>
+                  <p class="section-subtitle">Essential document information</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="essential-tag">ESSENTIAL</span>
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;meta charset="UTF-8"&gt;</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;meta name="viewport"&gt;</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;title&gt; that describes the page</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;meta description&gt; present</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Navigation & Layout -->
+          <div class="section essential">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">3</span>
+                <div class="section-text">
+                  <h3>Navigation & Layout</h3>
+                  <p class="section-subtitle">Structure and user flow</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="essential-tag">ESSENTIAL</span>
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Clear navigation structure</div>
+                  <div class="item-desc">Checks for navigation links</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;nav&gt; inside &lt;header&gt;</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;header&gt; at the top</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;main&gt; contains the primary content</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">&lt;footer&gt; at the bottom</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: CSS Styling -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">4</span>
+                <div class="section-text">
+                  <h3>CSS — Styling</h3>
+                  <p class="section-subtitle">Visual consistency and design system</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="item-note warning">
+                <strong>Note:</strong> Most CSS checks require manual validation. Use the CSS Validator link for detailed analysis.
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: JavaScript -->
+          <div class="section essential">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">5</span>
+                <div class="section-text">
+                  <h3>JavaScript — Behavior</h3>
+                  <p class="section-subtitle">Essential but limited functionality</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="essential-tag">ESSENTIAL</span>
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">External JS files used (not inline, unless tiny)</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">No inline onclick</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">No document.write()</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">No jQuery</div>
+                  <div class="item-desc">Checks for jQuery in script sources</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Scripts loaded with defer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 6: Accessibility -->
+          <div class="section essential">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">6</span>
+                <div class="section-text">
+                  <h3>Accessibility</h3>
+                  <p class="section-subtitle">Non-negotiable inclusive design</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="essential-tag">NON-NEGOTIABLE</span>
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Semantic HTML instead of div soup</div>
+                  <div class="item-desc">Checks ratio of semantic elements vs divs</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Forms and buttons labeled</div>
+                  <div class="item-desc">Basic check for form labels</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">Keyboard navigation works</div>
+                  <div class="item-desc">Checks for focusable elements</div>
+                </div>
+              </div>
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">lang attribute set on &lt;html&gt;</div>
+                  <div class="item-desc">Already checked in HTML structure section</div>
+                </div>
+              </div>
+              <div class="item-note warning">
+                <strong>Note:</strong> For comprehensive accessibility testing, use the Accessibility Checker link. This tool provides basic checks only.
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 7: Performance -->
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">
+                <span class="section-number">7</span>
+                <div class="section-text">
+                  <h3>Performance — Basic</h3>
+                  <p class="section-subtitle">Not extreme, just sensible</p>
+                </div>
+              </div>
+              <div class="section-actions">
+                <span class="section-icon">▼</span>
+              </div>
+            </div>
+            <div class="checklist-items">
+              <div class="checklist-item">
+                <div class="checkbox"></div>
+                <div class="item-content">
+                  <div class="item-text">No blocking JS in &lt;head&gt;</div>
+                  <div class="item-desc">Checks for non-defer, non-async scripts in head</div>
+                </div>
+              </div>
+              <div class="item-note warning">
+                <strong>Note:</strong> For comprehensive performance testing, use the Performance Test link. This tool provides basic checks only.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- URL Input Section -->
+        <div class="url-container">
+          <div class="url-header">
+            <h3>🔗 URL Audit</h3>
+            <p>Enter a URL to audit a web page</p>
+          </div>
+          <div class="url-content">
+            <div class="error-msg" id="errorMsg"></div>
+            
+            <form class="url-form" id="urlForm">
+              <input type="url" class="url-input" id="urlInput" 
+                     placeholder="https://example.com" 
+                     required>
+              <button type="submit" class="url-btn" id="auditBtn">
+                <svg class="url-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                Audit URL
+              </button>
+            </form>
+            
+            <div class="example-urls">
+              <p>Try these examples:</p>
+              <div class="url-examples">
+                <div class="url-example" data-url="https://github.com">GitHub</div>
+                <div class="url-example" data-url="https://lsonsprofile.github.io/wdd131/project/about.html">about.html</div>
+                <div class="url-example" data-url="https://lsonsprofile.github.io/wdd131/project/devhub.html">devhub.html</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-container">
+          <div class="summary-header">
+            <h3>📊 Audit Summary</h3>
+          </div>
+          <div class="summary-stats">
+            <div class="grade">
+              <div class="grade-label">Overall Grade</div>
+              <div class="grade-value" id="gradeValue">-</div>
+            </div>
+            
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            
+            <div class="stat-row">
+              <span class="stat-label">Total Checks:</span>
+              <span class="stat-value total" id="totalChecks">19</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Completed:</span>
+              <span class="stat-value" id="completedChecks">0</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Essential Items:</span>
+              <span class="stat-value" id="essentialItems">17</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Non-Essential:</span>
+              <span class="stat-value" id="nonEssentialItems">2</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Last Updated:</span>
+              <span class="stat-value" id="lastUpdated">Today</span>
+            </div>
+          </div>
+          
+          <!-- Export Button -->
+          <div class="export-section">
+            <button class="export-btn" id="exportBtn">
+              📄 Export Results
+            </button>
+          </div>
+          
+          <!-- Validator Buttons -->
+          <div class="validator-buttons">
+            <a href="#" class="validator-button" id="htmlValidatorBtn" target="_blank">
+              <svg class="validator-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              HTML Validator
+            </a>
+            <a href="#" class="validator-button warning" id="cssValidatorBtn" target="_blank">
+              <svg class="validator-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path>
+              </svg>
+              CSS Validator
+            </a>
+            <a href="#" class="validator-button success" id="accessibilityBtn" target="_blank">
+              <svg class="validator-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              Accessibility Checker
+            </a>
+            <a href="#" class="validator-button danger" id="performanceBtn" target="_blank">
+              <svg class="validator-button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+              Performance Test
+            </a>
+          </div>
+        </div>
+
+        <!-- Source Code Section -->
+        <div class="source-container">
+          <div class="source-header">
+            <h3>📄 Source Code Validator</h3>
+            <p>Extract source code from the URL for validation</p>
+          </div>
+          <div class="source-content">
+            <div class="validator-info">
+              <h4>Extract & Validate</h4>
+              <p>Extract source code from the URL you entered above and validate it using the FreeFormatter HTML Validator tool.</p>
+              <ul class="validator-steps">
+                <li>Enter a URL above and click "Audit URL button"</li>
+                <li>Then click on "Extract" to get the page html source</li>
+                <li>Save as HTML file or copy source</li>
+                <li>Upload file to FreeFormatter validator or paste the html source</li>
+                <li>Get detailed validation report</li>
+              </ul>
+            </div>
+            
+            <div class="code-container">
+              <div class="code-header">
+                <span>Extracted Source Code</span>
+                <div class="code-actions">
+                  <button class="code-btn" id="copyBtn">Copy</button>
+                  <button class="code-btn primary" id="extractBtn">Extract</button>
+                </div>
+              </div>
+              <div class="code-display">
+                <pre id="codeDisplay"><code class="code-line"><span class="line-number">1</span><span class="line-content">Enter a URL and click "Audit URL" first</span></code></pre>
+              </div>
+            </div>
+            
+            <div class="file-upload">
+              <div class="upload-icon">📁</div>
+              <p class="upload-text">Save your extracted source as .html file and upload to:</p>
+              <a href="https://www.freeformatter.com/html-validator.html" target="_blank" class="upload-btn" id="uploadLink">
+                FreeFormatter Validator
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>Made with ❤️ by <img src="/images/profile.jpg" alt="audit icon" class="manuel-img"> for practical front-end designers • 
+        <a href="https://www.freeformatter.com/html-validator.html" target="_blank">FreeFormatter HTML Validator</a> • 
+        Focus on essentials, ignore the noise
+      </p>
+    </footer>
+</body>
+</html>
