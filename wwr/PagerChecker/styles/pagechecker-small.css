@@ -1,37 +1,211 @@
-@media screen and (max-width: 1024px) {
+/* Media Queries for Larger Screens */
+@media screen and (min-width: 768px) {
+    body {
+        padding: 1.5rem;
+    }
+    
     .main-grid {
-    grid-template-columns: 1fr;
-    }
-    
-    .sidebar {
-    order: -1;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    h1 {
-    font-size: 2.2rem;
-    }
-    
-    .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    }
-    
-    .section-icon {
-    align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
     }
     
     .url-form {
-    flex-direction: column;
+        flex-direction: row;
     }
     
-    .validator-buttons {
-    flex-direction: column;
+    .url-input {
+        flex: 1;
+    }
+    
+    .url-btn {
+        width: auto;
+        padding: 0.75rem 1.5rem;
     }
     
     .validator-button {
-    min-width: 100%;
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .notification {
+        left: auto;
+        right: 20px;
+        max-width: 300px;
+    }
+    
+    /* Tablet: Single column, same order as mobile */
+    .url-container {
+        order: 1;
+    }
+    
+    .checklist-container {
+        order: 2;
+    }
+    
+    .summary-container {
+        order: 3;
+    }
+    
+    .source-container {
+        order: 4;
+    }
+    
+    .sidebar {
+        display: contents;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        grid-template-areas: 
+            "checklist url-audit"
+            "checklist source-code"
+            "checklist summary";
+        gap: 1.5rem;
+        align-items: start;
+    }
+    
+    /* Reset orders for desktop grid layout */
+    .url-container,
+    .checklist-container,
+    .summary-container,
+    .source-container {
+        order: initial;
+    }
+    
+    .checklist-container {
+        grid-area: checklist;
+        height: 100%;
+    }
+    
+    .url-container {
+        grid-area: url-audit;
+    }
+    
+    .source-container {
+        grid-area: source-code;
+    }
+    
+    .summary-container {
+        grid-area: summary;
+    }
+    
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .url-form {
+        flex-direction: row;
+    }
+}
+
+/* Base/Mobile View Order */
+.main-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Default order for mobile (base styles) */
+.url-container {
+    order: 1;
+}
+
+.checklist-container {
+    order: 2;
+}
+
+.summary-container {
+    order: 3;
+}
+
+.source-container {
+    order: 4;
+}
+
+/* Make sure sidebar doesn't interfere with order on mobile */
+.sidebar {
+    display: contents;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .url-btn, .code-btn, .export-btn, .validator-button, .url-example {
+        display: none;
+    }
+    
+    .code-container {
+        max-height: none;
+        overflow: visible;
+    }
+    
+    .code-display {
+        overflow: visible;
+        max-height: none;
+    }
+    
+    .main-grid {
+        display: block;
+    }
+    
+    .url-container,
+    .checklist-container,
+    .summary-container,
+    .source-container {
+        page-break-inside: avoid;
+        margin-bottom: 2rem;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+        transition-duration: 0.01ms;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #00008B;
+        --primary-dark: #000080;
+        --success: #006400;
+        --danger: #8B0000;
+    }
+    
+    .checkbox.checked {
+        border-width: 3px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .url-container, .source-container, .summary-container, .checklist-container {
+        background: var(--gray-900);
+        color: var(--gray-100);
+    }
+    
+    .section-header {
+        background: var(--gray-800);
+    }
+    
+    .checklist-item:hover {
+        background: var(--gray-800);
+    }
+    
+    .item-text {
+        color: var(--gray-100);
     }
 }
