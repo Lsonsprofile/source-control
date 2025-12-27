@@ -148,10 +148,40 @@ function initializeApp() {
     // Initialize validator buttons
     initializeValidatorButtons();
     
+    // Check for Opera Mini and adjust copy button
+    setupCopyButtonForOperaMini();
+    
     // Update UI with initial state
     updateSummary();
     
     console.log('✅ Audit Tool Ready!');
+}
+
+function detectOperaMini() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+    // Check for Opera Mini
+    if (userAgent.includes('Opera Mini') || 
+        userAgent.includes('OPiOS') || 
+        userAgent.includes('OPR/')) {
+        return true;
+    }
+    
+    // Check for older mobile browsers
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+        // Check for limited browser support
+        return !navigator.clipboard;
+    }
+    
+    return false;
+}
+
+// Update the copy button text/behavior if Opera Mini is detected
+function setupCopyButtonForOperaMini() {
+    if (detectOperaMini()) {
+        copyBtn.setAttribute('title', 'May require manual copy in Opera Mini');
+        copyBtn.style.border = '1px dashed var(--warning)';
+    }
 }
 
 function calculateInitialCounts() {
@@ -804,19 +834,148 @@ function copySourceCode() {
         return;
     }
     
-    navigator.clipboard.writeText(auditState.extractedSourceCode).then(() => {
-        showNotification('Source code copied to clipboard!', 'success');
-        const originalText = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
-        copyBtn.style.background = 'var(--success)';
-        setTimeout(() => {
-            copyBtn.textContent = originalText;
-            copyBtn.style.background = '';
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy:', err);
-        showNotification('Failed to copy source code', 'error');
-    });
+    const sourceText = auditState.extractedSourceCode;
+    
+    // Method 1: Modern Clipboard API (works in most modern browsers)
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(sourceText).then(() => {
+            showCopySuccess();
+        }).catch(() => {
+            // If Clipboard API fails, try fallback method
+            useFallbackCopyMethod(sourceText);
+        });
+    } else {
+        // Use fallback method for older browsers/Opera Mini
+        useFallbackCopyMethod(sourceText);
+    }
+}
+
+function useFallbackCopyMethod(text) {
+    try {
+        // Method 2: Use a temporary textarea element (most reliable cross-browser)
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        
+        // Make the textarea invisible but still focusable
+        textArea.style.position = 'fixed';
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.width = '2em';
+        textArea.style.height = '2em';
+        textArea.style.padding = '0';
+        textArea.style.border = 'none';
+        textArea.style.outline = 'none';
+        textArea.style.boxShadow = 'none';
+        textArea.style.background = 'transparent';
+        textArea.style.opacity = '0';
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        // Try execCommand (deprecated but works in many older browsers)
+        let success = false;
+        try {
+            success = document.execCommand('copy');
+        } catch (err) {
+            console.warn('execCommand failed:', err);
+        }
+        
+        document.body.removeChild(textArea);
+        
+        if (success) {
+            showCopySuccess();
+        } else {
+            // Method 3: Show the text for manual copy (last resort)
+            showTextForManualCopy(text);
+        }
+        
+    } catch (error) {
+        console.error('Fallback copy failed:', error);
+        showTextForManualCopy(text);
+    }
+}
+
+function showTextForManualCopy(text) {
+    // Create a modal or dialog with the source code for manual copying
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '0';
+    modal.style.left = '0';
+    modal.style.width = '100%';
+    modal.style.height = '100%';
+    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    modal.style.zIndex = '9999';
+    modal.style.display = 'flex';
+    modal.style.justifyContent = 'center';
+    modal.style.alignItems = 'center';
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.backgroundColor = 'var(--card-bg)';
+    modalContent.style.padding = '20px';
+    modalContent.style.borderRadius = '10px';
+    modalContent.style.maxWidth = '90%';
+    modalContent.style.maxHeight = '80%';
+    modalContent.style.overflow = 'auto';
+    
+    const title = document.createElement('h3');
+    title.textContent = 'Copy Source Code Manually';
+    title.style.marginBottom = '15px';
+    title.style.color = 'var(--text-primary)';
+    
+    const instructions = document.createElement('p');
+    instructions.innerHTML = 'Select all text below (Ctrl+A or long press) and copy (Ctrl+C):';
+    instructions.style.marginBottom = '10px';
+    instructions.style.color = 'var(--text-secondary)';
+    
+    const codeDisplay = document.createElement('textarea');
+    codeDisplay.value = text;
+    codeDisplay.style.width = '100%';
+    codeDisplay.style.height = '300px';
+    codeDisplay.style.fontFamily = 'monospace';
+    codeDisplay.style.fontSize = '12px';
+    codeDisplay.style.padding = '10px';
+    codeDisplay.style.backgroundColor = '#f5f5f5';
+    codeDisplay.style.border = '1px solid #ddd';
+    codeDisplay.style.borderRadius = '5px';
+    codeDisplay.style.resize = 'none';
+    codeDisplay.readOnly = true;
+    
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = 'Close';
+    closeBtn.style.marginTop = '15px';
+    closeBtn.style.padding = '8px 16px';
+    closeBtn.style.backgroundColor = 'var(--primary)';
+    closeBtn.style.color = 'white';
+    closeBtn.style.border = 'none';
+    closeBtn.style.borderRadius = '5px';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.onclick = () => {
+        document.body.removeChild(modal);
+        showNotification('Please copy the text manually from the dialog', 'warning');
+    };
+    
+    modalContent.appendChild(title);
+    modalContent.appendChild(instructions);
+    modalContent.appendChild(codeDisplay);
+    modalContent.appendChild(closeBtn);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Auto-select the text
+    codeDisplay.focus();
+    codeDisplay.select();
+}
+
+function showCopySuccess() {
+    showNotification('Source code copied to clipboard!', 'success');
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = 'Copied!';
+    copyBtn.style.background = 'var(--success)';
+    setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.style.background = '';
+    }, 2000);
 }
 
 function downloadSourceCode() {
