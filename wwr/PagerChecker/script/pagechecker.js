@@ -133,8 +133,31 @@ const performanceBtn = document.getElementById('performanceBtn');
 function initializeApp() {
     console.log('🎯 Front-End Designer Audit Tool Initializing...');
     
-    // Load saved state from localStorage
-    loadSavedState();
+    // 🧹 Clear any existing saved state
+    localStorage.removeItem('frontEndAuditState');
+    
+    // 🔄 Explicitly reset all checklist data
+    Object.values(checklistData).forEach(section => {
+        section.items.forEach(item => {
+            item.checked = false;
+        });
+    });
+    
+    // 🔄 Reset audit state to initial values
+    auditState = {
+        totalItems: 0,
+        completedItems: 0,
+        essentialItems: 0,
+        nonEssentialItems: 0,
+        completedEssential: 0,
+        completedNonEssential: 0,
+        grade: "-",
+        progress: 0,
+        lastUpdated: new Date().toLocaleDateString(),
+        extractedSourceCode: null,
+        currentUrl: null,
+        currentSourceCode: null
+    };
     
     // Initialize checklist counters
     calculateInitialCounts();
@@ -154,7 +177,7 @@ function initializeApp() {
     // Update UI with initial state
     updateSummary();
     
-    console.log('✅ Audit Tool Ready!');
+    console.log('✅ Audit Tool Ready! Starting fresh!');
 }
 
 function detectOperaMini() {

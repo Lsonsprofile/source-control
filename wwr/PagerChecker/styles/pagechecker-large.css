@@ -11,7 +11,7 @@
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
     --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
+    --gray-300: #e3eef8;
     --gray-400: #9ca3af;
     --gray-500: #6b7280;
     --gray-600: #4b5563;
@@ -618,6 +618,7 @@ h1 {
     text-align: right;
     padding-right: 1rem;
     user-select: none;
+    background-color: #071024;
 }
 
 .line-content {
@@ -626,6 +627,7 @@ h1 {
     min-width: 0; 
     overflow-wrap: break-word;
     word-break: break-word;
+    background-color: #071024;
 }
 
 .file-upload {
