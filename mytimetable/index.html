@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Weekly Schedule | Music Alarm</title>
+    <link rel="stylesheet" href="styles/alarm.css">
+    <script src="scripts/alarm.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header">
+            <h1 class="app-title">📅 Editable Weekly Schedule</h1>
+            <div class="time-container">
+                <div class="live-clock" id="liveClock">--:--:--</div>
+                <div class="current-day" id="currentDay">Monday</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Week Selector -->
+            <div class="week-selector" id="weekSelector">
+                <button class="day-btn active" data-day="monday">Mon</button>
+                <button class="day-btn" data-day="tuesday">Tue</button>
+                <button class="day-btn" data-day="wednesday">Wed</button>
+                <button class="day-btn" data-day="thursday">Thu</button>
+                <button class="day-btn" data-day="friday">Fri</button>
+                <button class="day-btn" data-day="saturday">Sat</button>
+                <button class="day-btn" data-day="sunday">Sun</button>
+            </div>
+
+            <!-- Schedule Table -->
+            <div class="schedule-container">
+                <table class="schedule-table" id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th class="time-header">Time</th>
+                            <th class="activity-header">Activity</th>
+                            <th class="tag-header">Category</th>
+                            <th class="alarm-header">Alarm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleBody">
+                        <!-- JavaScript will populate this -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Alarm Control Panel -->
+            <div class="alarm-panel" id="alarmPanel">
+                <div class="panel-title">
+                    <span class="panel-icon">🎵</span>
+                    <h3>Alarm Customizer</h3>
+                </div>
+                
+                <div class="panel-controls">
+                    <!-- Music Upload -->
+                    <div class="control-group">
+                        <label for="alarmMusicFile" class="control-label">
+                            <span class="label-icon">📁</span>
+                            Alarm Music
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="alarmMusicFile" accept="audio/*" class="file-input">
+                            <span class="file-name" id="fileName">No file chosen</span>
+                        </div>
+                    </div>
+
+                    <!-- Volume Control -->
+                    <div class="control-group">
+                        <label for="volumeSlider" class="control-label">
+                            <span class="label-icon">🔊</span>
+                            Volume Level
+                        </label>
+                        <div class="volume-wrapper">
+                            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+                            <span class="volume-value" id="volumeValue">70%</span>
+                        </div>
+                    </div>
+
+                    <!-- Test Button -->
+                    <div class="control-group test-group">
+                        <button class="test-btn" id="testAlarmBtn">
+                            <span class="btn-icon">▶</span>
+                            Test Alarm
+                        </button>
+                        <span class="test-hint">(uses your music & volume)</span>
+                    </div>
+                </div>
+
+                <!-- Alarm Status -->
+                <div class="alarm-status" id="alarmStatus">
+                    <span class="status-indicator idle"></span>
+                    <span class="status-text">Ready. Upload music to enable alarms.</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>⚡ Independent volume · Double-click any time to edit</p>
+            <p class="small-note">Changes are saved automatically in your browser</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
