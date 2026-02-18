@@ -7,7 +7,7 @@
  * - Independent volume control (not linked to device)
  * - Custom music upload for alarms
  * - Automatic alarm triggering based on schedule
- * - Persistent storage using localStorage
+ * - Persistent storage using localStorage and IndexedDB
  */
 
 // ==================== STATE MANAGEMENT ====================
@@ -39,6 +39,85 @@ const AppState = (function() {
         
         getScheduleData: () => _scheduleData,
         setScheduleData: (data) => { _scheduleData = data; }
+    };
+})();
+
+// ==================== AUDIO STORAGE (IndexedDB) ====================
+const AudioStorage = (function() {
+    const DB_NAME = 'AlarmAudioDB';
+    const STORE_NAME = 'audioFiles';
+    const DB_VERSION = 1;
+
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => resolve(request.result);
+            
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME)) {
+                    db.createObjectStore(STORE_NAME);
+                }
+            };
+        });
+    }
+
+    async function saveAudioFile(file, fileName) {
+        try {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                
+                // Store both file and metadata
+                const audioData = {
+                    file: file,
+                    fileName: fileName,
+                    timestamp: new Date().getTime()
+                };
+                
+                const request = store.put(audioData, 'currentAlarm');
+                
+                request.onsuccess = () => {
+                    console.log('Audio file saved to IndexedDB');
+                    resolve(true);
+                };
+                request.onerror = () => reject(request.error);
+            });
+        } catch (error) {
+            console.error('Failed to save audio file:', error);
+            return false;
+        }
+    }
+
+    async function loadAudioFile() {
+        try {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get('currentAlarm');
+                
+                request.onsuccess = () => {
+                    if (request.result) {
+                        resolve(request.result);
+                    } else {
+                        resolve(null);
+                    }
+                };
+                request.onerror = () => reject(request.error);
+            });
+        } catch (error) {
+            console.error('Failed to load audio file:', error);
+            return null;
+        }
+    }
+
+    return {
+        saveAudioFile,
+        loadAudioFile
     };
 })();
 
@@ -551,8 +630,8 @@ function handleDaySelection(event) {
     UIRenderer.renderSchedule(day);
 }
 
-// File upload handler
-function handleFileUpload(event) {
+// File upload handler - UPDATED with IndexedDB
+async function handleFileUpload(event) {
     const file = event.target.files[0];
     const fileNameSpan = document.getElementById('fileName');
     
@@ -573,6 +652,9 @@ function handleFileUpload(event) {
     if (oldAudio) {
         oldAudio.pause();
     }
+    
+    // Save to IndexedDB
+    await AudioStorage.saveAudioFile(file, file.name);
     
     // Create new audio
     const url = URL.createObjectURL(file);
@@ -646,8 +728,34 @@ function updateLiveClock() {
     clockEl.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
+// ==================== LOAD SAVED AUDIO ====================
+async function loadSavedAudio() {
+    try {
+        const savedAudio = await AudioStorage.loadAudioFile();
+        if (savedAudio && savedAudio.file) {
+            const file = savedAudio.file;
+            const fileNameSpan = document.getElementById('fileName');
+            fileNameSpan.textContent = savedAudio.fileName || 'Audio file';
+            
+            const url = URL.createObjectURL(file);
+            const audio = new Audio(url);
+            audio.volume = AppState.getUserVolume();
+            audio.load();
+            
+            AppState.setAlarmAudio(audio);
+            AppState.setAudioBlobUrl(url);
+            AppState.setAlarmStatus('ready');
+            
+            AlarmManager.updateAlarmStatus('✅ Previous music loaded.');
+            console.log('Restored audio from IndexedDB');
+        }
+    } catch (error) {
+        console.error('Failed to load saved audio:', error);
+    }
+}
+
 // ==================== INITIALIZATION ====================
-function initializeApp() {
+async function initializeApp() {
     console.log('🚀 Initializing Editable Weekly Schedule...');
     
     // Load schedule data
@@ -686,6 +794,9 @@ function initializeApp() {
     } catch (e) {
         console.error('Failed to load saved volume', e);
     }
+    
+    // Load saved audio from IndexedDB
+    await loadSavedAudio();
     
     console.log('✅ App initialized successfully');
 }
@@ -732,146 +843,3 @@ window.addEventListener('beforeunload', () => {
         URL.revokeObjectURL(oldUrl);
     }
 });
-
-
-// Add this function to your script.js
-const AudioStorage = (function() {
-    const DB_NAME = 'AlarmAudioDB';
-    const STORE_NAME = 'audioFiles';
-    const DB_VERSION = 1;
-
-    function openDB() {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(DB_NAME, DB_VERSION);
-            
-            request.onerror = () => reject(request.error);
-            request.onsuccess = () => resolve(request.result);
-            
-            request.onupgradeneeded = (event) => {
-                const db = event.target.result;
-                if (!db.objectStoreNames.contains(STORE_NAME)) {
-                    db.createObjectStore(STORE_NAME);
-                }
-            };
-        });
-    }
-
-    async function saveAudioFile(file, fileName) {
-        try {
-            const db = await openDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([STORE_NAME], 'readwrite');
-                const store = transaction.objectStore(STORE_NAME);
-                
-                // Store both file and metadata
-                const audioData = {
-                    file: file,
-                    fileName: fileName,
-                    timestamp: new Date().getTime()
-                };
-                
-                const request = store.put(audioData, 'currentAlarm');
-                
-                request.onsuccess = () => {
-                    console.log('Audio file saved to IndexedDB');
-                    resolve(true);
-                };
-                request.onerror = () => reject(request.error);
-            });
-        } catch (error) {
-            console.error('Failed to save audio file:', error);
-            return false;
-        }
-    }
-
-    async function loadAudioFile() {
-        try {
-            const db = await openDB();
-            return new Promise((resolve, reject) => {
-                const transaction = db.transaction([STORE_NAME], 'readonly');
-                const store = transaction.objectStore(STORE_NAME);
-                const request = store.get('currentAlarm');
-                
-                request.onsuccess = () => {
-                    if (request.result) {
-                        resolve(request.result);
-                    } else {
-                        resolve(null);
-                    }
-                };
-                request.onerror = () => reject(request.error);
-            });
-        } catch (error) {
-            console.error('Failed to load audio file:', error);
-            return null;
-        }
-    }
-
-    return {
-        saveAudioFile,
-        loadAudioFile
-    };
-})();
-
-// Modify your handleFileUpload function:
-async function handleFileUpload(event) {
-    const file = event.target.files[0];
-    const fileNameSpan = document.getElementById('fileName');
-    
-    if (!file) {
-        fileNameSpan.textContent = 'No file chosen';
-        return;
-    }
-    
-    fileNameSpan.textContent = file.name;
-    
-    // Clean up previous blob URL
-    const oldUrl = AppState.getAudioBlobUrl();
-    if (oldUrl) {
-        URL.revokeObjectURL(oldUrl);
-    }
-    
-    const oldAudio = AppState.getAlarmAudio();
-    if (oldAudio) {
-        oldAudio.pause();
-    }
-    
-    // Save to IndexedDB
-    await AudioStorage.saveAudioFile(file, file.name);
-    
-    // Create new audio
-    const url = URL.createObjectURL(file);
-    const audio = new Audio(url);
-    audio.volume = AppState.getUserVolume();
-    audio.load();
-    
-    AppState.setAlarmAudio(audio);
-    AppState.setAudioBlobUrl(url);
-    AppState.setAlarmStatus('ready');
-    
-    AlarmManager.updateAlarmStatus('✅ Music loaded. Ready for alarms.');
-}
-
-// Add this to your initializeApp function to load saved audio on startup:
-async function loadSavedAudio() {
-    const savedAudio = await AudioStorage.loadAudioFile();
-    if (savedAudio && savedAudio.file) {
-        const file = savedAudio.file;
-        const fileNameSpan = document.getElementById('fileName');
-        fileNameSpan.textContent = savedAudio.fileName || 'Audio file';
-        
-        const url = URL.createObjectURL(file);
-        const audio = new Audio(url);
-        audio.volume = AppState.getUserVolume();
-        audio.load();
-        
-        AppState.setAlarmAudio(audio);
-        AppState.setAudioBlobUrl(url);
-        AppState.setAlarmStatus('ready');
-        
-        AlarmManager.updateAlarmStatus('✅ Previous music loaded.');
-    }
-}
-
-// Add this line to initializeApp after setting up event listeners:
-loadSavedAudio();
