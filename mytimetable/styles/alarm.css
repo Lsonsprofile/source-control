@@ -465,9 +465,11 @@ body {
     margin-top: var(--space-xs);
     font-size: 0.85rem;
     color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-break: break-all;  
+    white-space: normal;  
+    line-height: 1.4;
+    max-width: 100%;
+    padding-right: 5px;
 }
 
 /* Volume Control */
