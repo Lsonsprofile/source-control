@@ -3,122 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editable Weekly Schedule | Music Alarm</title>
-    <link rel="manifest" href="manifest.json">
-     <meta name="apple-mobile-web-app-title" content="WeekSchedule">
-      <meta name="apple-mobile-web-app-status-bar-style" content="default">
-       <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#e59313">
+    <title>Smart Schedule & Alarms</title>
     <link rel="stylesheet" href="styles/alarm.css">
-    <script src="scripts/alarm.js" defer></script>
-
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="SmartSchedule">
     <link rel="icon" href="images/favicon-32x32.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/icon-152x152.png">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header Section -->
-        <header class="app-header">
-            <h1 class="app-title">📅 Editable Weekly Schedule</h1>
-            <div class="time-container">
-                <div class="live-clock" id="liveClock">--:--:--</div>
-                <div class="current-day" id="currentDay">Monday</div>
+
+<div id="alarm-notification">
+    <div style="font-size: 1.2rem; margin-bottom: 8px;">⏰ Time for: <strong id="alert-task">Task</strong></div>
+    <button onclick="stopAlarm()" style="padding: 5px 15px; border-radius: 5px; border: none; cursor: pointer;">Dismiss</button>
+</div>
+
+<div class="header-info">
+    <h1>📅 Smart Schedule & Alarms</h1>
+    <div id="current-time-display">Loading...</div>
+    <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
+</div>
+
+<div class="wireframe-container">
+    <!-- Settings Panel -->
+    <div id="settings-panel">
+        <h3 style="margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Alarm Settings</h3>
+        <div class="settings-grid">
+            <div class="input-group">
+                <label>Alarm Sound</label>
+                <select id="setting-sound" onchange="updateSettings()">
+                    <option value="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg">Digital Watch</option>
+                    <option value="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">Simple Beep</option>
+                    <option value="https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg">Bugle Tune</option>
+                    <option value="https://actions.google.com/sounds/v1/alarms/mechanical_clock_ringing_long.ogg">Old Clock</option>
+                </select>
+                <button onclick="previewSound()" style="font-size: 0.75rem; margin-top: 5px; cursor: pointer; border: none; background: none; color: var(--primary); text-decoration: underline;">Test Sound</button>
             </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Week Selector -->
-            <div class="week-selector" id="weekSelector">
-                <button class="day-btn active" data-day="monday">Mon</button>
-                <button class="day-btn" data-day="tuesday">Tue</button>
-                <button class="day-btn" data-day="wednesday">Wed</button>
-                <button class="day-btn" data-day="thursday">Thu</button>
-                <button class="day-btn" data-day="friday">Fri</button>
-                <button class="day-btn" data-day="saturday">Sat</button>
-                <button class="day-btn" data-day="sunday">Sun</button>
+            <div class="input-group">
+                <label>Volume (<span id="vol-label">50</span>%)</label>
+                <input type="range" id="setting-volume" min="0" max="100" value="50" oninput="updateSettings()">
             </div>
-
-            <!-- Schedule Table -->
-            <div class="schedule-container">
-                <table class="schedule-table" id="scheduleTable">
-                    <thead>
-                        <tr>
-                            <th class="time-header">Time</th>
-                            <th class="activity-header">Activity</th>
-                            <th class="tag-header">Category</th>
-                            <th class="alarm-header">Alarm</th>
-                        </tr>
-                    </thead>
-                    <tbody id="scheduleBody">
-                        <!-- JavaScript will populate this -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Alarm Control Panel -->
-            <div class="alarm-panel" id="alarmPanel">
-                <div class="panel-title">
-                    <span class="panel-icon">🎵</span>
-                    <h3>Alarm Customizer</h3>
-                </div>
-                
-                <div class="panel-controls">
-                    <!-- Music Upload -->
-                    <div class="control-group">
-                        <label for="alarmMusicFile" class="control-label">
-                            <span class="label-icon">📁</span>
-                            Alarm Music
-                        </label>
-                        <div class="file-input-wrapper">
-                            <input type="file" id="alarmMusicFile" accept="audio/*" class="file-input">
-                            <span class="file-name" id="fileName">No file chosen</span>
-                        </div>
-                    </div>
-
-                    <!-- Volume Control -->
-                    <div class="control-group">
-                        <label for="volumeSlider" class="control-label">
-                            <span class="label-icon">🔊</span>
-                            Volume Level
-                        </label>
-                        <div class="volume-wrapper">
-                            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
-                            <span class="volume-value" id="volumeValue">70%</span>
-                        </div>
-                    </div>
-
-                    <!-- Test Button -->
-                    <div class="control-group test-group">
-                        <button class="test-btn" id="testAlarmBtn">
-                            <span class="btn-icon">▶</span>
-                            Test Alarm
-                        </button>
-                        <span class="test-hint">(uses your music & volume)</span>
-                    </div>
-                </div>
-
-                <!-- Alarm Status -->
-                <div class="alarm-status" id="alarmStatus">
-                    <span class="status-indicator idle"></span>
-                    <span class="status-text">Ready. Upload music to enable alarms.</span>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-            <p>⚡ Independent volume · Double-click any time to edit</p>
-            <p class="small-note">Changes are saved automatically in your browser</p>
-        </footer>
+        </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
+    <!-- Day Selector -->
+    <div class="week-selector" id="day-selector">
+        <button class="day-btn" data-day="Monday" onclick="switchDay('Monday', this)">Mon</button>
+        <button class="day-btn" data-day="Tuesday" onclick="switchDay('Tuesday', this)">Tue</button>
+        <button class="day-btn" data-day="Wednesday" onclick="switchDay('Wednesday', this)">Wed</button>
+        <button class="day-btn" data-day="Thursday" onclick="switchDay('Thursday', this)">Thu</button>
+        <button class="day-btn" data-day="Friday" onclick="switchDay('Friday', this)">Fri</button>
+        <button class="day-btn" data-day="Saturday" onclick="switchDay('Saturday', this)">Sat</button>
+        <button class="day-btn" data-day="Sunday" onclick="switchDay('Sunday', this)">Sun</button>
+    </div>
+
+    <!-- Add Task Form -->
+    <div class="add-task-form">
+        <div class="input-group">
+            <label>Time (HH:MM AM/PM)</label>
+            <input type="text" id="task-time" placeholder="6:00am">
+        </div>
+        <div class="input-group">
+            <label>Activity</label>
+            <input type="text" id="task-name" placeholder="What's the plan?">
+        </div>
+        <div class="input-group">
+            <label>Category</label>
+            <select id="task-tag">
+                <option value="Foundation">Foundation</option>
+                <option value="Growth">Growth</option>
+                <option value="Productivity">Productivity</option>
+                <option value="Personal">Personal</option>
+            </select>
+        </div>
+        <button class="btn-add" onclick="addNewTask()">+ Add</button>
+    </div>
+
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Activity</th>
+                <th style="text-align: right;">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="schedule-body"></tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+<script>
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./service-worker.js")
             .then(() => console.log("Service Worker Registered"))
             .catch(err => console.log("SW registration failed", err));
     }
-    </script>
+</script>
 </body>
 </html>
