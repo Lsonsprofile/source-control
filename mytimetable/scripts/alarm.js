@@ -21,6 +21,86 @@ const CONFIG = {
     NOTIFICATION_TIMEOUT: 3000
 };
 
+// ==================== AUDIO STORAGE (IndexedDB) ====================
+const AudioStorage = (function() {
+    const DB_NAME = 'PowerScheduleAudio';
+    const STORE_NAME = 'audioFiles';
+    const DB_VERSION = 1;
+
+    function openDB() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            
+            request.onerror = () => reject(request.error);
+            request.onsuccess = () => resolve(request.result);
+            
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(STORE_NAME)) {
+                    db.createObjectStore(STORE_NAME);
+                }
+            };
+        });
+    }
+
+    async function saveAudioFile(file, fileName) {
+        try {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readwrite');
+                const store = transaction.objectStore(STORE_NAME);
+                
+                // Store both file and metadata
+                const audioData = {
+                    file: file,
+                    fileName: fileName,
+                    timestamp: new Date().getTime()
+                };
+                
+                const request = store.put(audioData, 'currentAlarm');
+                
+                request.onsuccess = () => {
+                    console.log('Audio file saved to IndexedDB');
+                    resolve(true);
+                };
+                request.onerror = () => reject(request.error);
+            });
+        } catch (error) {
+            console.error('Failed to save audio file:', error);
+            return false;
+        }
+    }
+
+    async function loadAudioFile() {
+        try {
+            const db = await openDB();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction([STORE_NAME], 'readonly');
+                const store = transaction.objectStore(STORE_NAME);
+                const request = store.get('currentAlarm');
+                
+                request.onsuccess = () => {
+                    if (request.result) {
+                        resolve(request.result);
+                    } else {
+                        resolve(null);
+                    }
+                };
+                request.onerror = () => reject(request.error);
+            });
+        } catch (error) {
+            console.error('Failed to load audio file:', error);
+            return null;
+        }
+    }
+
+    return {
+        saveAudioFile,
+        loadAudioFile
+    };
+})();
+
+
 // ==================== STATE MANAGEMENT ====================
 const AppState = (function() {
     let _currentDay = CONFIG.DAYS[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1];
@@ -732,30 +812,44 @@ const App = (function() {
         });
     }
 
-    function loadSavedAudio() {
-        if (settings.customSound) {
-            // Update UI to show custom option
-            const customOption = document.getElementById('custom-option');
-            const soundSelect = document.getElementById('set-sound');
+    async function loadSavedAudio() {
+        try {
+            const savedAudio = await AudioStorage.loadAudioFile();
             
-            if (customOption) {
-                customOption.style.display = 'block';
-                // You could store filename separately if needed
+            if (savedAudio && savedAudio.file) {
+                const file = savedAudio.file;
+                const url = URL.createObjectURL(file);
+                
+                // Update settings with the blob URL
+                settings.customSound = url;
+                settings.customSoundName = savedAudio.fileName;
+                settings.sound = url;
+                
+                // Update UI
+                const customOption = document.getElementById('custom-option');
+                const soundSelect = document.getElementById('set-sound');
+                
+                if (customOption) {
+                    customOption.style.display = 'block';
+                    customOption.textContent = savedAudio.fileName;
+                }
+                
+                if (soundSelect) {
+                    soundSelect.value = 'custom';
+                }
+                
+                // Preload audio
+                const audio = AppState.getAlarmAudio();
+                audio.src = url;
+                audio.load();
+                
+                console.log('✅ Saved audio loaded from IndexedDB:', savedAudio.fileName);
             }
-            
-            if (soundSelect && settings.sound === settings.customSound) {
-                soundSelect.value = 'custom';
-            }
-            
-            // Preload audio
-            const audio = AppState.getAlarmAudio();
-            audio.src = settings.customSound;
-            audio.load();
-            
-            console.log('✅ Saved audio loaded from localStorage');
+        } catch (error) {
+            console.error('Failed to load saved audio:', error);
         }
     }
-    
+
     // SIMPLE TASK ROW CREATION
     function createTaskRow(task) {
         const row = document.createElement('div');
@@ -966,7 +1060,7 @@ const App = (function() {
         saveAll();
     };
 
-    window.handleFileUpload = function() {
+    window.handleFileUpload = async function() {
         const fileInput = document.getElementById('alarm-upload');
         const errorDiv = document.getElementById('upload-error');
         const file = fileInput?.files[0];
@@ -981,63 +1075,54 @@ const App = (function() {
             return;
         }
 
-        // Check file size (max 5MB for localStorage)
-        if (file.size > CONFIG.AUDIO.MAX_SIZE) {
-            errorDiv.textContent = 'File too large (max 5MB)';
-            errorDiv.style.display = 'block';
-            fileInput.value = '';
-            return;
-        }
+        // Show loading toast
+        UI.showToast('⏳ Uploading audio...', 'info');
 
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            try {
-                // Convert file to base64 string for localStorage
-                const base64Audio = e.target.result;
-                
-                // Save to settings
-                settings.customSound = base64Audio;
-                settings.sound = base64Audio;
-                
-                // Update UI
-                const customOption = document.getElementById('custom-option');
-                const soundSelect = document.getElementById('set-sound');
-                
-                if (customOption) {
-                    customOption.style.display = 'block';
-                    customOption.textContent = file.name; // Show filename in dropdown
-                }
-                if (soundSelect) soundSelect.value = 'custom';
-                
-                // Save to localStorage immediately
-                saveAll();
-                
-                // Preload audio for faster playback
-                const audio = AppState.getAlarmAudio();
-                audio.src = base64Audio;
-                audio.load();
-                
-                errorDiv.style.display = 'none';
-                UI.showToast(`✅ Audio "${file.name}" uploaded successfully`, 'success');
-                
-                console.log('Audio file saved to localStorage:', file.name);
-                
-            } catch (err) {
-                console.error('File processing error:', err);
-                errorDiv.textContent = 'Error: Failed to process audio file.';
-                errorDiv.style.display = 'block';
+        try {
+            // Save to IndexedDB instead of localStorage
+            const saved = await AudioStorage.saveAudioFile(file, file.name);
+            
+            if (!saved) {
+                throw new Error('Failed to save to IndexedDB');
             }
-        };
 
-        reader.onerror = function() {
-            errorDiv.textContent = 'Error: Failed to read file.';
+            // Create object URL for playback
+            const url = URL.createObjectURL(file);
+            
+            // Save metadata in settings (not the actual file)
+            settings.customSound = url;
+            settings.customSoundName = file.name;
+            settings.sound = url;
+            
+            // Update UI
+            const customOption = document.getElementById('custom-option');
+            const soundSelect = document.getElementById('set-sound');
+            
+            if (customOption) {
+                customOption.style.display = 'block';
+                customOption.textContent = file.name;
+            }
+            if (soundSelect) soundSelect.value = 'custom';
+            
+            // Save settings (metadata only)
+            saveAll();
+            
+            // Preload audio
+            const audio = AppState.getAlarmAudio();
+            audio.src = url;
+            audio.load();
+            
+            errorDiv.style.display = 'none';
+            UI.showToast(`✅ Audio "${file.name}" uploaded successfully`, 'success');
+            
+            console.log('Audio file saved to IndexedDB:', file.name);
+            
+        } catch (err) {
+            console.error('File processing error:', err);
+            errorDiv.textContent = 'Error: Failed to process audio file.';
             errorDiv.style.display = 'block';
-            fileInput.value = '';
-        };
-
-        // Read as Data URL (base64)
-        reader.readAsDataURL(file);
+            UI.showToast('❌ Upload failed', 'error');
+        }
     };
 
 
@@ -1135,6 +1220,11 @@ const App = (function() {
         AudioManager.stopAll();
         WakeLockManager.release();
         saveAll();
+        
+        // Clean up blob URLs
+        if (settings.customSound && settings.customSound.startsWith('blob:')) {
+            URL.revokeObjectURL(settings.customSound);
+        }
     });
 
     return { init };
