@@ -8,7 +8,7 @@ const urlsToCache = [
   './favicon.ico',
   './manifest.json',
   'images/favicon-32x32.png',
-  'images/icon-152x152.png',
+  'icon-152.png'
 ];
 
 // Install event: cache files

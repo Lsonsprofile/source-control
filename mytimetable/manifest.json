@@ -10,14 +10,14 @@
   "description": "Emma's app is a unique app for mobile alarm and desktop time alarm which is efficient without depending on device volume and ring tone.",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icon-192.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "icon-512.png",
+      "src": "icon-512.webp",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }
