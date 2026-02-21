@@ -634,6 +634,7 @@ const App = (function() {
         updateDayTabs();
         
         loadSettingsToUI();
+        loadSavedAudio();
         
         startClock();
         
@@ -729,6 +730,35 @@ const App = (function() {
             const row = createTaskRow(task);
             container.appendChild(row);
         });
+    }
+    function loadSavedAudio() {
+        if (settings.customSound) {
+            // Update UI to show custom option
+            const customOption = document.getElementById('custom-option');
+            const soundSelect = document.getElementById('set-sound');
+            
+            if (customOption) {
+                customOption.style.display = 'block';
+                // Try to get filename from stored data (optional)
+                try {
+                    const savedAudio = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.SETTINGS));
+                    if (savedAudio && savedAudio.customSound) {
+                        // Optionally store filename separately if you want
+                    }
+                } catch (e) {}
+            }
+            
+            if (soundSelect && settings.sound === settings.customSound) {
+                soundSelect.value = 'custom';
+            }
+            
+            // Preload audio
+            const audio = AppState.getAlarmAudio();
+            audio.src = settings.customSound;
+            audio.load();
+            
+            console.log('Saved audio loaded from localStorage');
+        }
     }
 
     // SIMPLE TASK ROW CREATION
@@ -948,41 +978,73 @@ const App = (function() {
 
         if (!file) return;
 
+        // Validate file type
         if (!file.type.startsWith('audio/')) {
-            errorDiv.textContent = 'Please upload a valid audio file';
+            errorDiv.textContent = 'Please upload a valid audio file (MP3, WAV, OGG)';
             errorDiv.style.display = 'block';
+            fileInput.value = '';
             return;
         }
 
+        // Check file size (max 5MB for localStorage)
         if (file.size > CONFIG.AUDIO.MAX_SIZE) {
             errorDiv.textContent = 'File too large (max 5MB)';
             errorDiv.style.display = 'block';
+            fileInput.value = '';
             return;
         }
 
         const reader = new FileReader();
-        reader.onload = (e) => {
-            settings.customSound = e.target.result;
-            settings.sound = e.target.result;
-            
-            const customOption = document.getElementById('custom-option');
-            const soundSelect = document.getElementById('set-sound');
-            
-            if (customOption) customOption.style.display = 'block';
-            if (soundSelect) soundSelect.value = 'custom';
-            
-            errorDiv.style.display = 'none';
-            saveAll();
-            UI.showToast('Audio uploaded successfully', 'success');
+        
+        reader.onload = function(e) {
+            try {
+                // Convert file to base64 string for localStorage
+                const base64Audio = e.target.result;
+                
+                // Save to settings
+                settings.customSound = base64Audio;
+                settings.sound = base64Audio;
+                
+                // Update UI
+                const customOption = document.getElementById('custom-option');
+                const soundSelect = document.getElementById('set-sound');
+                
+                if (customOption) {
+                    customOption.style.display = 'block';
+                    customOption.textContent = file.name; // Show filename in dropdown
+                }
+                if (soundSelect) soundSelect.value = 'custom';
+                
+                // Save to localStorage immediately
+                saveAll();
+                
+                // Preload audio for faster playback
+                const audio = AppState.getAlarmAudio();
+                audio.src = base64Audio;
+                audio.load();
+                
+                errorDiv.style.display = 'none';
+                UI.showToast(`✅ Audio "${file.name}" uploaded successfully`, 'success');
+                
+                console.log('Audio file saved to localStorage:', file.name);
+                
+            } catch (err) {
+                console.error('File processing error:', err);
+                errorDiv.textContent = 'Error: Failed to process audio file.';
+                errorDiv.style.display = 'block';
+            }
         };
 
-        reader.onerror = () => {
-            errorDiv.textContent = 'Failed to read file';
+        reader.onerror = function() {
+            errorDiv.textContent = 'Error: Failed to read file.';
             errorDiv.style.display = 'block';
+            fileInput.value = '';
         };
 
+        // Read as Data URL (base64)
         reader.readAsDataURL(file);
     };
+
 
     window.previewSound = function() {
         AudioManager.preview(settings.sound, settings.volume);
