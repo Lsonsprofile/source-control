@@ -731,6 +731,7 @@ const App = (function() {
             container.appendChild(row);
         });
     }
+
     function loadSavedAudio() {
         if (settings.customSound) {
             // Update UI to show custom option
@@ -739,13 +740,7 @@ const App = (function() {
             
             if (customOption) {
                 customOption.style.display = 'block';
-                // Try to get filename from stored data (optional)
-                try {
-                    const savedAudio = JSON.parse(localStorage.getItem(CONFIG.STORAGE_KEYS.SETTINGS));
-                    if (savedAudio && savedAudio.customSound) {
-                        // Optionally store filename separately if you want
-                    }
-                } catch (e) {}
+                // You could store filename separately if needed
             }
             
             if (soundSelect && settings.sound === settings.customSound) {
@@ -757,10 +752,10 @@ const App = (function() {
             audio.src = settings.customSound;
             audio.load();
             
-            console.log('Saved audio loaded from localStorage');
+            console.log('✅ Saved audio loaded from localStorage');
         }
     }
-
+    
     // SIMPLE TASK ROW CREATION
     function createTaskRow(task) {
         const row = document.createElement('div');
