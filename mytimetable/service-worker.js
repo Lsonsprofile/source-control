@@ -1,44 +1,59 @@
-const CACHE_NAME = "smart-schedule-v3"; // 🔁 Increase version every update
+const CACHE_NAME = 'my-cache-v1';
 
-const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./styles/alarm.css",   // ✅ corrected path
-  "./script.js",
-  "./manifest.json"
+// List of files to cache
+const urlsToCache = [
+  './index.html',
+  'styles/alarm.css',
+  './alarm.js',
+  './favicon.ico',
+  './manifest.json',
+  'images/favicon-32x32.png',
+  'images/icon-152x152.png',
 ];
 
-// Install
-self.addEventListener("install", event => {
-  self.skipWaiting(); // activate immediately
+// Install event: cache files
+self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Installing...');
+  self.skipWaiting(); // activates worker immediately
+
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      // Wrap addAll in try/catch to prevent failing on missing files
+      try {
+        await cache.addAll(urlsToCache);
+        console.log('[Service Worker] All files cached');
+      } catch (err) {
+        console.error('[Service Worker] Cache failed:', err);
+      }
     })
   );
 });
 
-// Activate & delete old caches
-self.addEventListener("activate", event => {
+// Activate event: clean old caches
+self.addEventListener('activate', (event) => {
+  console.log('[Service Worker] Activating...');
   event.waitUntil(
-    caches.keys().then(keys => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        keys.map(key => {
+        keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[Service Worker] Removing old cache', key);
             return caches.delete(key);
           }
         })
       );
     })
   );
-  self.clients.claim();
 });
 
-// Network first strategy
-self.addEventListener("fetch", event => {
+// Fetch event: serve cached files first
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    fetch(event.request)
-      .then(response => response)
-      .catch(() => caches.match(event.request))
+    caches.match(event.request).then((cachedResponse) => {
+      // Return cached file or fetch from network
+      return cachedResponse || fetch(event.request);
+    }).catch(err => {
+      console.error('[Service Worker] Fetch failed:', err);
+    })
   );
 });

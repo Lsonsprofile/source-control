@@ -7,93 +7,114 @@
     <link rel="stylesheet" href="styles/alarm.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#2563eb">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="SmartSchedule">
     <link rel="icon" href="images/favicon-32x32.png" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/icon-152x152.png">
+
+    <script src="scripts/alarm.js"></script>
 </head>
 <body>
 
-<div id="alarm-notification">
-    <div style="font-size: 1.2rem; margin-bottom: 8px;">⏰ Time for: <strong id="alert-task">Task</strong></div>
-    <button onclick="stopAlarm()" style="padding: 5px 15px; border-radius: 5px; border: none; cursor: pointer;">Dismiss</button>
-</div>
+<div class="container">
+    <header>
+        <div>
+            <h1 class="title-main">Power Schedule</h1>
+            <div id="clock" class="clock-card">00:00:00</div>
+        </div>
+        <div class="nav-btns">
+            <button class="btn" onclick="togglePanel('settings-panel')">⚙️ Settings</button>
+            <button class="btn" onclick="toggleTheme()">🌓</button>
+        </div>
+    </header>
 
-<div class="header-info">
-    <h1>📅 Smart Schedule & Alarms</h1>
-    <div id="current-time-display">Loading...</div>
-    <button class="settings-toggle" onclick="toggleSettings()">⚙️</button>
-</div>
-
-<div class="wireframe-container">
     <!-- Settings Panel -->
-    <div id="settings-panel">
-        <h3 style="margin-bottom: 15px; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Alarm Settings</h3>
+    <div id="settings-panel" class="panel">
+        <div class="settings-header">
+            <h3>Settings</h3>
+            <button class="btn btn-danger btn-small" onclick="resetAll()">Reset All Data</button>
+        </div>
+
         <div class="settings-grid">
-            <div class="input-group">
+            <div class="field">
                 <label>Alarm Sound</label>
-                <select id="setting-sound" onchange="updateSettings()">
-                    <option value="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg">Digital Watch</option>
-                    <option value="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">Simple Beep</option>
-                    <option value="https://actions.google.com/sounds/v1/alarms/bugle_tune.ogg">Bugle Tune</option>
-                    <option value="https://actions.google.com/sounds/v1/alarms/mechanical_clock_ringing_long.ogg">Old Clock</option>
+                <select id="set-sound" onchange="updateSettings()">
+                    <option value="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg">Digital</option>
+                    <option value="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">Beep</option>
+                    <option value="custom" id="custom-option" class="hidden">Uploaded</option>
                 </select>
-                <button onclick="previewSound()" style="font-size: 0.75rem; margin-top: 5px; cursor: pointer; border: none; background: none; color: var(--primary); text-decoration: underline;">Test Sound</button>
+
+                <div class="upload-section">
+                    <input type="file" id="alarm-upload" accept="audio/*" onchange="handleFileUpload()" class="file-input">
+                    <div id="upload-error" class="error-text hidden"></div>
+                </div>
             </div>
-            <div class="input-group">
+
+            <div class="field">
                 <label>Volume (<span id="vol-label">50</span>%)</label>
-                <input type="range" id="setting-volume" min="0" max="100" value="50" oninput="updateSettings()">
+                <input type="range" id="set-vol" min="0" max="100" value="50" oninput="updateSettings()">
+                <button class="btn btn-small mt-8" onclick="previewSound()">Test Sound</button>
             </div>
         </div>
     </div>
 
     <!-- Day Selector -->
-    <div class="week-selector" id="day-selector">
-        <button class="day-btn" data-day="Monday" onclick="switchDay('Monday', this)">Mon</button>
-        <button class="day-btn" data-day="Tuesday" onclick="switchDay('Tuesday', this)">Tue</button>
-        <button class="day-btn" data-day="Wednesday" onclick="switchDay('Wednesday', this)">Wed</button>
-        <button class="day-btn" data-day="Thursday" onclick="switchDay('Thursday', this)">Thu</button>
-        <button class="day-btn" data-day="Friday" onclick="switchDay('Friday', this)">Fri</button>
-        <button class="day-btn" data-day="Saturday" onclick="switchDay('Saturday', this)">Sat</button>
-        <button class="day-btn" data-day="Sunday" onclick="switchDay('Sunday', this)">Sun</button>
+    <div class="day-bar" id="day-bar">
+        <button class="day-tab" data-day="Monday" onclick="switchDay('Monday', this)">Mon</button>
+        <button class="day-tab" data-day="Tuesday" onclick="switchDay('Tuesday', this)">Tue</button>
+        <button class="day-tab" data-day="Wednesday" onclick="switchDay('Wednesday', this)">Wed</button>
+        <button class="day-tab" data-day="Thursday" onclick="switchDay('Thursday', this)">Thu</button>
+        <button class="day-tab" data-day="Friday" onclick="switchDay('Friday', this)">Fri</button>
+        <button class="day-tab" data-day="Saturday" onclick="switchDay('Saturday', this)">Sat</button>
+        <button class="day-tab" data-day="Sunday" onclick="switchDay('Sunday', this)">Sun</button>
     </div>
 
     <!-- Add Task Form -->
-    <div class="add-task-form">
-        <div class="input-group">
-            <label>Time (HH:MM AM/PM)</label>
-            <input type="text" id="task-time" placeholder="6:00am">
+    <div class="add-form">
+        <div class="field span-1">
+            <label>Time</label>
+            <div class="time-group">
+                <input type="time" id="t-time" value="08:00" class="flex-2">
+                <select id="task-ampm" class="ampm-select">
+                    <option value="AM">AM</option>
+                    <option value="PM">PM</option>
+                </select>
+            </div>
         </div>
-        <div class="input-group">
+
+        <div class="field span-2">
             <label>Activity</label>
-            <input type="text" id="task-name" placeholder="What's the plan?">
+            <input type="text" id="t-name" placeholder="What's happening?">
+            <div id="task-error" class="error-text hidden">
+                Please enter an activity
+            </div>
         </div>
-        <div class="input-group">
+
+        <div class="field">
             <label>Category</label>
-            <select id="task-tag">
+            <select id="t-tag">
                 <option value="Foundation">Foundation</option>
                 <option value="Growth">Growth</option>
                 <option value="Productivity">Productivity</option>
                 <option value="Personal">Personal</option>
             </select>
         </div>
-        <button class="btn-add" onclick="addNewTask()">+ Add</button>
+
+        <div class="field">
+            <label>Repeat</label>
+            <select id="t-repeat">
+                <option value="none">Once</option>
+                <option value="daily">Daily</option>
+                <option value="weekdays">Weekdays</option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary mt-18" onclick="addTask()">Add Task</button>
     </div>
 
-    <table class="schedule-table">
-        <thead>
-            <tr>
-                <th>Time</th>
-                <th>Activity</th>
-                <th style="text-align: right;">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="schedule-body"></tbody>
-    </table>
+    <div class="schedule-list" id="task-container"></div>
 </div>
 
-<script src="script.js"></script>
 <script>
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("./service-worker.js")
