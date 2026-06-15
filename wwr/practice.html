@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lsonsprofile | Front-End Developer Portfolio</title>
+    <!-- Playfair Display (Serif) & Inter (Sans) Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Deeper, richer corporate slate blue for maximum crispness and absolute contrast */
+            --primary-blue: #1b4353;
+            --primary-blue-dark: #0f2935;
+            --primary-blue-light: rgba(27, 67, 83, 0.08);
+            /* Darkened charcoal/black for perfectly sharp, highly-readable body text (Passes AAA Contrast) */
+            --text-dark: #111827; 
+            /* Enhanced dark neutral gray for secondary labels to guarantee strong contrast */
+            --text-muted: #374151; 
+            --border-light: #cbd5e1;
+            --bg-light: #f1f5f9;
+            --accent-green: #059669;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --container-width: 960px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Printable / Fixed Width Paper Container */
+        .resume-paper {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: var(--container-width);
+            min-height: 1100px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Header Banner */
+        .header-banner {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            text-align: center;
+            padding: 45px 20px;
+            letter-spacing: 0.15em;
+        }
+
+        .header-banner h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .header-banner p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        /* Split-Column Body Grid */
+        .columns-container {
+            display: grid;
+            grid-template-columns: 1fr 1px 1.4fr; /* Left, Timeline Line, Right */
+            position: relative;
+            padding: 40px 0;
+            flex-grow: 1;
+        }
+
+        /* Center Vertical Timeline Line */
+        .timeline-line {
+            background-color: var(--border-light);
+            height: 100%;
+            position: relative;
+        }
+
+        /* Left Column (Right Aligned) */
+        .left-column {
+            padding-right: 40px;
+            padding-left: 40px;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Right Column (Left Aligned) */
+        .right-column {
+            padding-left: 40px;
+            padding-right: 40px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* Headings mimicking paper portfolio layout */
+        .section-header-wrap {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 700; /* Made slightly heavier for extra visual impact */
+        }
+
+        /* Decorative nodes aligned with timelines */
+        .left-column .section-header-wrap::after {
+            content: '';
+            position: absolute;
+            right: calc(-40px - 5.5px); /* Positioned exactly on center line */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-blue);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        /* Left Column Circular Portrait Container */
+        .profile-pic-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue-light) 0%, var(--primary-blue) 100%);
+            border: 4px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Body Typography and Layout Blocks */
+        .summary-text {
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            line-height: 1.65;
+        }
+
+        .block-item {
+            margin-bottom: 25px;
+        }
+
+        .block-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-meta {
+            font-size: 0.85rem;
+            color: var(--primary-blue);
+            font-weight: 700; /* Enhanced contrast */
+            margin-bottom: 4px;
+        }
+
+        .item-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .item-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Left Column specific alignment lists */
+        .course-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .course-list li {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .course-list li::after {
+            content: '•';
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* Relevant Skills Text List Styling */
+        .skills-text-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .skills-text-list li {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .skills-text-list li::after {
+            content: '•';
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .skills-section-subtitle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--primary-blue); /* High contrast accent label */
+            margin: 15px 0 10px 0;
+        }
+
+        /* Right Column Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            row-gap: 10px;
+            column-gap: 16px;
+            font-size: 0.85rem;
+        }
+
+        .contact-label {
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-val {
+            color: var(--text-dark);
+            text-decoration: none;
+            word-break: break-word; /* Ensures addresses or long text wrap gracefully */
+            line-height: 1.5;
+        }
+
+        .contact-val:hover {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        /* Right Column Bullets & Work Lists */
+        .experience-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .experience-bullets li {
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            position: relative;
+            padding-left: 18px;
+            line-height: 1.5;
+        }
+
+        .experience-bullets li::before {
+            content: '•';
+            color: var(--primary-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: -2px;
+            font-size: 1.1rem;
+        }
+
+        /* Stacked Projects Showcase Container */
+        .projects-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        .project-card {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .project-link-btn {
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700; /* Thicker for enhanced contrast */
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .project-link-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Credit Section */
+        .portfolio-footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-light);
+            margin-top: auto;
+        }
+
+        /* Printable stylesheet adjustments */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .resume-paper {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .portfolio-footer {
+                display: none !important;
+            }
+            /* Force exact layout spacing */
+            .columns-container {
+                padding: 25px 0;
+            }
+        }
+
+        /* Mobile Layout Interactivity */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .columns-container {
+                grid-template-columns: 1fr;
+            }
+            .timeline-line {
+                display: none;
+            }
+            .left-column {
+                padding-right: 20px;
+                padding-left: 20px;
+                text-align: left;
+            }
+            .left-column .section-header-wrap::after {
+                display: none;
+            }
+            .profile-pic-container {
+                justify-content: center;
+            }
+            .course-list li {
+                justify-content: flex-start;
+            }
+            .course-list li::after {
+                display: none;
+            }
+            .course-list li::before {
+                content: '•';
+                color: var(--primary-blue);
+                font-weight: bold;
+                margin-right: 8px;
+            }
+            .skills-text-list li {
+                justify-content: flex-start;
+            }
+            .skills-text-list li::after {
+                display: none;
+            }
+            .skills-text-list li::before {
+                content: '•';
+                color: var(--primary-blue);
+                font-weight: bold;
+                margin-right: 8px;
+            }
+            .right-column {
+                padding-left: 20px;
+                padding-right: 20px;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Printable Paper Card Container -->
+    <div class="resume-paper">
+        
+        <!-- Deep blue header matching layout banner design -->
+        <header class="header-banner">
+            <h1>LSONS PROFILE</h1>
+            <p>Front-End Web Developer &amp; Transcriber</p>
+        </header>
+
+        <!-- Two Columns Setup -->
+        <div class="columns-container">
+            
+            <!-- Left Column (Right-aligned text) -->
+            <div class="left-column">
+                
+                <!-- Avatar Circular Photo Frame -->
+                <div class="profile-pic-container">
+                    <div class="profile-pic">
+                        <!-- Profile Image Link integration -->
+                        <img src="https://cdn.corenexis.com/f/9HhdMCCCja7.webp" alt="Lsonsprofile Logo">
+                    </div>
+                </div>
+
+                <!-- Professional Summary Block -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Summary</h2>
+                    </div>
+                    <p class="summary-text">
+                        I am a Front-End Web Developer and an aspiring Full-Stack Developer with experience designing and developing responsive web applications using HTML, CSS, JavaScript, and modern web development tools. Skilled in creating user-friendly interfaces, solving technical problems, and adapting quickly to new technologies. I also have experience in audio transcription, demonstrating strong attention to detail and accuracy.
+                    </p>
+                </div>
+
+                <!-- Education Block -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Education</h2>
+                    </div>
+                    
+                    <div class="block-item">
+                        <p class="item-meta">Start Nov 2024 - Expected 2028</p>
+                        <h3 class="item-title">Bachelor of Science in Computer Science</h3>
+                        <p class="item-sub">Brigham Young University–Idaho</p>
+                    </div>
+
+                    <div class="block-item" style="margin-top: 15px;">
+                        <h3 class="item-title">Senior Secondary School Certificate</h3>
+                        <p class="item-sub">Babs Fafunwa Millennium Senior Secondary School</p>
+                    </div>
+                </div>
+
+                <!-- Coursework / Track Block -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Relevant Coursework</h2>
+                    </div>
+                    <ul class="course-list">
+                        <li>Web Frontend Development</li>
+                        <li>JavaScript Programming</li>
+                        <li>Responsive Web Design</li>
+                        <li>Software Development</li>
+                        <li>Data Structures and Algorithms</li>
+                        <li>Database Design &amp; SQL</li>
+                    </ul>
+                </div>
+
+                <!-- Skills Lists (Combined Inline - No Progress Bars) -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Relevant Skills</h2>
+                    </div>
+                    
+                    <!-- Technical Skills -->
+                    <h3 class="skills-section-subtitle">Technical Skills</h3>
+                    <ul class="skills-text-list">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Responsive Web Design</li>
+                        <li>Git &amp; GitHub</li>
+                        <li>Vite</li>
+                        <li>API Integration</li>
+                        <li>Front-End Development</li>
+                        <li>Python</li>
+                        <li>C#</li>
+                        <li>SQL</li>
+                        <li>Database Design</li>
+                    </ul>
+
+                    <!-- Professional Skills -->
+                    <h3 class="skills-section-subtitle" style="margin-top: 25px;">Professional Skills</h3>
+                    <ul class="skills-text-list">
+                        <li>Attention to Detail</li>
+                        <li>Problem Solving</li>
+                        <li>Communication</li>
+                        <li>Time Management</li>
+                        <li>Adaptability</li>
+                        <li>Team Collaboration</li>
+                        <li>Critical Thinking</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Central Split Timeline Element -->
+            <div class="timeline-line"></div>
+
+            <!-- Right Column (Left-aligned text) -->
+            <div class="right-column">
+                
+                <!-- Contact Methods Section -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Contact</h2>
+                    </div>
+                    <div class="contact-grid">
+                        <span class="contact-label">email</span>
+                        <a href="mailto:Ndogoemmanuel52@gmail.com" class="contact-val">Ndogoemmanuel52@gmail.com</a>
+
+                        <span class="contact-label">location</span>
+                        <span class="contact-val">1 babatunde atere street omole estate phase II lagos</span>
+                    </div>
+                </div>
+
+                <!-- Professional Experience Section -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Professional Experience</h2>
+                    </div>
+
+                    <!-- Role 1 -->
+                    <div class="block-item">
+                        <p class="item-meta">February 2023 - Present</p>
+                        <h3 class="item-title">Front-End Web Developer</h3>
+                        <p class="item-sub">Brigham Young University–Idaho Projects</p>
+                        <ul class="experience-bullets">
+                            <li>Design and develop responsive websites using HTML, CSS, and JavaScript.</li>
+                            <li>Build interactive user interfaces focused on usability, accessibility, and performance.</li>
+                            <li>Recreate website layouts based on design specifications and project requirements.</li>
+                            <li>Implement modern web development practices to improve user experience across devices.</li>
+                            <li>Collaborate on academic and personal projects while strengthening problem-solving and programming skills.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Role 2 -->
+                    <div class="block-item">
+                        <p class="item-meta">February 2022 - Present</p>
+                        <h3 class="item-title">Transcriber</h3>
+                        <p class="item-sub">LSONSWRITE (Freelance)</p>
+                        <ul class="experience-bullets">
+                            <li>Produce accurate transcripts from audio and video recordings while maintaining strict quality standards.</li>
+                            <li>Adapt to various accents, speaking styles, and audio conditions to ensure transcription accuracy.</li>
+                            <li>Apply strong grammar, punctuation, and formatting skills to deliver professional documents.</li>
+                            <li>Manage multiple projects simultaneously while consistently meeting deadlines.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Custom Portfolio Project Showcase -->
+                <div>
+                    <div class="section-header-wrap">
+                        <h2 class="section-header">Portfolio Projects</h2>
+                    </div>
+
+                    <div class="projects-showcase">
+                        <!-- Project 1: ClimateLens -->
+                        <div class="project-card">
+                            <h4 class="item-title">ClimateLens Weather Dashboard</h4>
+                            <p class="item-sub">Vite, ES6 JS, Weather Geocoding APIs</p>
+                            <p class="item-desc" style="font-size: 0.8rem; margin-bottom: 8px;">
+                                Engineered a complete weather dashboard application delivering live information, dynamic unit conversions, and personalized suggestions.
+                            </p>
+                            <div class="project-links">
+                                <a href="https://lsonsprofile.github.io/wdd231/" target="_blank" class="project-link-btn">Explore Project →</a>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: Chamber of Commerce -->
+                        <div class="project-card">
+                            <h4 class="item-title">Chamber of Commerce Platform</h4>
+                            <p class="item-sub">Responsive Interactivity Directory</p>
+                            <p class="item-desc" style="font-size: 0.8rem; margin-bottom: 8px;">
+                                Created an interactive local directory featuring fluid grid systems, membership registration widgets, and local climate integrations.
+                            </p>
+                        </div>
+
+                        <!-- Project 3: Other Code Repositories -->
+                        <div class="project-card">
+                            <h4 class="item-title">CS Project Repository (Python &amp; C#)</h4>
+                            <p class="item-sub">Object-Oriented Applications</p>
+                            <p class="item-desc" style="font-size: 0.8rem; margin-bottom: 8px;">
+                                Modular, object-oriented implementations of custom CLI programs including a grocery catalog checkout application (Python) and custom game progression loops (C#).
+                            </p>
+                            <div class="project-links">
+                                <a href="https://github.com/Lsonsprofile/wdd130/tree/lson/PYTHON_CSE_111/grocery_store" target="_blank" class="project-link-btn">Grocery Store (Python) →</a>
+                                <a href="https://github.com/Lsonsprofile/cse210-projects/tree/main/week06/EternalQuest" target="_blank" class="project-link-btn">EternalQuest (C#) →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="portfolio-footer">
+            <p>© 2026 Lsonsprofile. Styled precisely based on premium editorial layouts.</p>
+        </footer>
+
+    </div>
+</body>
+</html>
